@@ -23,9 +23,9 @@ public class Eye : MonoBehaviour
         anim = GetComponent<Animator>();
         //
         eyePos[0] = new Vector3(0, 0, -1.0f);
-        eyePos[1] = new Vector3(0, 0.08f, -1.0f);
-        eyePos[2] = new Vector3(0, -0.08f, -1.0f);
-        eyePos[3] = new Vector3(0, -0.12f, -1.0f);
+        eyePos[1] = new Vector3(0, 2.0f, -1.0f);
+        eyePos[2] = new Vector3(0, -2.0f, -1.0f);
+        eyePos[3] = new Vector3(0, -3.0f, -1.0f);
     } // End Start
 
     public void Scan()
