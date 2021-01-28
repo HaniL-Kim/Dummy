@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8071731247501755569}
   - component: {fileID: 3805840345685866091}
   - component: {fileID: 7398027007306731510}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Closet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,6 +116,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d0fd83a9e3aa87478f0cb79030e2b9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isShake: 0
+  shake_decay: 0.002
+  shake_intensity: 0.3
+  shake_time: 0.33
 --- !u!60 &7398027007306731510
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -414,7 +418,7 @@ PlatformEffector2D:
   m_RotationalOffset: 0
   m_UseOneWay: 1
   m_UseOneWayGrouping: 0
-  m_SurfaceArc: 110
+  m_SurfaceArc: 60
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1

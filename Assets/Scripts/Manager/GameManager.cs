@@ -22,9 +22,21 @@ public class GameManager : MonoBehaviour
     //
     public DisplayTexture[] displayTextures;
     //
+    //====================================//
+    // layer hashing
+    public int footBoardLayer;
+    public int concreteLayer;
+    public int closetLayer;
+    //====================================//
     private void Awake()
     {
         instance = this;
+        CreateLayerHash();
+    }
+    //
+    private void Start()
+    {
+        EffectManager.instance.CreateEffect();
     }
     //
     private void Update()
@@ -33,4 +45,24 @@ public class GameManager : MonoBehaviour
             SoundManager.instance.PlayBGM(SoundKey.BGM);
     }
     //
+    private void CreateLayerHash()
+    {
+        footBoardLayer = LayerMask.GetMask("FootBoard");
+        concreteLayer = LayerMask.GetMask("Concrete");
+        closetLayer = LayerMask.GetMask("Closet");
+    }
+    //
+    public Transform GetTileTransformOnMouse()
+    {
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 dirMouseToForward = new Vector3(mousePos.x, mousePos.y, 20.0f);
+        //
+        RaycastHit2D hit = Physics2D.Raycast(
+            mousePos, dirMouseToForward, 1.0f, closetLayer);
+        //
+        if (hit)
+            return hit.transform;
+        else
+            return null;
+    }
 }

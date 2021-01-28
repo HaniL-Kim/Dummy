@@ -4,37 +4,69 @@ using UnityEngine;
 
 public class Dummy : MonoBehaviour
 {
-    // Physics
+    //===============================//
+    // Physics //
+    // move
     public float moveSpeed;
-    public float jumpForce;
     Vector2 moveVelocity;
-    // BodyFlags
+    // jump
+    public float jumpForce;
+    // dash
+    public int dashCount = 0;
+    public float dashSpeed;
+    private float dashTimeCounter;
+    public float dashTime;
+    private Vector2 dashDir = Vector2.zero;
+    // flag
+    public float flagTime;
+    //===============================//
+    public enum PlayerMode { FLAG, DASH }
+    public PlayerMode mode = PlayerMode.FLAG;
+    // Flags //
     public bool isWalk;
     public bool isJump;
     public bool isCrouch;
     public bool isScan;
+    public bool isDash;
+    //
     public bool onFootBoard;
-    // Idle
+    //===============================//
+    // Idle //
     public bool isIdle;
     public float idleCounter;
     public float idleTime;
-    // Component
+    //===============================//
+    // Component //
     private Transform tf;
     private SpriteRenderer rend;
     private Animator anim;
     private Rigidbody2D rb;
     private BoxCollider2D col;
+    //===============================//
     // Collider
     public enum ColState { NORMAL, CROUCH };
     private Vector2[] colOffset = new Vector2[2]; // 0:normal, 1:crouch
     private Vector2[] colSize = new Vector2[2]; // 0:normal, 1:crouch
+    //===============================//
     // Eye
     private Eye eye;
+    //===============================//
     // GroundCheck
-    Vector2 footPos = Vector2.zero;
-    float footCircleSize = 5.0f;
-    private int footBoardLayer;
-    private int concreteLayer;
+    private Vector2 footPos = Vector2.zero;
+    private float footCircleSize = 5.0f;
+    //=========================================//
+    // Scan : HoldTile
+    private Transform tileHolding;
+    //=========================================//
+    // anim Hash
+    private readonly int dashTriggerHash = Animator.StringToHash("dashTrigger");
+    private readonly int isDashHash = Animator.StringToHash("isDash");
+    private readonly int isJumpHash = Animator.StringToHash("isJump");
+    private readonly int isWalkHash = Animator.StringToHash("isWalk");
+    private readonly int isCrouchHash = Animator.StringToHash("isCrouch");
+    private readonly int verticalVelocityHash = Animator.StringToHash("verticalVelocity");
+    // shader Hash
+    private readonly int hashOutlineTK = Shader.PropertyToID("_OutlineThickness"); // 
     //=========================================//
     private void Start()
     {
@@ -52,13 +84,14 @@ public class Dummy : MonoBehaviour
         eye = tf.GetChild(0).GetComponent<Eye>();
         eye.dummy = this;
         //
-        footBoardLayer = LayerMask.GetMask("FootBoard");
-        concreteLayer = LayerMask.GetMask("Concrete");
+        dashTimeCounter = dashTime;
+        //
     } // End Start
     //=========================================//
     private void Update()
     {
         Control();
+        UIManager.instance.dashCount = dashCount;
     } // End Update
     private void FixedUpdate()
     {
@@ -75,12 +108,39 @@ public class Dummy : MonoBehaviour
         Gizmos.DrawSphere(footPos, footCircleSize);
     }
     //=========================================//
+    public void Outline(bool value)
+    {
+        if(value == true)
+        {
+            rend.material.SetFloat(hashOutlineTK, 4.0f);
+            EffectManager.instance.SetBloom(value);
+        }
+        else
+        {
+            rend.material.SetFloat(hashOutlineTK, 0);
+            EffectManager.instance.SetBloom(value);
+        }
+    }
+    //=========================================//
     private void Control()
     {
         Walk();
         Jump();
         Crouch();
+        // LBtn
         Scan();
+        // RBtn
+        switch (mode)
+        {
+            case PlayerMode.FLAG:
+                Flag();
+                break;
+            case PlayerMode.DASH:
+                Dash();
+                break;
+            default:
+                break;
+        }
     } // End Control()
     private void Walk()
     {
@@ -93,7 +153,7 @@ public class Dummy : MonoBehaviour
         //
         if (moveVelocity.x != 0)
         {
-            anim.SetBool("isWalk", (isWalk = true));
+            anim.SetBool(isWalkHash, (isWalk = true));
             //
             moveVelocity.Normalize();
             //
@@ -110,7 +170,7 @@ public class Dummy : MonoBehaviour
         }
         else
         {
-            anim.SetBool("isWalk", (isWalk = false));
+            anim.SetBool(isWalkHash, (isWalk = false));
         }
         //
         tf.Translate(moveVelocity * moveSpeed * Time.deltaTime);
@@ -123,8 +183,9 @@ public class Dummy : MonoBehaviour
         {
             if(isCrouch == true) // Down Jump
             {
-                if(onFootBoard == true)
-                    col.isTrigger = true;
+                if (onFootBoard == true)
+                    StartCoroutine(SetColliderToTrigger());
+                    //col.isTrigger = true;
             }
             else // Up Jump
                 rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
@@ -138,7 +199,7 @@ public class Dummy : MonoBehaviour
                 return;
 
             // Set Anim
-            anim.SetBool("isCrouch", (isCrouch = true));
+            anim.SetBool(isCrouchHash, (isCrouch = true));
             // Set Collider
             col.offset = colOffset[(int)ColState.CROUCH];
             col.size = colSize[(int)ColState.CROUCH];
@@ -146,7 +207,7 @@ public class Dummy : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.S))
         {
             // Set Anim
-            anim.SetBool("isCrouch", (isCrouch = false));
+            anim.SetBool(isCrouchHash, (isCrouch = false));
             // Set Collider
             col.offset = colOffset[(int)ColState.NORMAL];
             col.size = colSize[(int)ColState.NORMAL];
@@ -154,15 +215,104 @@ public class Dummy : MonoBehaviour
     } // End Crouch
     private void Scan()
     {
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            Transform tf1 = GameManager.instance.GetTileTransformOnMouse();
+            if (tf1 != null)
+            {
+                tileHolding = tf1;
+                tileHolding.localPosition = new Vector3(-1, +1, 0);
+            }
+            else
+                tileHolding = null;
+        }
+        //
         if (Input.GetKeyUp(KeyCode.Mouse0))
         {
-            isScan = true;
-            eye.Scan();
+            if (tileHolding != null)
+                tileHolding.localPosition = Vector3.zero;
+            //
+            Transform tf2 = GameManager.instance.GetTileTransformOnMouse();
+            if (tf2 == null)
+                return;
+            //
+            if (tf2 == tileHolding)
+            {
+                isScan = true;
+                eye.Scan();
+                Outline(true);
+                //
+                tf2.GetComponent<Closet>().Flip();
+                //
+                EffectManager.instance.Play("Scan", tf2);
+            }
+            //
+            tileHolding = null;
         }
-    } // End Scan
+    } // End Scan()
+    private void Flag()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            Transform target = GameManager.instance.GetTileTransformOnMouse();
+            if (target != null)
+            {
+                eye.Scan();
+                Outline(true);
+                //
+                EffectManager.instance.Fire("Flag",
+                    tf, target, flagTime);
+            }
+        }
+    } // End Flag()
+    private void Dash()
+    {
+        if(isDash == false &&  dashCount > 0)
+        {
+            if (Input.GetKeyDown(KeyCode.Mouse1))
+            {
+                Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                dashDir = (mousePos - transform.position).normalized;
+                //
+                rb.mass = 0.5f;
+                rb.AddForce(dashDir * dashSpeed, ForceMode2D.Impulse);
+                // 
+                if (dashDir.x < 0)
+                {
+                    rend.flipX = false;
+                    eye.FlipX(rend.flipX);
+                }
+                else if(dashDir.x > 0)
+                {
+                    rend.flipX = true;
+                    eye.FlipX(rend.flipX);
+                }
+                //
+                anim.SetBool(isDashHash, (isDash = true));
+                anim.SetTrigger(dashTriggerHash);
+                //
+                --dashCount;
+            }
+        }
+        else // isDash == true
+        {
+            if (dashTimeCounter <= 0)
+            {
+                rb.mass = 1.0f;
+                anim.SetBool(isDashHash, (isDash = false));
+                dashTimeCounter = dashTime;
+                //rb.velocity = Vector2.zero;
+            }
+            else
+            {
+                dashTimeCounter -= Time.deltaTime;
+                //rb.velocity = dashDir * dashSpeed;
+            }
+        }
+    } // End Dash()
     private void Idle()
     {
-        if (!isWalk && !isJump && !isCrouch && !isScan)
+        if (!isWalk && !isJump && !isCrouch && !isScan && !isDash)
         {
             idleCounter += Time.deltaTime;
             if (idleCounter > idleTime && isIdle == false)
@@ -177,6 +327,8 @@ public class Dummy : MonoBehaviour
     } // End Idle
     private void EyePos()
     {
+        if (isDash == true) return;
+        //
         if(rb.velocity.y > 0.1f)
             eye.SetPos(Eye.EyeState.UP);
         else if(rb.velocity.y < -0.1f)
@@ -189,7 +341,7 @@ public class Dummy : MonoBehaviour
     } // End EyePos()
     private void GroundCheck()
     {
-        anim.SetFloat("verticalVelocity", rb.velocity.y);
+        anim.SetFloat(verticalVelocityHash, rb.velocity.y);
         // method_1
         Bounds bounds = col.bounds;
         footPos.x = bounds.center.x;
@@ -197,10 +349,10 @@ public class Dummy : MonoBehaviour
         //
         if (-0.1f < rb.velocity.y && rb.velocity.y < 0.1f)
         {
-            if(Physics2D.OverlapCircle(footPos, footCircleSize, concreteLayer))
+            if(Physics2D.OverlapCircle(footPos, footCircleSize, GameManager.instance.concreteLayer))
                 isJump = false;
             //
-            else if (Physics2D.OverlapCircle(footPos, footCircleSize, footBoardLayer))
+            else if (Physics2D.OverlapCircle(footPos, footCircleSize, GameManager.instance.footBoardLayer))
             {
                 onFootBoard = true; // Can Down Jump
                 isJump = false;
@@ -212,7 +364,7 @@ public class Dummy : MonoBehaviour
             onFootBoard = false;
         }
         //
-        anim.SetBool("isJump", isJump);
+        anim.SetBool(isJumpHash, isJump);
         /*
         // method_2
         if (rb.velocity.y < -0.1f || rb.velocity.y > 0.1f)
@@ -222,8 +374,14 @@ public class Dummy : MonoBehaviour
         */
     }
     //=========================================//
-    private void OnTriggerExit2D(Collider2D collision)
+    private IEnumerator SetColliderToTrigger()
     {
+        col.isTrigger = true;
+        yield return new WaitForSeconds(0.3f);
         col.isTrigger = false;
-    } // End OnTriggerEnter2D
+    }
+    //private void OnTriggerExit2D(Collider2D collision)
+    //{
+    //    col.isTrigger = false;
+    //} // End OnTriggerEnter2D
 } // End of Script Dummy

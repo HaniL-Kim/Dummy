@@ -62,7 +62,6 @@ public class Inner : MonoBehaviour
     public void SetNumber(int value)
     { // value : 0 ~ 6
         //anim.SetBool("Danger", (isDanger = false));
-        Debug.Log(value);
         display.GetComponent<SpriteRenderer>().sprite =
             GameManager.instance.displayTextures[value].texture;
     } // End SetDanger()
@@ -78,7 +77,6 @@ public class Inner : MonoBehaviour
 
             if (hit)
             {
-                Debug.Log("RayCollision!");
                 if (hit.collider.GetComponent<Inner>().isDanger == true)
                     ++count;
             }

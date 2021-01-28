@@ -50,10 +50,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 100
   jumpForce: 300
+  dashSpeed: 100
+  dashTime: 0.1
   isWalk: 0
   isJump: 0
   isCrouch: 0
   isScan: 0
+  isDash: 0
   onFootBoard: 0
   isIdle: 0
   idleCounter: 0

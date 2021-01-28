@@ -36,6 +36,7 @@ public class Eye : MonoBehaviour
     public void SetIsScan(int value)
     { // Animation Trigger Event
         dummy.isScan = System.Convert.ToBoolean(value);
+        dummy.Outline(false);
     } // End SetIsScan
 
     public void FlipX(bool value)
