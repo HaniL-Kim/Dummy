@@ -9,8 +9,10 @@ public class Dummy : MonoBehaviour
     // move
     public float moveSpeed;
     Vector2 moveVelocity;
-    // jump
+    // jump-Up
     public float jumpForce;
+    // jump-Down
+    public Collider2D[] curFootBoard;
     // dash
     public int dashCount = 0;
     public float dashSpeed;
@@ -30,6 +32,7 @@ public class Dummy : MonoBehaviour
     public bool isDash;
     //
     public bool onFootBoard;
+    public bool onConcrete;
     //===============================//
     // Idle //
     public bool isIdle;
@@ -184,8 +187,9 @@ public class Dummy : MonoBehaviour
             if(isCrouch == true) // Down Jump
             {
                 if (onFootBoard == true)
-                    StartCoroutine(SetColliderToTrigger());
-                    //col.isTrigger = true;
+                {
+                    SetFootBoardTrigger(true);
+                }
             }
             else // Up Jump
                 rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
@@ -329,10 +333,13 @@ public class Dummy : MonoBehaviour
     {
         if (isDash == true) return;
         //
-        if(rb.velocity.y > 0.1f)
-            eye.SetPos(Eye.EyeState.UP);
-        else if(rb.velocity.y < -0.1f)
-            eye.SetPos(Eye.EyeState.DOWN);
+        if(isJump == true)
+        {
+            if (rb.velocity.y > 0.1f)
+                eye.SetPos(Eye.EyeState.UP);
+            else if (rb.velocity.y < -0.1f)
+                eye.SetPos(Eye.EyeState.DOWN);
+        }
         else
             eye.SetPos(Eye.EyeState.NORMAL);
         //
@@ -347,41 +354,47 @@ public class Dummy : MonoBehaviour
         footPos.x = bounds.center.x;
         footPos.y = bounds.min.y;
         //
-        if (-0.1f < rb.velocity.y && rb.velocity.y < 0.1f)
-        {
-            if(Physics2D.OverlapCircle(footPos, footCircleSize, GameManager.instance.concreteLayer))
-                isJump = false;
-            //
-            else if (Physics2D.OverlapCircle(footPos, footCircleSize, GameManager.instance.footBoardLayer))
-            {
-                onFootBoard = true; // Can Down Jump
-                isJump = false;
-            }
-        }
-        else
-        {
+        if (rb.velocity.y < -0.01f || rb.velocity.y > 0.01f)
             isJump = true;
-            onFootBoard = false;
+        //
+        onConcrete = false;
+        onFootBoard = false;
+        //
+        if (Physics2D.OverlapCircle(footPos, footCircleSize,
+                GameManager.instance.concreteLayer))
+        { // Concrete Check
+            onConcrete = true;
+            if (rb.velocity.y < -0.1f)
+                isJump = false;
+        }
+        curFootBoard = Physics2D.OverlapCircleAll(footPos, footCircleSize,
+                        GameManager.instance.footBoardLayer);
+        if (curFootBoard.Length != 0)
+        { // FootBoard Check
+            onFootBoard = true; // Can Down Jump
+            if (rb.velocity.y < -0.1f)
+                isJump = false;
         }
         //
         anim.SetBool(isJumpHash, isJump);
-        /*
-        // method_2
-        if (rb.velocity.y < -0.1f || rb.velocity.y > 0.1f)
-            anim.SetBool("isJump", (isJump = true));
-        if (rb.velocity.y == 0)
-            anim.SetBool("isJump", (isJump = false));
-        */
-    }
+    } // End GroundCheck()
     //=========================================//
-    private IEnumerator SetColliderToTrigger()
+    private void SetFootBoardTrigger(bool value)
     {
-        col.isTrigger = true;
-        yield return new WaitForSeconds(0.3f);
-        col.isTrigger = false;
-    }
-    //private void OnTriggerExit2D(Collider2D collision)
-    //{
-    //    col.isTrigger = false;
-    //} // End OnTriggerEnter2D
+        foreach (Collider2D col in curFootBoard)
+        {
+            col.isTrigger = true;
+            col.usedByEffector = false;
+            col.GetComponent<PlatformEffector2D>().enabled = false;
+        }
+    } // End SetFootBoardTrigger()
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("FootBoard") == true)
+        {
+            collision.isTrigger = false;
+            collision.GetComponent<PlatformEffector2D>().enabled = true;
+            collision.usedByEffector = true;
+        }
+    } // End OnTriggerEnter2D()
 } // End of Script Dummy

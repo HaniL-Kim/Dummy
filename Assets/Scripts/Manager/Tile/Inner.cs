@@ -5,12 +5,15 @@ using UnityEngine;
 public class Inner : MonoBehaviour
 {
     //=============================================//
+    public int dangerCount = 0;
     public bool isDanger = false;
     //
     List<Vector3> dirs = new List<Vector3>();
     private int innerLayer = 0;
     //=============================================//
     //
+    public Closet closet;
+    public List<Inner> arroundInners;
     private Animator anim;
     private GameObject display;
     private GameObject footBoard;
@@ -36,10 +39,23 @@ public class Inner : MonoBehaviour
         //
         innerLayer = LayerMask.GetMask("Inner");
     } // End SetDirs()
-
+    private void FlipCloset()
+    {
+        closet.Flip();
+    }
+    private void FlipArround()
+    {
+        foreach (Inner temp in arroundInners)
+        {
+            temp.FlipCloset();
+        }
+    } // End FlipArround()
     public void Flip()
     {
         anim.SetBool("Flip", true);
+        //
+        if (dangerCount == 0)
+            FlipArround();
     } // End Flip()
     public void EndFlip()
     { // Flip Anim Frame(10) Event1
@@ -79,18 +95,21 @@ public class Inner : MonoBehaviour
             {
                 if (hit.collider.GetComponent<Inner>().isDanger == true)
                     ++count;
+                else
+                    arroundInners.Add(hit.collider.GetComponent<Inner>());
             }
         }
+        dangerCount = count;
         SetNumber(count);
         GetComponent<CircleCollider2D>().enabled = true;
     } // End CheckArround()
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        for(int i = 0; i < dirs.Count; ++i)
-            Gizmos.DrawRay(transform.position, dirs[i]);
-    }
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.red;
+    //    for(int i = 0; i < dirs.Count; ++i)
+    //        Gizmos.DrawRay(transform.position, dirs[i]);
+    //}
     //
     //=============================================//
 }

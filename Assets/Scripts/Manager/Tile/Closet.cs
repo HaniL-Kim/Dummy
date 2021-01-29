@@ -35,6 +35,7 @@ public class Closet : MonoBehaviour
     {
         tile = value;
         inner = tile.inner;
+        inner.closet = this;
     } // End SetTile
     //=============================================//
     public void HitFlag()
