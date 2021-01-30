@@ -180,8 +180,10 @@ public class Map : MonoBehaviour
         {
             int randIdx = Random.Range(0, 6);
             Tile tile = stage.GetFloor(y).tiles[randIdx].GetComponent<Tile>();
-            int num = Random.Range(7, 13);
-            tile.inner.SetDanger(num);
+            //
+            //int mineType = Random.Range(1, 7); // Random
+            int mineType = 0; // Pull
+            tile.inner.SetDanger(mineType);
             // Debug
             tile.closet.GetComponent<SpriteRenderer>().color = Color.red;
         }

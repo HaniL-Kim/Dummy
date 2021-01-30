@@ -7,6 +7,7 @@ public class Inner : MonoBehaviour
     //=============================================//
     public int dangerCount = 0;
     public bool isDanger = false;
+    public MineTypes mineType = MineTypes.NONE;
     //
     List<Vector3> dirs = new List<Vector3>();
     private int innerLayer = 0;
@@ -21,6 +22,7 @@ public class Inner : MonoBehaviour
     //private void Start()
     private void Awake()
     {
+        mineType = MineTypes.NONE;
         anim = GetComponent<Animator>();
         display = transform.GetChild(0).gameObject;
         footBoard = transform.GetChild(1).gameObject;
@@ -63,23 +65,44 @@ public class Inner : MonoBehaviour
     } // End EndFlip()
     public void ShowDisplay()
     { // Flip Anim Frame(16) Event2
-        //display.SetActive(true);
         display.GetComponent<SpriteRenderer>().enabled = true;
+        //
+        switch (mineType)
+        {
+            case MineTypes.NONE:
+                break;
+            case MineTypes.PULL:
+                EffectManager.instance.Play("Pull", transform);
+                break;
+            case MineTypes.REPULSION:
+                break;
+            case MineTypes.GHOST:
+                break;
+            case MineTypes.LIGHTNING:
+                break;
+            case MineTypes.NARROWING:
+                break;
+            case MineTypes.CONCRETE:
+                break;
+            default:
+                break;
+        }
     } // End ShowDisplay()
 
     //=============================================//
     public void SetDanger(int value)
-    { // value : 7 ~ 12
+    { // value : 0 ~ 5
         anim.SetBool("Danger", (isDanger = true));
         display.GetComponent<SpriteRenderer>().sprite =
-            GameManager.instance.displayTextures[value].texture;
+            GameManager.instance.mineIcons[value].texture;
+        mineType = (MineTypes)(value);
     } // End SetDanger()
 
     public void SetNumber(int value)
     { // value : 0 ~ 6
         //anim.SetBool("Danger", (isDanger = false));
         display.GetComponent<SpriteRenderer>().sprite =
-            GameManager.instance.displayTextures[value].texture;
+            GameManager.instance.numIcons[value].texture;
     } // End SetDanger()
     
     public void CheckArround()

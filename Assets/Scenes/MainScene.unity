@@ -624,7 +624,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &924503350 stripped
 Transform:
@@ -688,6 +688,57 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f480aefaeec9ec741b1308c94f4b11a2, type: 3}
+--- !u!1 &1077536441
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1077536443}
+  - component: {fileID: 1077536442}
+  m_Layer: 0
+  m_Name: EffectManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1077536442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1077536441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79af949f7f3b646428126c308ec9e00a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bloom: {fileID: 118425389}
+  bloomVp: {fileID: 11400000, guid: 046040f9b4d372440ac6164a24e54b95, type: 2}
+  effNames:
+  - NONE
+  - Scan
+  - Explosion
+  - Flag
+  - Pull
+--- !u!4 &1077536443
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1077536441}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1228949545
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -865,7 +916,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1502727361
 GameObject:
@@ -898,7 +949,7 @@ Transform:
   - {fileID: 158007716}
   - {fileID: 1967683541}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1502727363
 MonoBehaviour:
@@ -1019,7 +1070,7 @@ RectTransform:
   - {fileID: 1823380686}
   - {fileID: 1673602399}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1518,33 +1569,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a7667b592b0bbf45bde61db125c0aa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  displayTextures:
-  - key: 0
-    texture: {fileID: 21300000, guid: cbe5a936a6d18ea4787edce841addf9b, type: 3}
-  - key: 1
-    texture: {fileID: 21300000, guid: dbb8005bcd199d64fbd3c1222e8d336b, type: 3}
-  - key: 2
-    texture: {fileID: 21300000, guid: 8ff412147261b09448d62ec580c7c1c7, type: 3}
-  - key: 3
-    texture: {fileID: 21300000, guid: 3296496662587d6449db7800d5c904b9, type: 3}
-  - key: 4
-    texture: {fileID: 21300000, guid: 4990f3e06cc3fa341be023929b24bde2, type: 3}
-  - key: 5
-    texture: {fileID: 21300000, guid: 6f52c9a9e06b0194c8b813de212b4138, type: 3}
-  - key: 6
-    texture: {fileID: 21300000, guid: 8e499da775fbe7c4481269b3b0cb02b5, type: 3}
-  - key: 7
-    texture: {fileID: 21300000, guid: 938687fdfbe35684f986bbd9a89eddce, type: 3}
-  - key: 8
+  mineIcons:
+  - mineType: 0
+    number: -1
+    texture: {fileID: 21300000, guid: 7a81f5873cc76e74b854cc9a5c5c8914, type: 3}
+  - mineType: 1
+    number: -1
     texture: {fileID: 21300000, guid: 0ec0f8963b0160c4485187852694f8a5, type: 3}
-  - key: 9
+  - mineType: 2
+    number: -1
     texture: {fileID: 21300000, guid: df1e69562fc983d429c43e9cc1a9e6da, type: 3}
-  - key: 10
+  - mineType: 3
+    number: -1
     texture: {fileID: 21300000, guid: 609c94afc9a741a45b191801846e12f9, type: 3}
-  - key: 11
+  - mineType: 4
+    number: -1
     texture: {fileID: 21300000, guid: b9f3aa2f0ff132f42a7b44b69ddb9142, type: 3}
-  - key: 12
+  - mineType: 5
+    number: -1
     texture: {fileID: 21300000, guid: 0c4ba52dbb6ed794cb936b9ab71a0a2c, type: 3}
+  numIcons:
+  - mineType: -1
+    number: 0
+    texture: {fileID: 21300000, guid: cbe5a936a6d18ea4787edce841addf9b, type: 3}
+  - mineType: -1
+    number: 1
+    texture: {fileID: 21300000, guid: dbb8005bcd199d64fbd3c1222e8d336b, type: 3}
+  - mineType: -1
+    number: 2
+    texture: {fileID: 21300000, guid: 8ff412147261b09448d62ec580c7c1c7, type: 3}
+  - mineType: -1
+    number: 3
+    texture: {fileID: 21300000, guid: 3296496662587d6449db7800d5c904b9, type: 3}
+  - mineType: -1
+    number: 4
+    texture: {fileID: 21300000, guid: 4990f3e06cc3fa341be023929b24bde2, type: 3}
+  - mineType: -1
+    number: 5
+    texture: {fileID: 21300000, guid: 6f52c9a9e06b0194c8b813de212b4138, type: 3}
+  - mineType: -1
+    number: 6
+    texture: {fileID: 21300000, guid: 8e499da775fbe7c4481269b3b0cb02b5, type: 3}
   footBoardLayer: 0
   concreteLayer: 0
   closetLayer: 0
@@ -1643,6 +1708,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dummy
       objectReference: {fileID: 0}
+    - target: {fileID: 4001196142467376825, guid: cbbe5138368542140a99ce2e21ccef9b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4001196142467376828, guid: cbbe5138368542140a99ce2e21ccef9b, type: 3}
       propertyPath: dashTime
       value: 1
@@ -1665,15 +1734,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4001196142467376829, guid: cbbe5138368542140a99ce2e21ccef9b, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4001196142467376829, guid: cbbe5138368542140a99ce2e21ccef9b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.07
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4001196142467376829, guid: cbbe5138368542140a99ce2e21ccef9b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -7.3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4001196142467376829, guid: cbbe5138368542140a99ce2e21ccef9b, type: 3}
       propertyPath: m_LocalPosition.z

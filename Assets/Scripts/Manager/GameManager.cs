@@ -3,16 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //==================// //==================//
-public enum DisplayIcons
+public enum MineTypes
 {
+    NONE = -1,
+    PULL, REPULSION, GHOST, LIGHTNING, NARROWING, CONCRETE
+}
+//
+public enum NumberIcons
+{
+    NONE = -1,
     ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX,
-    ATTRACTION, REPULSION, GHOST, LIGHTNING, NARROWING, CONCRETE
 }
 //==================// //==================//
 [System.Serializable]
 public struct DisplayTexture
 {
-    public DisplayIcons key;
+    public MineTypes mineType;
+    public NumberIcons number;
     public Sprite texture;
 }
 //==================// //==================//
@@ -20,7 +27,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     //
-    public DisplayTexture[] displayTextures;
+    public DisplayTexture[] mineIcons;
+    public DisplayTexture[] numIcons;
     //
     //====================================//
     // layer hashing
