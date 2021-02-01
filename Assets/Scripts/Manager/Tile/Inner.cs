@@ -8,11 +8,7 @@ public class Inner : MonoBehaviour
     public int dangerCount = 0;
     public bool isDanger = false;
     public MineTypes mineType = MineTypes.NONE;
-    //
-    List<Vector3> dirs = new List<Vector3>();
-    private int innerLayer = 0;
     //=============================================//
-    //
     public Closet closet;
     public List<Inner> arroundInners;
     private Animator anim;
@@ -26,21 +22,8 @@ public class Inner : MonoBehaviour
         anim = GetComponent<Animator>();
         display = transform.GetChild(0).gameObject;
         footBoard = transform.GetChild(1).gameObject;
-        //
-        SetDirs();
     } // End Start
     //=============================================//
-    void SetDirs()
-    {
-        dirs.Add(new Vector3(+64.0f, 0, 0));
-        dirs.Add(new Vector3(+32.0f, +47.0f, 0));
-        dirs.Add(new Vector3(-32.0f, +47.0f, 0));
-        dirs.Add(new Vector3(-64.0f, 0, 0));
-        dirs.Add(new Vector3(-32.0f, -47.0f, 0));
-        dirs.Add(new Vector3(+32.0f, -47.0f, 0));
-        //
-        innerLayer = LayerMask.GetMask("Inner");
-    } // End SetDirs()
     private void FlipCloset()
     {
         closet.Flip();
@@ -65,6 +48,7 @@ public class Inner : MonoBehaviour
     } // End EndFlip()
     public void ShowDisplay()
     { // Flip Anim Frame(16) Event2
+        footBoard.GetComponent<FootBoard>().Set();
         display.GetComponent<SpriteRenderer>().enabled = true;
         //
         switch (mineType)
@@ -74,7 +58,8 @@ public class Inner : MonoBehaviour
             case MineTypes.PULL:
                 EffectManager.instance.Play("Pull", transform);
                 break;
-            case MineTypes.REPULSION:
+            case MineTypes.PUSH:
+                EffectManager.instance.Play("Push", transform);
                 break;
             case MineTypes.GHOST:
                 break;
@@ -107,23 +92,24 @@ public class Inner : MonoBehaviour
     
     public void CheckArround()
     {
+        // avoid Self Collision
         GetComponent<CircleCollider2D>().enabled = false;
-        int count = 0;
-        for(int i = 0; i < dirs.Count; ++i)
+        // 
+        dangerCount = 0;
+        for(int i = 0; i < 6; ++i)
         {
-            float dist = dirs[i].magnitude;
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, dirs[i], dist, innerLayer);
+            RaycastHit2D hit = GameManager.instance.RayToDirs(
+                transform, i, GameManager.instance.innerLayer);
 
             if (hit)
             {
                 if (hit.collider.GetComponent<Inner>().isDanger == true)
-                    ++count;
+                    ++dangerCount;
                 else
                     arroundInners.Add(hit.collider.GetComponent<Inner>());
             }
         }
-        dangerCount = count;
-        SetNumber(count);
+        SetNumber(dangerCount);
         GetComponent<CircleCollider2D>().enabled = true;
     } // End CheckArround()
 

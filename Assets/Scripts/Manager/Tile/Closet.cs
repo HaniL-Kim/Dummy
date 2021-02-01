@@ -21,7 +21,7 @@ public class Closet : MonoBehaviour
     public float shake_intensity;
     public float shake_time;
     //=============================================//
-    private void Start()
+    private void Awake()
     {
         anim = GetComponent<Animator>();
     } // End Start

@@ -271,6 +271,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dangerCount: 0
   isDanger: 0
+  mineType: -1
   closet: {fileID: 0}
   arroundInners: []
 --- !u!58 &1692682108391413961
@@ -298,10 +299,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 943786390806261180}
-  - component: {fileID: 943786390806261183}
-  - component: {fileID: 156476566872532786}
-  - component: {fileID: 3150705782250775629}
   - component: {fileID: 2989475193257143844}
+  - component: {fileID: 943786390806261183}
+  - component: {fileID: 4696927406787005780}
+  - component: {fileID: 5580719974033770406}
+  - component: {fileID: 3150705782250775629}
   m_Layer: 8
   m_Name: FootBoard
   m_TagString: FootBoard
@@ -323,6 +325,20 @@ Transform:
   m_Father: {fileID: 943786389988425308}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2989475193257143844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 943786390806261177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b7542b7cf47d284aa85e7f07d74f4a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canDistroy: 0
+  dissolveSpeed: 1
 --- !u!212 &943786390806261183
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -330,7 +346,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 943786390806261177}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -342,7 +358,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 733c25cd8fecd0044a8956a2c8adca41, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -374,7 +390,28 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &156476566872532786
+--- !u!50 &4696927406787005780
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 943786390806261177}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
+--- !u!60 &5580719974033770406
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -399,13 +436,11 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -32, y: -20.25}
-      - {x: -24.5, y: -24}
-      - {x: -9.5, y: -28}
-      - {x: 11, y: -28}
-      - {x: 32, y: -20.75}
-      - {x: 32, y: -17.5}
-      - {x: -32, y: -17.5}
+    - - {x: -32, y: -19}
+      - {x: 0, y: -26.25}
+      - {x: 32, y: -19}
+      - {x: 32, y: -18}
+      - {x: -32, y: -18}
 --- !u!251 &3150705782250775629
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -425,19 +460,6 @@ PlatformEffector2D:
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
---- !u!114 &2989475193257143844
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 943786390806261177}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b7542b7cf47d284aa85e7f07d74f4a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canDistroy: 0
 --- !u!1 &943786390927501226
 GameObject:
   m_ObjectHideFlags: 0

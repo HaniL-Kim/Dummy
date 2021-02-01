@@ -6,7 +6,7 @@ using UnityEngine;
 public enum MineTypes
 {
     NONE = -1,
-    PULL, REPULSION, GHOST, LIGHTNING, NARROWING, CONCRETE
+    PULL, PUSH, GHOST, LIGHTNING, NARROWING, CONCRETE
 }
 //
 public enum NumberIcons
@@ -35,22 +35,43 @@ public class GameManager : MonoBehaviour
     public int footBoardLayer;
     public int concreteLayer;
     public int closetLayer;
+    public int innerLayer;
+    //
+    public List<Vector3> dirs = new List<Vector3>();
     //====================================//
     private void Awake()
     {
         instance = this;
         CreateLayerHash();
+        SetDirs();
     }
     //
     private void Start()
     {
         EffectManager.instance.CreateEffect();
     }
-    //
+    //====================================//
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.F1))
             SoundManager.instance.PlayBGM(SoundKey.BGM);
+    }
+    //====================================//
+    public RaycastHit2D RayToDirs(Transform tf, int dir, int layer)
+    {
+        float dist = dirs[dir].magnitude;
+        RaycastHit2D hit = Physics2D.Raycast(tf.position, dirs[dir], dist, layer);
+        return hit;
+    }
+    //====================================//
+    void SetDirs()
+    {
+        dirs.Add(new Vector3(+64.0f, 0, 0));
+        dirs.Add(new Vector3(+32.0f, +47.0f, 0));
+        dirs.Add(new Vector3(-32.0f, +47.0f, 0));
+        dirs.Add(new Vector3(-64.0f, 0, 0));
+        dirs.Add(new Vector3(-32.0f, -47.0f, 0));
+        dirs.Add(new Vector3(+32.0f, -47.0f, 0));
     }
     //
     private void CreateLayerHash()
@@ -58,6 +79,7 @@ public class GameManager : MonoBehaviour
         footBoardLayer = LayerMask.GetMask("FootBoard");
         concreteLayer = LayerMask.GetMask("Concrete");
         closetLayer = LayerMask.GetMask("Closet");
+        innerLayer = LayerMask.GetMask("Inner");
     }
     //
     public Transform GetTileTransformOnMouse()

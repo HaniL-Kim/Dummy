@@ -55,8 +55,8 @@ public class Dummy : MonoBehaviour
     private Eye eye;
     //===============================//
     // GroundCheck
-    private Vector2 footPos = Vector2.zero;
-    private float footCircleSize = 5.0f;
+    private Vector2 footPos = new Vector2(0, -13.0f);
+    private Vector2 footBoxSize = new Vector2(13.0f, 5.0f);
     //=========================================//
     // Scan : HoldTile
     private Transform tileHolding;
@@ -107,8 +107,11 @@ public class Dummy : MonoBehaviour
     //=========================================//
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawSphere(footPos, footCircleSize);
+        if (onConcrete || onFootBoard)
+            Gizmos.color = Color.black;
+        else
+            Gizmos.color = Color.green;
+        Gizmos.DrawCube(footPos, footBoxSize);
     }
     //=========================================//
     public void Outline(bool value)
@@ -360,19 +363,19 @@ public class Dummy : MonoBehaviour
         onConcrete = false;
         onFootBoard = false;
         //
-        if (Physics2D.OverlapCircle(footPos, footCircleSize,
+        if (Physics2D.OverlapBox(footPos, footBoxSize, 0,
                 GameManager.instance.concreteLayer))
         { // Concrete Check
             onConcrete = true;
             if (rb.velocity.y < -0.1f)
                 isJump = false;
         }
-        curFootBoard = Physics2D.OverlapCircleAll(footPos, footCircleSize,
+        curFootBoard = Physics2D.OverlapBoxAll(footPos, footBoxSize, 0,
                         GameManager.instance.footBoardLayer);
         if (curFootBoard.Length != 0)
         { // FootBoard Check
             onFootBoard = true; // Can Down Jump
-            if (rb.velocity.y < -0.1f)
+            if (rb.velocity.y <= 0)
                 isJump = false;
         }
         //

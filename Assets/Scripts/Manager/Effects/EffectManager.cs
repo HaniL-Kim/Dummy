@@ -17,13 +17,14 @@ public class EffectManager : MonoBehaviour
     public VolumeProfile bloomVp;
     //==========================================//
     public Dictionary<int, Transform> effHolders = new Dictionary<int, Transform>();
-    public List<string> effNames = new List<string>
-    { "NONE", "Scan", "Explosion", "Flag"
-    ,"Pull"};
+    public List<string> effNames = new List<string>();
     //==========================================//
     private void Awake()
     {
         instance = this;
+        //
+        effNames = new List<string>
+        { "NONE", "Scan", "Explosion", "Flag", "Pull", "Push" };
     }
     //
     private void Start()
@@ -34,10 +35,12 @@ public class EffectManager : MonoBehaviour
     //==========================================//
     public void CreateEffect()
     {
-        AddEffect(EffectType.SCAN);
-        AddEffect(EffectType.EXPLOSION);
-        AddEffect(EffectType.FLAG);
-        AddEffect(EffectType.PULL);
+        for(int i = 1; i < (int)EffectType.END; ++i)
+            AddEffect((EffectType)i);
+        //AddEffect(EffectType.SCAN);
+        //AddEffect(EffectType.EXPLOSION);
+        //AddEffect(EffectType.FLAG);
+        //AddEffect(EffectType.PULL);
     }
     private void AddEffect(EffectType typeValue, int poolCount = 30)
     {

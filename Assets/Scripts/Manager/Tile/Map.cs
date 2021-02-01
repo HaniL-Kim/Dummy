@@ -97,7 +97,7 @@ public class Map : MonoBehaviour
     {
         SetPrefabs();
         //
-        float posY = 50.0f;
+        float posY = 30.0f;
         //
         CreateBlock("ReadyBlock", 2, posY, out readyBlock);
         posY += 47 * 2;
@@ -181,8 +181,9 @@ public class Map : MonoBehaviour
             int randIdx = Random.Range(0, 6);
             Tile tile = stage.GetFloor(y).tiles[randIdx].GetComponent<Tile>();
             //
-            //int mineType = Random.Range(1, 7); // Random
-            int mineType = 0; // Pull
+            int mineType = Random.Range(0, 2); // Random
+            //int mineType = 0; // Pull
+            //int mineType = 1; // Push
             tile.inner.SetDanger(mineType);
             // Debug
             tile.closet.GetComponent<SpriteRenderer>().color = Color.red;

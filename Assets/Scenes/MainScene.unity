@@ -1575,7 +1575,7 @@ MonoBehaviour:
     texture: {fileID: 21300000, guid: 7a81f5873cc76e74b854cc9a5c5c8914, type: 3}
   - mineType: 1
     number: -1
-    texture: {fileID: 21300000, guid: 0ec0f8963b0160c4485187852694f8a5, type: 3}
+    texture: {fileID: 21300000, guid: 9634b6c81f1405549a08de19b87009d8, type: 3}
   - mineType: 2
     number: -1
     texture: {fileID: 21300000, guid: df1e69562fc983d429c43e9cc1a9e6da, type: 3}
@@ -1613,6 +1613,8 @@ MonoBehaviour:
   footBoardLayer: 0
   concreteLayer: 0
   closetLayer: 0
+  innerLayer: 0
+  dirs: []
 --- !u!4 &2073683429
 Transform:
   m_ObjectHideFlags: 0
@@ -1727,6 +1729,10 @@ PrefabInstance:
     - target: {fileID: 4001196142467376828, guid: cbbe5138368542140a99ce2e21ccef9b, type: 3}
       propertyPath: dashSpeed
       value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 4001196142467376828, guid: cbbe5138368542140a99ce2e21ccef9b, type: 3}
+      propertyPath: jumpForce
+      value: 270
       objectReference: {fileID: 0}
     - target: {fileID: 4001196142467376828, guid: cbbe5138368542140a99ce2e21ccef9b, type: 3}
       propertyPath: isDashMode
