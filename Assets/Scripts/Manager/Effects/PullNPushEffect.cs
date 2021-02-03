@@ -69,6 +69,9 @@ public class PullNPushEffect : SpriteEffect
     {
         dirToEffect = Vector3.zero;
         dirToEffect.x = (transform.position.x - player.position.x);
+        if (Mathf.Abs(dirToEffect.x) <= 1.0f)
+            return;
+        //
         dirToEffect.Normalize();
         dirToEffect.z = player.position.z;
         player.Translate(dirToEffect * pullSpeed * Time.deltaTime, Space.World);
