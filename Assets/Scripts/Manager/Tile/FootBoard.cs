@@ -27,7 +27,7 @@ public class FootBoard : MonoBehaviour
         sr.enabled = true;
         canDistroy = true;
     }
-    public void Destroy()
+    public void DestroyFootBoard()
     {
         if (canDistroy == false)
             return;
@@ -54,6 +54,12 @@ public class FootBoard : MonoBehaviour
                 yield break;
             }
         }
+    }
+    //=============================================//
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Concrete"))
+            DestroyFootBoard();
     }
     //=============================================//
 }

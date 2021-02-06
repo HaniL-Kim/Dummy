@@ -10,9 +10,12 @@ public class Inner : MonoBehaviour
     public MineTypes mineType = MineTypes.NONE;
     //=============================================//
     public Closet closet;
+    //=============================================//
     public List<Inner> arroundInners;
+    //=============================================//
     private Animator anim;
-    private GameObject display;
+    //=============================================//
+    private Display display;
     private GameObject footBoard;
     //=============================================//
     //private void Start()
@@ -20,7 +23,10 @@ public class Inner : MonoBehaviour
     {
         mineType = MineTypes.NONE;
         anim = GetComponent<Animator>();
-        display = transform.GetChild(0).gameObject;
+        //
+        display = transform.GetChild(0).GetComponent<Display>();
+        display.inner = this;
+        //
         footBoard = transform.GetChild(1).gameObject;
     } // End Start
     //=============================================//
@@ -44,12 +50,13 @@ public class Inner : MonoBehaviour
     } // End Flip()
     public void EndFlip()
     { // Flip Anim Frame(10) Event1
-        footBoard.GetComponent<FootBoard>().Set();
+        //footBoard.GetComponent<FootBoard>().Set();
     } // End EndFlip()
-    public void ShowDisplay()
+    public void ActivateInner()
     { // Flip Anim Frame(16) Event2
         footBoard.GetComponent<FootBoard>().Set();
-        display.GetComponent<SpriteRenderer>().enabled = true;
+        //
+        display.Activate();
         //
         switch (mineType)
         {
@@ -61,13 +68,13 @@ public class Inner : MonoBehaviour
             case MineTypes.PUSH:
                 EffectManager.instance.Play("Push", transform);
                 break;
+            case MineTypes.NARROWING:
+                break;
+            case MineTypes.CRASH:
+                break;
             case MineTypes.GHOST:
                 break;
             case MineTypes.LIGHTNING:
-                break;
-            case MineTypes.NARROWING:
-                break;
-            case MineTypes.CONCRETE:
                 break;
             default:
                 break;
@@ -77,17 +84,16 @@ public class Inner : MonoBehaviour
     //=============================================//
     public void SetDanger(int value)
     { // value : 0 ~ 5
-        anim.SetBool("Danger", (isDanger = true));
-        display.GetComponent<SpriteRenderer>().sprite =
-            GameManager.instance.mineIcons[value].texture;
         mineType = (MineTypes)(value);
+        //
+        anim.SetBool("Danger", (isDanger = true));
+        //
+        display.SetDanger(isDanger, value);
     } // End SetDanger()
 
     public void SetNumber(int value)
     { // value : 0 ~ 6
-        //anim.SetBool("Danger", (isDanger = false));
-        display.GetComponent<SpriteRenderer>().sprite =
-            GameManager.instance.numIcons[value].texture;
+        display.SetNumber(value);
     } // End SetDanger()
     
     public void CheckArround()

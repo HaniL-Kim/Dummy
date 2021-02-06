@@ -309,28 +309,7 @@ AnimationClip:
     path: PullEff_Right
     classID: 212
     script: {fileID: 0}
-  m_PPtrCurves:
-  - curve:
-    - time: 0
-      value: {fileID: 21300000, guid: 5068716fe67a53b498a3bfcdedd105a3, type: 3}
-    - time: 0.05
-      value: {fileID: 21300000, guid: 40ec35b11950239499b37739a850ab65, type: 3}
-    - time: 0.1
-      value: {fileID: 21300000, guid: c40f09730b4484448966c6131ff42e19, type: 3}
-    - time: 0.15
-      value: {fileID: 21300000, guid: a7723c1ab67cb494d8c23669cc2f1927, type: 3}
-    - time: 0.2
-      value: {fileID: 21300000, guid: a613e809002a550448cb847e978495e1, type: 3}
-    - time: 0.25
-      value: {fileID: 21300000, guid: ed7fa30e7b761b743a42532cddc197f6, type: 3}
-    - time: 0.3
-      value: {fileID: 21300000, guid: d7c14e0926aa9704f988b776cc4b5ea2, type: 3}
-    - time: 0.35
-      value: {fileID: 21300000, guid: d7c14e0926aa9704f988b776cc4b5ea2, type: 3}
-    attribute: m_Sprite
-    path: 
-    classID: 212
-    script: {fileID: 0}
+  m_PPtrCurves: []
   m_SampleRate: 60
   m_WrapMode: 0
   m_Bounds:
@@ -367,13 +346,6 @@ AnimationClip:
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 0
-      attribute: 0
-      script: {fileID: 0}
-      typeID: 212
-      customType: 23
-      isPPtrCurve: 1
-    - serializedVersion: 2
       path: 2947769053
       attribute: 2526845255
       script: {fileID: 0}
@@ -415,15 +387,7 @@ AnimationClip:
       typeID: 212
       customType: 0
       isPPtrCurve: 0
-    pptrCurveMapping:
-    - {fileID: 21300000, guid: 5068716fe67a53b498a3bfcdedd105a3, type: 3}
-    - {fileID: 21300000, guid: 40ec35b11950239499b37739a850ab65, type: 3}
-    - {fileID: 21300000, guid: c40f09730b4484448966c6131ff42e19, type: 3}
-    - {fileID: 21300000, guid: a7723c1ab67cb494d8c23669cc2f1927, type: 3}
-    - {fileID: 21300000, guid: a613e809002a550448cb847e978495e1, type: 3}
-    - {fileID: 21300000, guid: ed7fa30e7b761b743a42532cddc197f6, type: 3}
-    - {fileID: 21300000, guid: d7c14e0926aa9704f988b776cc4b5ea2, type: 3}
-    - {fileID: 21300000, guid: d7c14e0926aa9704f988b776cc4b5ea2, type: 3}
+    pptrCurveMapping: []
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

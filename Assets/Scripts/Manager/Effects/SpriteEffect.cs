@@ -82,7 +82,7 @@ public class SpriteEffect : MonoBehaviour
             }
             if (collision.CompareTag("FootBoard"))
             {
-                collision.transform.GetComponent<FootBoard>().Destroy();
+                collision.transform.GetComponent<FootBoard>().DestroyFootBoard();
                 return;
             }
         }

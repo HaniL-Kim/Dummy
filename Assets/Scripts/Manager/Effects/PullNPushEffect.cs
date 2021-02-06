@@ -27,41 +27,9 @@ public class PullNPushEffect : SpriteEffect
     {
         if (playCount == repeatCount)
         {
-            SetExplosion();
-            base.Reset();
+            //SetExplosion();
             playCount = 0;
-        }
-    }
-    //
-    private void SetExplosion()
-    {
-        switch (type)
-        {
-            case EffectType.PULL:
-                EffectManager.instance.Play("Explosion", transform);
-                break;
-            case EffectType.PUSH:
-                {
-                    for (int i = 0; i < 6; ++i)
-                    {
-                        // Check 6 dir tiles that is Concrete
-                        RaycastHit2D hit = GameManager.instance.RayToDirs(
-                            transform, i, GameManager.instance.concreteLayer);
-                        if(hit)
-                        {
-                            if (hit.collider.CompareTag("Concrete"))
-                                continue;
-                        }
-                        else
-                        {
-                            Vector3 pos = transform.position + GameManager.instance.dirs[i];
-                            EffectManager.instance.Play("Explosion", pos, Quaternion.identity);
-                        }
-                    }
-                }
-                break;
-            default:
-                break;
+            base.Reset();
         }
     }
     //

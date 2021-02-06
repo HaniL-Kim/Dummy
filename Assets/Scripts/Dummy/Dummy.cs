@@ -5,6 +5,9 @@ using UnityEngine;
 public class Dummy : MonoBehaviour
 {
     //===============================//
+    //Debug
+    float R_LeftBorder;
+    float L_RightBorder;
     // Physics //
     // move
     public float moveSpeed;
@@ -104,6 +107,10 @@ public class Dummy : MonoBehaviour
         //
         GroundCheck();
     } // End FixedUpdate
+    private void LateUpdate()
+    {
+        StuckInConcrete();
+    }
     //=========================================//
     private void OnDrawGizmos()
     {
@@ -112,6 +119,66 @@ public class Dummy : MonoBehaviour
         else
             Gizmos.color = Color.green;
         Gizmos.DrawCube(footPos, footBoxSize);
+        //
+        {
+            Vector3 from = new Vector3(R_LeftBorder, 0, 0);
+            Vector3 to = new Vector3(R_LeftBorder, 400, 0);
+            Gizmos.DrawLine(from, to);
+        }
+        {
+            Vector3 from = new Vector3(L_RightBorder, 0, 0);
+            Vector3 to = new Vector3(L_RightBorder, 400, 0);
+            Gizmos.DrawLine(from, to);
+        }
+
+    }
+    //=========================================//
+    private void StuckInConcrete()
+    {
+        float rayDist = 64.0f;
+        float dummyColHalfX = colSize[0].x * 0.5f;
+        float concreteColHalf_X = 30.5f;
+        float dist = 0;
+        //
+        RaycastHit2D hit_R = Physics2D.Raycast(tf.position, Vector3.right,
+            rayDist, GameManager.instance.concreteLayer);
+        RaycastHit2D hit_L = Physics2D.Raycast(tf.position, Vector3.left,
+            rayDist, GameManager.instance.concreteLayer);
+        //
+        Vector3 temp = tf.position;
+        if (hit_R)
+        {
+            R_LeftBorder = hit_R.collider.transform.position.x - concreteColHalf_X;
+            dist = Mathf.Abs(R_LeftBorder - tf.position.x);
+            if (dist <= dummyColHalfX)
+            {
+                temp.x = R_LeftBorder - dummyColHalfX;
+                tf.position = temp;
+            }
+        }
+        if (hit_L)
+        {
+            L_RightBorder = hit_L.collider.transform.position.x + concreteColHalf_X;
+            dist = Mathf.Abs(L_RightBorder - tf.position.x);
+            if (dist <= dummyColHalfX)
+            {
+                temp.x = L_RightBorder + dummyColHalfX;
+                tf.position = temp;
+            }
+        }
+        if (hit_R && hit_L)
+        {
+            float gap = R_LeftBorder - L_RightBorder;
+            //Debug.Log("gap : " + gap);
+            if (gap <= (colSize[0].x + 2.0f))
+            {
+                hit_R.collider.transform.GetComponent<SpriteRenderer>().color = Color.red;
+                hit_L.collider.transform.GetComponent<SpriteRenderer>().color = Color.red;
+                //
+                Debug.Log("Player Dead by Crash");
+                tf.gameObject.SetActive(false);
+            }
+        }
     }
     //=========================================//
     public void Outline(bool value)

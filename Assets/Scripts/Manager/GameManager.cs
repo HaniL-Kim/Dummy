@@ -6,7 +6,7 @@ using UnityEngine;
 public enum MineTypes
 {
     NONE = -1,
-    PULL, PUSH, GHOST, LIGHTNING, NARROWING, CONCRETE
+    PULL, PUSH, NARROWING, CRASH, GHOST, LIGHTNING
 }
 //
 public enum NumberIcons
@@ -27,15 +27,18 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     //
+    public ElecShooterController elecShooter;
+    //
     public DisplayTexture[] mineIcons;
     public DisplayTexture[] numIcons;
     //
     //====================================//
     // layer hashing
-    public int footBoardLayer;
-    public int concreteLayer;
-    public int closetLayer;
-    public int innerLayer;
+
+    [HideInInspector] public int footBoardLayer;
+    [HideInInspector] public int concreteLayer;
+    [HideInInspector] public int closetLayer;
+    [HideInInspector] public int innerLayer;
     //
     public List<Vector3> dirs = new List<Vector3>();
     //====================================//

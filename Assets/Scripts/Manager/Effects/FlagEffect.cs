@@ -76,7 +76,7 @@ public class FlagEffect : SpriteEffect
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         tf.rotation = Quaternion.Euler(0.0f, 0.0f, angle);
     } // Set()
-    public void Reset()
+    new public void Reset()
     { // Anim Trigger Event
         tf.gameObject.SetActive(false);
         targetTile.GetComponent<Closet>().HitFlag();
