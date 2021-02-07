@@ -26,4 +26,17 @@ public static class MyUtility
             tmp += "i[" + i + "] : " + array[i] + ", ";
         Debug.Log(tmp);
     }
+    //
+    public static bool IsNull<T>(T value, string name)
+    {
+        bool result = false;
+        //
+        if (value == null)
+        {
+            Debug.LogError(name + " : access null");
+            result = true;
+        }
+
+        return result;
+    }
 }

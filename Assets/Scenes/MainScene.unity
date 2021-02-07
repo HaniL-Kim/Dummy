@@ -153,7 +153,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 118425389}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 39.11987, y: 36.30697, z: -16.628447}
+  m_LocalPosition: {x: -1.2, y: 1, z: -16.628447}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2073683429}
@@ -409,7 +409,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_RenderShadows: 1
+  m_RenderShadows: 0
   m_RequiresDepthTextureOption: 2
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
@@ -639,7 +639,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &847348833 stripped
 Transform:
@@ -974,7 +974,7 @@ Transform:
   - {fileID: 158007716}
   - {fileID: 1967683541}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1502727363
 MonoBehaviour:
@@ -988,7 +988,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93ed11305b8ad41429e145b7ab9284be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mineCounts: 03000000030000000300000001000000
+  mineCounts: 000000000000000000000000000000000a000000
   tilePrefab: {fileID: 0}
   concretePrefab: {fileID: 0}
   blocks: []
@@ -1092,7 +1092,7 @@ RectTransform:
   - {fileID: 1823380686}
   - {fileID: 1673602399}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1592,6 +1592,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a7667b592b0bbf45bde61db125c0aa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 670196563}
   elecShooter: {fileID: 654554441}
   mineIcons:
   - mineType: 0
@@ -1608,7 +1609,7 @@ MonoBehaviour:
     texture: {fileID: 21300000, guid: 2e715a4f3a13eab4dba1838fce5914c7, type: 3}
   - mineType: 4
     number: 0
-    texture: {fileID: 0}
+    texture: {fileID: 21300000, guid: 27a5473b941c7bb4cac65a5101fbb40a, type: 3}
   - mineType: 5
     number: 0
     texture: {fileID: 0}
@@ -1681,7 +1682,8 @@ MonoBehaviour:
   crashTime: 1
   crashWaitTime: 0.5
   crashReturnTime: 3
-  concretes: {fileID: 0}
+  ghostPrefab: {fileID: 0}
+  ghosts: []
 --- !u!1001 &943786389448165762
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1780,7 +1782,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4001196142467376829, guid: cbbe5138368542140a99ce2e21ccef9b, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4001196142467376829, guid: cbbe5138368542140a99ce2e21ccef9b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1825,7 +1827,7 @@ PrefabInstance:
     - target: {fileID: 4001196142467376831, guid: cbbe5138368542140a99ce2e21ccef9b, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 38d61e0065b92fa4a9f5cb141d917b5e, type: 2}
+      objectReference: {fileID: 2100000, guid: 08a47d45e1f1c074cb6fbaa204a0a878, type: 2}
     - target: {fileID: 4001196142872562096, guid: cbbe5138368542140a99ce2e21ccef9b, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -1845,7 +1847,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5631406482672435621, guid: e9b9b360b1e1ef841ba61aaf447b81c7, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5631406482672435621, guid: e9b9b360b1e1ef841ba61aaf447b81c7, type: 3}
       propertyPath: m_LocalPosition.x

@@ -11,42 +11,54 @@ public class MineController : MonoBehaviour
     public float crashWaitTime = 0.5f;
     WaitForSeconds cwt;
     public float crashReturnTime = 3.0f;
-    public Transform concretes;
-
+    //=========================================//
+    public GameObject ghostPrefab;
+    [SerializeField] private List<GameObject> ghosts;
     //=========================================//
     private void Awake()
     {
         instance = this;
         cwt = new WaitForSeconds(crashWaitTime);
+        //
+        CreateGhosts();
     }
     //=========================================//
-    //=========================================//
-    public void ActivateMine(MineTypes type, Transform tf = null)
+    private void ActivateGhost(Transform tf)
     {
-        switch (type)
+        foreach (GameObject g in ghosts)
         {
-            case MineTypes.NONE:
-                break;
-            case MineTypes.PULL:
-            case MineTypes.PUSH:
-                SetExplosion(type);
-                break;
-            case MineTypes.NARROWING:
-                GameManager.instance.elecShooter.UpLevel();
-                break;
-            case MineTypes.CRASH:
-                SetCrashMine(tf);
-                break;
-            case MineTypes.GHOST:
-                break;
-            case MineTypes.LIGHTNING:
-                break;
-            default:
-                break;
+            if (g.activeSelf == true)
+                continue;
+            //
+            Vector3 pos = tf.position;
+            pos.z = g.transform.position.z;
+            g.transform.position = pos;
+            g.SetActive(true);
+            return;
         }
     }
     //
-    private void SetCrashMine(Transform tf)
+    private void CreateGhosts()
+    {
+        ghostPrefab = Resources.Load<GameObject>("Prefabs/Ghost");
+        //
+        GameObject ghostHolder = new GameObject("GhostHolder");
+        ghostHolder.transform.SetParent(transform);
+        //
+        ghosts = new List<GameObject>();
+        //
+        int ghostCount = 20;
+        for (int i = 0; i < ghostCount; ++i)
+        {
+            GameObject g = Instantiate<GameObject>(ghostPrefab);
+            g.transform.SetParent(ghostHolder.transform);
+            g.SetActive(false);
+            //
+            ghosts.Add(g);
+        }
+    }
+    //=========================================//
+       private void SetCrashMine(Transform tf)
     {
         //Debug.Log("Crash At " + tf.position);
         Transform floorTF = tf.parent.parent.parent;
@@ -163,13 +175,13 @@ public class MineController : MonoBehaviour
             yield return null;
         }
     }
-    //
-    private void SetExplosion(MineTypes type)
+    //=========================================//
+    private void SetExplosion(MineTypes type, Transform tf)
     {
         switch (type)
         {
             case MineTypes.PULL:
-                EffectManager.instance.Play("Explosion", transform);
+                EffectManager.instance.Play("Explosion", tf);
                 break;
             case MineTypes.PUSH:
                 {
@@ -177,7 +189,7 @@ public class MineController : MonoBehaviour
                     {
                         // Check 6 dir tiles that is Concrete
                         RaycastHit2D hit = GameManager.instance.RayToDirs(
-                            transform, i, GameManager.instance.concreteLayer);
+                            tf, i, GameManager.instance.concreteLayer);
                         if (hit)
                         {
                             if (hit.collider.CompareTag("Concrete"))
@@ -185,11 +197,38 @@ public class MineController : MonoBehaviour
                         }
                         else
                         {
-                            Vector3 pos = transform.position + GameManager.instance.dirs[i];
+                            Vector3 pos = tf.position + GameManager.instance.dirs[i];
+                            pos.z = -5.0f;
                             EffectManager.instance.Play("Explosion", pos, Quaternion.identity);
                         }
                     }
                 }
+                break;
+            default:
+                break;
+        }
+    }
+    //=========================================//
+    public void ActivateMine(MineTypes type, Transform tf = null)
+    {
+        switch (type)
+        {
+            case MineTypes.NONE:
+                break;
+            case MineTypes.PULL:
+            case MineTypes.PUSH:
+                SetExplosion(type, tf);
+                break;
+            case MineTypes.NARROWING:
+                GameManager.instance.elecShooter.UpLevel();
+                break;
+            case MineTypes.CRASH:
+                SetCrashMine(tf);
+                break;
+            case MineTypes.GHOST:
+                ActivateGhost(tf);
+                break;
+            case MineTypes.LIGHTNING:
                 break;
             default:
                 break;

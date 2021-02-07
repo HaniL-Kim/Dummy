@@ -5,31 +5,46 @@ using UnityEngine;
 public class PullNPushEffect : SpriteEffect
 {
     //===============================================//
-    public int repeatCount = 5;
-    public int playCount = 0;
+    public int playCount = 5;
     public float pullSpeed = 50.0f;
     public float pushSpeed = 50.0f;
     //
     Vector3 dirToEffect = Vector3.zero;
+    //
+    public List<GameObject> effects = new List<GameObject>();
+    //===============================================//
+    private void Awake()
+    {
+        anim = GetComponent<Animator>();
+    }
     //===============================================//
     new private void Update()
     {
-        CheckPlayCount();
-        Debug.DrawRay(transform.position, dirToEffect * 20.0f, Color.red);
-    }
-    //===============================================//
-    public void AddPlayCount()
-    { // Anim Frame Event
-        ++playCount;
     }
     //===============================================//
     private void CheckPlayCount()
     {
-        if (playCount == repeatCount)
+        --playCount;
+        if (playCount == 0)
         {
-            //SetExplosion();
-            playCount = 0;
+            playCount = 5;
+            //
+            foreach (GameObject effect in effects)
+                effect.SetActive(false);
+            //
             base.Reset();
+        }
+    }
+    //
+    private void ActivateEffect()
+    {
+        foreach (GameObject effect in effects)
+        {
+            if (effect.activeSelf == false)
+            {
+                effect.SetActive(true);
+                return;
+            }
         }
     }
     //

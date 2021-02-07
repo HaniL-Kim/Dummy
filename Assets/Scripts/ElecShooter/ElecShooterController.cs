@@ -16,8 +16,6 @@ public class ElecShooterController : MonoBehaviour
     public List<SpriteRenderer> NarrowLevels; // UL, UR, DL, DR
     public List<SpriteRenderer> NarrowLevelTimes; // UL, UR, DL, DR
     //==========================================//
-    private Vector3 temp1 = Vector3.zero;
-    private Vector3 temp2 = Vector3.zero;
     private Transform tf;
     //==========================================//
     public bool isElevate = false;
@@ -66,7 +64,6 @@ public class ElecShooterController : MonoBehaviour
     //==========================================//
     public void UpLevel()
     { // Call When Mine Activate
-        //countDownTimer = 0;
         level += 1;
         if ((int)level > 3)
             level = NarrowLevel.THREE;
@@ -75,7 +72,6 @@ public class ElecShooterController : MonoBehaviour
     //
     public void DownLevel()
     { // Call When CountDown End
-        //countDownTimer = 0;
         level -= 1;
         if ((int)level < 1)
             level = 0;
@@ -172,7 +168,7 @@ public class ElecShooterController : MonoBehaviour
             {
                 Up.transform.localPosition = up_target;
                 Down.transform.localPosition = down_target;
-                print("Shooter Move Time : " + debugTime);
+                //print("Shooter Move Time : " + debugTime);
                 yield break;
             }
             //

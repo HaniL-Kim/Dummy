@@ -72,7 +72,7 @@ public class Dummy : MonoBehaviour
     private readonly int isCrouchHash = Animator.StringToHash("isCrouch");
     private readonly int verticalVelocityHash = Animator.StringToHash("verticalVelocity");
     // shader Hash
-    private readonly int hashOutlineTK = Shader.PropertyToID("_OutlineThickness"); // 
+    private readonly int hashOutlineTK = Shader.PropertyToID("_OutlineThickness");
     //=========================================//
     private void Start()
     {
@@ -186,12 +186,12 @@ public class Dummy : MonoBehaviour
         if(value == true)
         {
             rend.material.SetFloat(hashOutlineTK, 4.0f);
-            EffectManager.instance.SetBloom(value);
+            //EffectManager.instance.SetBloom(value);
         }
         else
         {
             rend.material.SetFloat(hashOutlineTK, 0);
-            EffectManager.instance.SetBloom(value);
+            //EffectManager.instance.SetBloom(value);
         }
     }
     //=========================================//

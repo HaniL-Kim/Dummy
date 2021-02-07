@@ -65,6 +65,7 @@ public class Display : MonoBehaviour
         {
             sr.sprite =
                 GameManager.instance.mineIcons[(int)inner.mineType].texture;
+            sr.color = Color.white;
             //
             anim.enabled = false;
             //

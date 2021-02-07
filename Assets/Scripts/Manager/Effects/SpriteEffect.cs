@@ -57,12 +57,17 @@ public class SpriteEffect : MonoBehaviour
             return false;
     }
     //
+    public void InActivate()
+    {
+        transform.gameObject.SetActive(false);
+    }
+    //
     protected void InactiveCollider()
     {
         col.enabled = false;
     }
     //
-    protected void Reset()
+    public void Reset()
     {
         if (col)
             col.enabled = true;

@@ -214,11 +214,8 @@ public class Map : MonoBehaviour
                     mineArr[idx++] = (i);
             }
             // Shuffle Arr
-            MyUtility.DebugLogArr(mineArr);
             int seed = Random.Range(0, 1000);
-            Debug.Log(seed);
             MyUtility.ShuffleArray(mineArr, seed);
-            MyUtility.DebugLogArr(mineArr);
         }
         //
         for (int y = 0; y < stage.floors.Count; ++y)

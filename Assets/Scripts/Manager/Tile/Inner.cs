@@ -50,11 +50,11 @@ public class Inner : MonoBehaviour
     } // End Flip()
     public void EndFlip()
     { // Flip Anim Frame(10) Event1
-        //footBoard.GetComponent<FootBoard>().Set();
+        footBoard.GetComponent<FootBoard>().Set();
     } // End EndFlip()
     public void ActivateInner()
     { // Flip Anim Frame(16) Event2
-        footBoard.GetComponent<FootBoard>().Set();
+        //footBoard.GetComponent<FootBoard>().Set();
         //
         display.Activate();
         //

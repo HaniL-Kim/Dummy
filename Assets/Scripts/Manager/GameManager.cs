@@ -27,14 +27,13 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     //
+    public Transform player;
     public ElecShooterController elecShooter;
     //
     public DisplayTexture[] mineIcons;
     public DisplayTexture[] numIcons;
-    //
     //====================================//
     // layer hashing
-
     [HideInInspector] public int footBoardLayer;
     [HideInInspector] public int concreteLayer;
     [HideInInspector] public int closetLayer;
@@ -45,6 +44,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        //
         CreateLayerHash();
         SetDirs();
     }
@@ -57,7 +57,9 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.F1))
-            SoundManager.instance.PlayBGM(SoundKey.BGM);
+            elecShooter.isElevate = true;
+        //if (Input.GetKeyDown(KeyCode.F2))
+        //    SoundManager.instance.PlayBGM(SoundKey.BGM);
     }
     //====================================//
     public RaycastHit2D RayToDirs(Transform tf, int dir, int layer)
@@ -67,7 +69,7 @@ public class GameManager : MonoBehaviour
         return hit;
     }
     //====================================//
-    void SetDirs()
+    private void SetDirs()
     {
         dirs.Add(new Vector3(+64.0f, 0, 0));
         dirs.Add(new Vector3(+32.0f, +47.0f, 0));

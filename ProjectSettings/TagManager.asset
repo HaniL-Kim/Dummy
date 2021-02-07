@@ -7,6 +7,7 @@ TagManager:
   - FootBoard
   - Concrete
   - Tile
+  - Ghost
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - Concrete
   - Inner
   - Closet
-  - 
+  - Ghost
   - 
   - 
   - 
