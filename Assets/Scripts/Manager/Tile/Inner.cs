@@ -74,7 +74,7 @@ public class Inner : MonoBehaviour
                 break;
             case MineTypes.GHOST:
                 break;
-            case MineTypes.LIGHTNING:
+            case MineTypes.THUNDER:
                 break;
             default:
                 break;

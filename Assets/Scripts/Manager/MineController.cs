@@ -128,7 +128,7 @@ public class MineController : MonoBehaviour
         Vector3 originPosA = concA.position;
         Vector3 originPosB = concB.position;
         //
-        float distA = 0, distB = 0;
+        //float distA = 0, distB = 0;
         //
         // 등가속도 직선운동
         // s = v0*t + 1/2 * a * t^2;
@@ -228,7 +228,8 @@ public class MineController : MonoBehaviour
             case MineTypes.GHOST:
                 ActivateGhost(tf);
                 break;
-            case MineTypes.LIGHTNING:
+            case MineTypes.THUNDER:
+                EffectManager.instance.Play("Thunder", tf);
                 break;
             default:
                 break;

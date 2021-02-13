@@ -149,11 +149,6 @@ public class Ghost : MonoBehaviour
     //=============================================//
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
-        {
-            Debug.Log("PlayerDead By Ghost");
-            //collision.gameObject.SetActive(false);
-        }
         if (collision.CompareTag("Concrete"))
         {
             //PushOutside();

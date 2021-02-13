@@ -8,6 +8,10 @@ TagManager:
   - Concrete
   - Tile
   - Ghost
+  - ElecShooter
+  - Thunder
+  - Laser
+  - Explosion
   layers:
   - Default
   - TransparentFX

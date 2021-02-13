@@ -13,15 +13,6 @@ public class PullNPushEffect : SpriteEffect
     //
     public List<GameObject> effects = new List<GameObject>();
     //===============================================//
-    private void Awake()
-    {
-        anim = GetComponent<Animator>();
-    }
-    //===============================================//
-    new private void Update()
-    {
-    }
-    //===============================================//
     private void CheckPlayCount()
     {
         --playCount;

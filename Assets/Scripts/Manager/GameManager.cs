@@ -6,7 +6,7 @@ using UnityEngine;
 public enum MineTypes
 {
     NONE = -1,
-    PULL, PUSH, NARROWING, CRASH, GHOST, LIGHTNING
+    PULL, PUSH, NARROWING, CRASH, GHOST, THUNDER
 }
 //
 public enum NumberIcons

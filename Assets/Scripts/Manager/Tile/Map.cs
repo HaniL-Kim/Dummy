@@ -1,7 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using RotaryHeart.Lib.SerializableDictionary;
 
+//=============================================//
+[System.Serializable]
+public class StringInt : SerializableDictionaryBase<string, int> {}
 //=============================================//
 [System.Serializable]
 public struct Floor
@@ -71,7 +75,10 @@ public class Map : MonoBehaviour
     //=============================================//
     public static Map instance;
     //=============================================//
-    public List<int> mineCounts = new List<int>();
+    //public List<int> mineCounts = new List<int>();
+    //public Dictionary<string, int> mineCounts
+    //    = new Dictionary<string, int>();
+    public StringInt mineCounts;
     //=============================================//
     public GameObject tilePrefab;
     public GameObject concretePrefab;
@@ -207,12 +214,21 @@ public class Map : MonoBehaviour
         {
             int idx = 0;
             // Set Arr From List
-            for (int i = 0; i < mineCounts.Count; ++i)
+            int i = 0;
+            foreach (var data in mineCounts)
             {
-                int count = mineCounts[i];
+                int count = data.Value;
                 for (int j = 0; j < count; ++j)
-                    mineArr[idx++] = (i);
+                    mineArr[idx++] = i;
+                //
+                ++i;
             }
+            //for (int i = 0; i < mineCounts.Count; ++i)
+            //{
+            //    int count = mineCounts[i];
+            //    for (int j = 0; j < count; ++j)
+            //        mineArr[idx++] = (i);
+            //}
             // Shuffle Arr
             int seed = Random.Range(0, 1000);
             MyUtility.ShuffleArray(mineArr, seed);

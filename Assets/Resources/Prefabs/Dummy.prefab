@@ -49,15 +49,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 100
-  jumpForce: 300
-  dashSpeed: 100
-  dashTime: 0.1
+  jumpForce: 270
+  curFootBoard: []
+  dashCount: 5
+  dashSpeed: 200
+  dashTime: 1
+  flagTime: 2
+  mode: 0
   isWalk: 0
   isJump: 0
   isCrouch: 0
   isScan: 0
   isDash: 0
   onFootBoard: 0
+  onConcrete: 0
   isIdle: 0
   idleCounter: 0
   idleTime: 5
@@ -80,7 +85,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 08a47d45e1f1c074cb6fbaa204a0a878, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -24,7 +24,7 @@ public class EffectManager : MonoBehaviour
         instance = this;
         //
         effNames = new List<string>
-        { "NONE", "Scan", "Explosion", "Flag", "Pull", "Push" };
+        { "NONE", "Scan", "Explosion", "Flag", "Pull", "Push", "Thunder" };
     }
     //
     private void Start()
@@ -37,10 +37,6 @@ public class EffectManager : MonoBehaviour
     {
         for(int i = 1; i < (int)EffectType.END; ++i)
             AddEffect((EffectType)i);
-        //AddEffect(EffectType.SCAN);
-        //AddEffect(EffectType.EXPLOSION);
-        //AddEffect(EffectType.FLAG);
-        //AddEffect(EffectType.PULL);
     }
     private void AddEffect(EffectType typeValue, int poolCount = 30)
     {
@@ -56,9 +52,13 @@ public class EffectManager : MonoBehaviour
         for (int i = 0; i < poolCount; ++i)
         {
             GameObject effect = Instantiate(prefab, holder.transform);
-            effect.SetActive(false);
             effect.name = effNames[(int)typeValue] + i;
-            effect.GetComponent<SpriteEffect>().type = typeValue;
+            effect.SetActive(false);
+            //
+            SpriteEffect se = null;
+            if(effect.TryGetComponent<SpriteEffect>(out se))
+                se.type = typeValue;
+            //effect.GetComponent<SpriteEffect>().type = typeValue;
             //
             effects.Add(effect);
         }

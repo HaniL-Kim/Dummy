@@ -7,8 +7,7 @@ public class Display : MonoBehaviour
     //==================================//
     public Inner inner; // Parent Obejct Script
     //==================================//
-    [SerializeField]
-    private int playCount;
+    public int playCount;
     //==================================//
     private Animator anim;
     private SpriteRenderer sr;
@@ -45,6 +44,28 @@ public class Display : MonoBehaviour
         //
         anim.SetBool(hashIsDanger, danger);
         anim.SetFloat(hashMineType, type);
+        //
+        switch ((MineTypes)type)
+        {
+            case MineTypes.PULL:
+            case MineTypes.PUSH:
+            case MineTypes.NARROWING:
+            case MineTypes.CRASH:
+            case MineTypes.GHOST:
+                {
+                    playCount = 5;
+                    anim.SetInteger(hashPlayCount, playCount);
+                }
+                break;
+            case MineTypes.THUNDER:
+                {
+                    playCount = 3;
+                    anim.SetInteger(hashPlayCount, playCount);
+                }
+                break;
+            default:
+                break;
+        }
     }
     //
     public void Hit()

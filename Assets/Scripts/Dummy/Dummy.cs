@@ -5,6 +5,8 @@ using UnityEngine;
 public class Dummy : MonoBehaviour
 {
     //===============================//
+    List<string> deadTags = new List<string>()
+        { "Ghost", "Explosion", "Thunder", "Laser" };
     //Debug
     float R_LeftBorder;
     float L_RightBorder;
@@ -175,7 +177,7 @@ public class Dummy : MonoBehaviour
                 hit_R.collider.transform.GetComponent<SpriteRenderer>().color = Color.red;
                 hit_L.collider.transform.GetComponent<SpriteRenderer>().color = Color.red;
                 //
-                Debug.Log("Player Dead by Crash");
+                Dead("Crash");
                 tf.gameObject.SetActive(false);
             }
         }
@@ -434,7 +436,7 @@ public class Dummy : MonoBehaviour
                 GameManager.instance.concreteLayer))
         { // Concrete Check
             onConcrete = true;
-            if (rb.velocity.y < -0.1f)
+            //if (rb.velocity.y < -0.1f)
                 isJump = false;
         }
         curFootBoard = Physics2D.OverlapBoxAll(footPos, footBoxSize, 0,
@@ -455,16 +457,39 @@ public class Dummy : MonoBehaviour
         {
             col.isTrigger = true;
             col.usedByEffector = false;
+            //
+            //PlatformEffector2D effector = null;
+            //if (col.TryGetComponent<PlatformEffector2D>(out effector))
+            //    effector.enabled = false;
             col.GetComponent<PlatformEffector2D>().enabled = false;
         }
-    } // End SetFootBoardTrigger()
+    }
+    //
+    public void Dead(string tag)
+    {
+        Debug.Log("Player Dead By [" + tag + "]");
+    }
+    //
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        foreach (string tag in deadTags)
+            if (collision.CompareTag(tag) == true)
+                Dead(tag);
+    }
+    //
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("FootBoard") == true)
         {
             collision.isTrigger = false;
+            //
+            //PlatformEffector2D effector = null;
+            //if (col.TryGetComponent<PlatformEffector2D>(out effector))
+            //    effector.enabled = true;
             collision.GetComponent<PlatformEffector2D>().enabled = true;
             collision.usedByEffector = true;
         }
-    } // End OnTriggerEnter2D()
+    }
+    //
 } // End of Script Dummy

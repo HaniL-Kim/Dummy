@@ -5,7 +5,7 @@ using UnityEngine;
 public enum EffectType
 {
     NONE, SCAN, EXPLOSION, FLAG,
-    PULL, PUSH, END
+    PULL, PUSH, THUNDER, END
 }
 //
 public class SpriteEffect : MonoBehaviour
@@ -80,11 +80,6 @@ public class SpriteEffect : MonoBehaviour
     {
         if (type == EffectType.EXPLOSION)
         {
-            if (collision.CompareTag("Player"))
-            {
-                print("Player Dead By Explosion");
-                return;
-            }
             if (collision.CompareTag("FootBoard"))
             {
                 collision.transform.GetComponent<FootBoard>().DestroyFootBoard();

@@ -745,6 +745,7 @@ MonoBehaviour:
   - Explosion
   - Flag
   - Pull
+  - Thunder
 --- !u!4 &1077536443
 Transform:
   m_ObjectHideFlags: 0
@@ -988,7 +989,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93ed11305b8ad41429e145b7ab9284be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mineCounts: 000000000000000000000000000000000a000000
+  mineCounts:
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 1
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 0}
+    isExpanded: 1
+    _keyValues:
+    - Pull
+    - Push
+    - Narrow
+    - Crash
+    - Ghost
+    - Thunder
+    _keys:
+    - Pull
+    - Push
+    - Narrow
+    - Crash
+    - Ghost
+    - Thunder
+    _values: 00000000000000000000000000000000000000000a000000
   tilePrefab: {fileID: 0}
   concretePrefab: {fileID: 0}
   blocks: []
@@ -1612,7 +1650,7 @@ MonoBehaviour:
     texture: {fileID: 21300000, guid: 27a5473b941c7bb4cac65a5101fbb40a, type: 3}
   - mineType: 5
     number: 0
-    texture: {fileID: 0}
+    texture: {fileID: 21300000, guid: 0fca9a2ec43c3b246944c5f183ed7bab, type: 3}
   numIcons:
   - mineType: -1
     number: 0
@@ -1752,34 +1790,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dummy
       objectReference: {fileID: 0}
-    - target: {fileID: 4001196142467376825, guid: cbbe5138368542140a99ce2e21ccef9b, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4001196142467376828, guid: cbbe5138368542140a99ce2e21ccef9b, type: 3}
-      propertyPath: dashTime
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4001196142467376828, guid: cbbe5138368542140a99ce2e21ccef9b, type: 3}
-      propertyPath: flagTime
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4001196142467376828, guid: cbbe5138368542140a99ce2e21ccef9b, type: 3}
-      propertyPath: dashCount
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4001196142467376828, guid: cbbe5138368542140a99ce2e21ccef9b, type: 3}
-      propertyPath: dashSpeed
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 4001196142467376828, guid: cbbe5138368542140a99ce2e21ccef9b, type: 3}
-      propertyPath: jumpForce
-      value: 270
-      objectReference: {fileID: 0}
-    - target: {fileID: 4001196142467376828, guid: cbbe5138368542140a99ce2e21ccef9b, type: 3}
-      propertyPath: isDashMode
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4001196142467376829, guid: cbbe5138368542140a99ce2e21ccef9b, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -1824,14 +1834,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4001196142467376831, guid: cbbe5138368542140a99ce2e21ccef9b, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 08a47d45e1f1c074cb6fbaa204a0a878, type: 2}
-    - target: {fileID: 4001196142872562096, guid: cbbe5138368542140a99ce2e21ccef9b, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cbbe5138368542140a99ce2e21ccef9b, type: 3}
 --- !u!1001 &5631406483277316270
@@ -1855,7 +1857,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5631406482672435621, guid: e9b9b360b1e1ef841ba61aaf447b81c7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -160
       objectReference: {fileID: 0}
     - target: {fileID: 5631406482672435621, guid: e9b9b360b1e1ef841ba61aaf447b81c7, type: 3}
       propertyPath: m_LocalPosition.z
