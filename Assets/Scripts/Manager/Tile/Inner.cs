@@ -15,7 +15,7 @@ public class Inner : MonoBehaviour
     //=============================================//
     private Animator anim;
     //=============================================//
-    private Display display;
+    public Display display;
     private GameObject footBoard;
     //=============================================//
     //private void Start()
@@ -47,16 +47,18 @@ public class Inner : MonoBehaviour
         //
         if (dangerCount == 0)
             FlipArround();
-    } // End Flip()
+    }
+    //
     public void EndFlip()
     { // Flip Anim Frame(10) Event1
         footBoard.GetComponent<FootBoard>().Set();
-    } // End EndFlip()
+    }
+    //
     public void ActivateInner()
     { // Flip Anim Frame(16) Event2
-        //footBoard.GetComponent<FootBoard>().Set();
-        //
         display.Activate();
+        if (display.flagHit == true)
+            return;
         //
         switch (mineType)
         {

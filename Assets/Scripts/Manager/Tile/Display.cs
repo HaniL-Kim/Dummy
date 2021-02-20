@@ -5,9 +5,12 @@ using UnityEngine;
 public class Display : MonoBehaviour
 {
     //==================================//
-    public Inner inner; // Parent Obejct Script
+    // Parent Obejct Script
+    public Inner inner;
     //==================================//
     public int playCount;
+    //==================================//
+    public bool flagHit = false;
     //==================================//
     private Animator anim;
     private SpriteRenderer sr;
@@ -16,6 +19,7 @@ public class Display : MonoBehaviour
     private readonly int hashIsDanger = Animator.StringToHash("IsDanger");
     private readonly int hashMineType = Animator.StringToHash("MineType");
     private readonly int hashHit = Animator.StringToHash("Hit");
+    private readonly int hashFlagHit = Animator.StringToHash("FlagHit");
     //==================================//
     private void Awake()
     {
@@ -28,12 +32,18 @@ public class Display : MonoBehaviour
         anim.SetInteger(hashPlayCount, playCount);
     }
     //==================================//
+    // Anim Frame Event
+    public void SetItem()
+    { // ShowItem : 0 frame
+        ItemManager.instance.ShowItem(transform);
+    }
+    //==================================//
     public void Activate()
     {
         sr.enabled = true;
         Hit();
     }
-        //
+    //
     public void SetNumber(int type)
     {
         sr.sprite = GameManager.instance.numIcons[type].texture;
@@ -70,10 +80,13 @@ public class Display : MonoBehaviour
     //
     public void Hit()
     {
-        if(inner.isDanger)
+        if (inner.isDanger)
         {
             anim.enabled = true;
-            anim.SetTrigger(hashHit);
+            if (flagHit)
+                anim.SetTrigger(hashFlagHit);
+            else
+                anim.SetTrigger(hashHit);
         }
     }
     //==================================//

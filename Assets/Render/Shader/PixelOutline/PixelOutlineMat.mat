@@ -80,8 +80,8 @@ Material:
     - _Color_Dist2: {r: 3.419929, g: 3.419929, b: 0.5646109, a: 0.4980392}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineColor: {r: 2, g: 2, b: 0, a: 1}
-    - _OutlineColor_Inner: {r: 4.237095, g: 4.237095, b: 0.1552862, a: 1}
-    - _OutlineColor_Outer: {r: 0, g: 0.04957039, b: 1.4031414, a: 0.5803922}
+    - _OutlineColor_Inner: {r: 3.2873485, g: 3.2873485, b: 3.2873485, a: 1}
+    - _OutlineColor_Outer: {r: 3.6603773, g: 3.5760183, b: 2.8891656, a: 0}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &7911079559818604812

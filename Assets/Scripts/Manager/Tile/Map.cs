@@ -75,9 +75,6 @@ public class Map : MonoBehaviour
     //=============================================//
     public static Map instance;
     //=============================================//
-    //public List<int> mineCounts = new List<int>();
-    //public Dictionary<string, int> mineCounts
-    //    = new Dictionary<string, int>();
     public StringInt mineCounts;
     //=============================================//
     public GameObject tilePrefab;
@@ -213,25 +210,20 @@ public class Map : MonoBehaviour
         int[] mineArr = new int[10];
         {
             int idx = 0;
-            // Set Arr From List
-            int i = 0;
+            // Set MineArr From List
+            int i = 0; // MineNumber
             foreach (var data in mineCounts)
             {
                 int count = data.Value;
                 for (int j = 0; j < count; ++j)
+                {
                     mineArr[idx++] = i;
-                //
+                }
+                // next MineNumber
                 ++i;
             }
-            //for (int i = 0; i < mineCounts.Count; ++i)
-            //{
-            //    int count = mineCounts[i];
-            //    for (int j = 0; j < count; ++j)
-            //        mineArr[idx++] = (i);
-            //}
             // Shuffle Arr
-            int seed = Random.Range(0, 1000);
-            MyUtility.ShuffleArray(mineArr, seed);
+            MyUtility.ShuffleArray(mineArr);
         }
         //
         for (int y = 0; y < stage.floors.Count; ++y)

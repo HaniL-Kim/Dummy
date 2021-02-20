@@ -23,14 +23,49 @@ public class MineController : MonoBehaviour
         CreateGhosts();
     }
     //=========================================//
-    private void ActivateGhost(Transform tf)
+    private void Update()
+    {
+        DebugGhost();
+    }
+    //
+    public void DebugGhost()
+    {
+        if (Input.GetKeyDown(KeyCode.I))
+        { // 1체 생성
+            ActivateGhost();
+        }
+        else if (Input.GetKeyDown(KeyCode.O))
+        { // 1체 파괴
+            foreach (GameObject g in ghosts)
+                if (g.activeSelf == true)
+                {
+                    g.GetComponent<Ghost>().Dead();
+                    return;
+                }
+        }
+        else if (Input.GetKeyDown(KeyCode.P))
+        { // 전체 파괴
+            foreach (GameObject g in ghosts)
+            {
+                if (g.activeSelf == true)
+                    g.GetComponent<Ghost>().Dead();
+                else
+                    return;
+            }
+        }
+    }
+    //=========================================//
+    private void ActivateGhost(Transform tf = null)
     {
         foreach (GameObject g in ghosts)
         {
             if (g.activeSelf == true)
                 continue;
             //
-            Vector3 pos = tf.position;
+            Vector3 pos = Vector3.zero;
+            if (tf != null)
+                pos = tf.position;
+            //
             pos.z = g.transform.position.z;
             g.transform.position = pos;
             g.SetActive(true);

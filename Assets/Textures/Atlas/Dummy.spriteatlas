@@ -41,72 +41,12 @@ SpriteAtlas:
       enableRotation: 0
       enableTightPacking: 0
     variantMultiplier: 1
-    packables:
-    - {fileID: 2800000, guid: d5e4bc85c67e6c44a99c2fd782702d9e, type: 3}
-    - {fileID: 2800000, guid: 0933f889778bb3c44b4aead29184c73f, type: 3}
-    - {fileID: 2800000, guid: 3625b79e11cbad9499c6eec84ffc7ac2, type: 3}
-    - {fileID: 2800000, guid: d070ad827030a4d409b55df5bf57e231, type: 3}
-    - {fileID: 2800000, guid: 49d27916a2019504d90d04ff59ee74a0, type: 3}
-    - {fileID: 2800000, guid: 9b3804e2071fa2447a78c9e044375ece, type: 3}
-    - {fileID: 2800000, guid: 9974619bf0f92dd45bfd9c6d3a616be5, type: 3}
-    - {fileID: 2800000, guid: 812f5784b5e677b4d9a1777c097a37c7, type: 3}
-    - {fileID: 2800000, guid: 8c5201fdb8c0b774290b503fed6c1c5e, type: 3}
-    - {fileID: 2800000, guid: f31e06fcdd287644893704e1f05995f6, type: 3}
-    - {fileID: 2800000, guid: 6ac5b347145a94a48a948ab1bae110fe, type: 3}
-    - {fileID: 2800000, guid: 2cfb6ced1d5d52b4d8b02355a0f04302, type: 3}
-    - {fileID: 2800000, guid: e0ae4a243fa048a469138c12ba1038d9, type: 3}
-    - {fileID: 2800000, guid: 365fab9aee703d34c98be6e23dfcd8aa, type: 3}
-    - {fileID: 2800000, guid: 0ef72f00ec53c1043b6c2ec92e947e1e, type: 3}
-    - {fileID: 2800000, guid: 07566acadcf6ffb449804eb1c162f6af, type: 3}
-    - {fileID: 2800000, guid: d2fd38e080b5a0749921be29fccbf244, type: 3}
-    - {fileID: 2800000, guid: 2d9cd3eede3b80340952fc6e86f1067c, type: 3}
-    - {fileID: 2800000, guid: af1bcc11c9037234ea1a7172529500e1, type: 3}
-    - {fileID: 2800000, guid: 0b8ea86a49f5ef5478a2b8738f02f4a1, type: 3}
+    packables: []
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
-  m_PackedSprites:
-  - {fileID: 21300000, guid: 0ef72f00ec53c1043b6c2ec92e947e1e, type: 3}
-  - {fileID: 21300000, guid: d2fd38e080b5a0749921be29fccbf244, type: 3}
-  - {fileID: 21300000, guid: af1bcc11c9037234ea1a7172529500e1, type: 3}
-  - {fileID: 21300000, guid: d070ad827030a4d409b55df5bf57e231, type: 3}
-  - {fileID: 21300000, guid: 9b3804e2071fa2447a78c9e044375ece, type: 3}
-  - {fileID: 21300000, guid: e0ae4a243fa048a469138c12ba1038d9, type: 3}
-  - {fileID: 21300000, guid: 812f5784b5e677b4d9a1777c097a37c7, type: 3}
-  - {fileID: 21300000, guid: d5e4bc85c67e6c44a99c2fd782702d9e, type: 3}
-  - {fileID: 21300000, guid: 49d27916a2019504d90d04ff59ee74a0, type: 3}
-  - {fileID: 21300000, guid: 6ac5b347145a94a48a948ab1bae110fe, type: 3}
-  - {fileID: 21300000, guid: 0933f889778bb3c44b4aead29184c73f, type: 3}
-  - {fileID: 21300000, guid: 0b8ea86a49f5ef5478a2b8738f02f4a1, type: 3}
-  - {fileID: 21300000, guid: 365fab9aee703d34c98be6e23dfcd8aa, type: 3}
-  - {fileID: 21300000, guid: 07566acadcf6ffb449804eb1c162f6af, type: 3}
-  - {fileID: 21300000, guid: 9974619bf0f92dd45bfd9c6d3a616be5, type: 3}
-  - {fileID: 21300000, guid: f31e06fcdd287644893704e1f05995f6, type: 3}
-  - {fileID: 21300000, guid: 2cfb6ced1d5d52b4d8b02355a0f04302, type: 3}
-  - {fileID: 21300000, guid: 8c5201fdb8c0b774290b503fed6c1c5e, type: 3}
-  - {fileID: 21300000, guid: 3625b79e11cbad9499c6eec84ffc7ac2, type: 3}
-  - {fileID: 21300000, guid: 2d9cd3eede3b80340952fc6e86f1067c, type: 3}
-  m_PackedSpriteNamesToIndex:
-  - Eye_Idle5
-  - Eye_Idle7
-  - Eye_Normal
-  - Body_Walk_Center
-  - Body_Walk_Left2
-  - Eye_Idle3
-  - Body_Walk_Right1
-  - Body_Crouch
-  - Body_Walk_Left1
-  - Eye_Idle1
-  - Body_Jump_Down
-  - Eye_Scan
-  - Eye_Idle4
-  - Eye_Idle6
-  - Body_Walk_Left3
-  - Body_Walk_Right3
-  - Eye_Idle2
-  - Body_Walk_Right2
-  - Body_Jump_Up
-  - Eye_Idle8
+  m_PackedSprites: []
+  m_PackedSpriteNamesToIndex: []
   m_Tag: Dummy
   m_IsVariant: 0

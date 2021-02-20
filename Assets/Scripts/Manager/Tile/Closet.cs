@@ -41,12 +41,15 @@ public class Closet : MonoBehaviour
     public void HitFlag()
     {
         StartShake();
+        inner.display.flagHit = true;
         //anim.SetTrigger(hashHitFlag);
-    } // End HitFlag()
+    }
+    //
     public void Flip()
     { // Trigger Enter Event
         anim.SetBool(hashFlip, true);
-    } // End Flip
+    }
+    //
     public void FlipInner()
     { // Flip Anim Keyframe Event
         if (inner == null)
