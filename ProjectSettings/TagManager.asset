@@ -46,6 +46,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: AirJumpPack
+    uniqueID: 4285967021
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

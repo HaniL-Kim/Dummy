@@ -10,25 +10,13 @@ public class Arm : MonoBehaviour
     //=======================================//
     // Components
     private SpriteRenderer sr;
-    private Material mat;
     //=======================================//
     // Child Object : JumpPack
     private AirJumpPack ajp;
     //=======================================//
-    private WaitForSeconds ws;
-    //=======================================//
-    // Dissolve
-    private readonly int hashDissolveAmount = Shader.PropertyToID("_DissolveAmount");
-    public float dissolveSpeed = 1.0f;
-    private float dissolveValue = 0;
-    // Dissolve
-    //=======================================//
     private void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
-        mat = GetComponent<Material>();
-        //
-        ws = new WaitForSeconds(0.1f);
     }
     //=======================================//
     private void Update()
@@ -49,54 +37,35 @@ public class Arm : MonoBehaviour
     //
     public void UseJumpPack()
     {
-        ajp.Use();
+        if(ajp != null)
+            ajp.Use();
     }
     //
     public void EquipJumpPack(bool b, AirJumpPack value = null)
     {
         if (b)
-            StartCoroutine(BeginJumpPack(value));
+            BeginJumpPack(value);
         else
-            StartCoroutine(EndJumpPack());
+            EndJumpPack();
     }
     //
-    private IEnumerator EndJumpPack()
+    private void EndJumpPack()
     {
-        yield return ws;
-        // Inactivate After
         dummy.SetJumpPackLayer(false);
         //
-        ajp.ResetAJP();
+        ajp.RemoveAJP();
+        //
         ajp = null;
     }
-    private IEnumerator BeginJumpPack(AirJumpPack value)
+    //
+    private void BeginJumpPack(AirJumpPack value)
     {
-        // Activate first
+        // Set Dummy Anim Layer
         dummy.SetJumpPackLayer(true);
-        //
+        // Set AirJumpPack Cach
         ajp = value;
-        //
-        ajp.Set(transform);
-        //
-        yield return null;
+        // Set To Child, Position, Activate, Shine Effect
+        ajp.Set(transform, sr.flipX);
     }
-    private IEnumerator DissolveEffect()
-    {
-        while (true)
-        {
-            mat.SetFloat(hashDissolveAmount, dissolveValue);
-            //
-            if (dissolveValue < 1.0f)
-            {
-                dissolveValue += Time.deltaTime * dissolveSpeed;
-                yield return null;
-            }
-            else
-            {
-                dissolveValue = 0.0f;
-                yield break;
-            }
-        }
-    }
-    //=======================================//
+    //
 }

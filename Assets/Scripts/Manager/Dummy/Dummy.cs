@@ -38,7 +38,7 @@ public class Dummy : MonoBehaviour
     //===============================//
     // Component //
     private Transform tf;
-    private SpriteRenderer rend;
+    private SpriteRenderer sr;
     [HideInInspector]
     public Animator anim;
     private Rigidbody2D rb;
@@ -92,7 +92,7 @@ public class Dummy : MonoBehaviour
     private void Start()
     {
         tf = GetComponent<Transform>();
-        rend = GetComponent<SpriteRenderer>();
+        sr = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<BoxCollider2D>();
@@ -222,17 +222,17 @@ public class Dummy : MonoBehaviour
         //
         if (state == ShieldEffect.ShieldState.ACTIVE)
         {
-            rend.material.SetColor(hashOutlineColorInner, shieldActiveColor);
-            rend.material.SetFloat(hashOutlineTK, shieldActiveThickness);
+            sr.material.SetColor(hashOutlineColorInner, shieldActiveColor);
+            sr.material.SetFloat(hashOutlineTK, shieldActiveThickness);
         }
         else if (state == ShieldEffect.ShieldState.NORMAL)
         {
-            rend.material.SetColor(hashOutlineColorInner, shieldNormalColor);
-            rend.material.SetFloat(hashOutlineTK, shieldNormalThickness);
+            sr.material.SetColor(hashOutlineColorInner, shieldNormalColor);
+            sr.material.SetFloat(hashOutlineTK, shieldNormalThickness);
         }
         else // if (state == ShieldEffect.ShieldState.NONE)
         {
-            rend.material.SetFloat(hashOutlineTK, 0);
+            sr.material.SetFloat(hashOutlineTK, 0);
         }
         //EffectManager.instance.SetBloom(value);
     }
@@ -263,7 +263,7 @@ public class Dummy : MonoBehaviour
     //
     private void Flips(bool value)
     {
-        rend.flipX = value;
+        sr.flipX = value;
         eye.FlipX(value);
         arm.FlipX(value);
     }
@@ -350,12 +350,6 @@ public class Dummy : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            if (UIManager.instance.UseRSC(scanCost) == false)
-            {
-                NoRSC();
-                return;
-            }
-            //
             Transform tf1 = GameManager.instance.GetTileTransformOnMouse();
             if (tf1 != null)
             {
@@ -377,9 +371,14 @@ public class Dummy : MonoBehaviour
             //
             if (target == tileHolding)
             {
+                if (UIManager.instance.UseRSC(scanCost) == false)
+                {
+                    NoRSC();
+                    return;
+                }
+                //
                 usingSkill = true;
                 eye.PlayEyeSkillAnim();
-                //Outline(true);
                 //
                 target.GetComponent<Closet>().Flip();
                 //
