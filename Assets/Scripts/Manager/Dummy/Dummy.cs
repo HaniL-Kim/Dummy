@@ -220,6 +220,30 @@ public class Dummy : MonoBehaviour
     {
         shieldState = state;
         //
+        switch (state)
+        {
+            case ShieldEffect.ShieldState.NONE:
+                {
+                    foreach (var ol in GetComponentsInChildren<Outline>())
+                        ol.SetOutline(shieldNormalColor, 0);
+                }
+                break;
+            case ShieldEffect.ShieldState.NORMAL:
+                {
+                    foreach (var ol in GetComponentsInChildren<Outline>())
+                        ol.SetOutline(shieldNormalColor, shieldNormalThickness);
+                }
+                break;
+            case ShieldEffect.ShieldState.ACTIVE:
+                {
+                    foreach (var ol in GetComponentsInChildren<Outline>())
+                        ol.SetOutline(shieldActiveColor, shieldActiveThickness);
+                }
+                break;
+            default:
+                break;
+        }
+        /*
         if (state == ShieldEffect.ShieldState.ACTIVE)
         {
             sr.material.SetColor(hashOutlineColorInner, shieldActiveColor);
@@ -235,6 +259,7 @@ public class Dummy : MonoBehaviour
             sr.material.SetFloat(hashOutlineTK, 0);
         }
         //EffectManager.instance.SetBloom(value);
+        */
     }
     //=========================================//
     public void SetJumpPackLayer(bool value)
@@ -305,11 +330,16 @@ public class Dummy : MonoBehaviour
             else
             { // Land Jump
                 anim.SetBool(isDowningHash, false);
-                rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+                //
                 if (isJump)
+                {
+                    rb.velocity = Vector3.zero;
                     AirJump();
+                }
                 else
                     anim.SetTrigger(landJumpHash);
+                //
+                rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             }
         }
     }
@@ -317,6 +347,7 @@ public class Dummy : MonoBehaviour
     private void AirJump()
     {
         anim.SetTrigger(airJumpHash);
+        //
         UIManager.instance.UseAirJump();
         //
         arm.UseJumpPack();

@@ -11,7 +11,7 @@ public class ThunderBody : MonoBehaviour
     private Transform tf;
     private SpriteRenderer sr;
     private Animator anim;
-    private BoxCollider2D col;
+    public BoxCollider2D col;
     //=====================================//
     private readonly int hashBodyExplode =
         Animator.StringToHash("ThunderExplode");

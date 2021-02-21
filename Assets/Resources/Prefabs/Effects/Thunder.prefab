@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thunder: {fileID: 0}
+  col: {fileID: 0}
 --- !u!212 &7354889366187417444
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -191,7 +192,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vSpeed: 70.5
   hSpeed: 25
-  thunderWaitingFrame: 10
+  thunderWaitingFrame: 60
   ready_U: 0
   ready_D: 0
   isExplode: 0

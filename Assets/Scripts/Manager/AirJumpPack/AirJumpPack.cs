@@ -91,6 +91,7 @@ public class AirJumpPack : MonoBehaviour
     public void ResetAJP()
     {
         transform.SetParent(ItemManager.instance.jumpPackHolder);
+        GetComponentInChildren<Outline>().outline.gameObject.SetActive(true);
         gameObject.SetActive(false);
     }
     //
@@ -116,6 +117,8 @@ public class AirJumpPack : MonoBehaviour
     //=======================================//
     private IEnumerator DissolveEffect()
     {
+        GetComponentInChildren<Outline>().outline.gameObject.SetActive(false);
+        //
         while (true)
         {
             if (dissolveValue < 1.0f)

@@ -25,11 +25,12 @@ public struct DisplayTexture
 //==================// //==================//
 public class GameManager : MonoBehaviour
 {
+    //====================================//
     public static GameManager instance;
-    //
+    //====================================//
     public Transform player;
     public ElecShooterController elecShooter;
-    //
+    //====================================//
     public DisplayTexture[] mineIcons;
     public DisplayTexture[] numIcons;
     //====================================//
@@ -38,8 +39,13 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public int concreteLayer;
     [HideInInspector] public int closetLayer;
     [HideInInspector] public int innerLayer;
-    //
+    //====================================//
     public List<Vector3> dirs = new List<Vector3>();
+    //====================================//
+    KeyCode[] controlKeyCodes = new KeyCode[] {
+        KeyCode.W, KeyCode.S, KeyCode.A, KeyCode.D,
+        KeyCode.Mouse0, KeyCode.Mouse1, KeyCode.Space
+    };
     //====================================//
     private void Awake()
     {
@@ -56,8 +62,12 @@ public class GameManager : MonoBehaviour
     //====================================//
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F1))
-            elecShooter.isElevate = true;
+        if (elecShooter.isElevate == false)
+            for (int i = 0; i < controlKeyCodes.Length; ++i)
+                if (Input.GetKeyDown(controlKeyCodes[i]))
+                    elecShooter.isElevate = true;
+        //if (Input.GetKeyDown(KeyCode.F1))
+        //  elecShooter.isElevate = true;
         //if (Input.GetKeyDown(KeyCode.F2))
         //    SoundManager.instance.PlayBGM(SoundKey.BGM);
     }
@@ -67,6 +77,11 @@ public class GameManager : MonoBehaviour
         float dist = dirs[dir].magnitude;
         RaycastHit2D hit = Physics2D.Raycast(tf.position, dirs[dir], dist, layer);
         return hit;
+    }
+    //====================================//
+    public void StartGame()
+    {
+        player.gameObject.SetActive(true);
     }
     //====================================//
     private void SetDirs()

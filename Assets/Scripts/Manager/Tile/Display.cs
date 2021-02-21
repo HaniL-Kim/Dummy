@@ -103,7 +103,7 @@ public class Display : MonoBehaviour
             //
             anim.enabled = false;
             //
-            MineController.instance.ActivateMine(inner.mineType, transform);
+            MineController.instance.ActivateMine(inner);
         }
     }
 }

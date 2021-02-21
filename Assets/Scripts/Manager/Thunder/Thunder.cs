@@ -99,6 +99,17 @@ public class Thunder : MonoBehaviour
     //
     private IEnumerator ThunderExplode()
     {
+        // Flip Tiles In Hard Mode
+        Collider2D[] closets = Physics2D.OverlapBoxAll(
+            transform.position, tb.col.size, 0, GameManager.instance.closetLayer);
+        if(closets.Length != 0)
+        {
+            foreach (var item in closets)
+            {
+                item.GetComponent<Closet>().Flip();
+            }
+        }
+        //
         yield return ws;
         //
         isExplode = true;

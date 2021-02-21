@@ -30,22 +30,55 @@ public class Inner : MonoBehaviour
         footBoard = transform.GetChild(1).gameObject;
     } // End Start
     //=============================================//
-    private void FlipCloset()
+    public Floor GetFloor()
+    {
+        Transform floorTF = transform.parent.parent;
+        Transform stageTF = floorTF.parent;
+        //
+        int floorNum = floorTF.name[0] - '0';
+        int stageNum = stageTF.name[0] - '0';
+        //
+        Floor floor = Map.instance.GetFloor(stageNum, floorNum);
+        //
+        return floor;
+    }
+    //=============================================//
+    public void FlipCloset()
     {
         closet.Flip();
     }
-    private void FlipArround()
+    //
+    public void FlipSides()
     {
         foreach (Inner temp in arroundInners)
         {
-            temp.FlipCloset();
+            float distY = Mathf.Abs(temp.transform.position.y - transform.position.y);
+            if (distY < 0.1f)
+                temp.FlipCloset();
         }
-    } // End FlipArround()
+    }
+    //
+    public void FlipArround(bool isSafe = true)
+    {
+        foreach (Inner temp in arroundInners)
+        {
+            if (isSafe)
+            { // Call From DangerCount 0
+                if (temp.isDanger == false)
+                    temp.FlipCloset();
+            }
+            else
+            { // Call From HardMode Mine
+                temp.FlipCloset();
+            }
+        }
+    }
+    //
     public void Flip()
     {
         anim.SetBool("Flip", true);
         //
-        if (dangerCount == 0)
+        if (dangerCount == 0 && isDanger == false)
             FlipArround();
     }
     //
@@ -60,27 +93,7 @@ public class Inner : MonoBehaviour
         if (display.flagHit == true)
             return;
         //
-        switch (mineType)
-        {
-            case MineTypes.NONE:
-                break;
-            case MineTypes.PULL:
-                EffectManager.instance.Play("Pull", transform);
-                break;
-            case MineTypes.PUSH:
-                EffectManager.instance.Play("Push", transform);
-                break;
-            case MineTypes.NARROWING:
-                break;
-            case MineTypes.CRASH:
-                break;
-            case MineTypes.GHOST:
-                break;
-            case MineTypes.THUNDER:
-                break;
-            default:
-                break;
-        }
+        MineController.instance.BeginAlert(mineType, this);
     } // End ShowDisplay()
 
     //=============================================//
@@ -111,15 +124,17 @@ public class Inner : MonoBehaviour
 
             if (hit)
             {
+                arroundInners.Add(hit.collider.GetComponent<Inner>());
+                //
                 if (hit.collider.GetComponent<Inner>().isDanger == true)
                     ++dangerCount;
-                else
-                    arroundInners.Add(hit.collider.GetComponent<Inner>());
+                //else
             }
         }
         SetNumber(dangerCount);
         GetComponent<CircleCollider2D>().enabled = true;
     } // End CheckArround()
+    //
 
     //private void OnDrawGizmos()
     //{

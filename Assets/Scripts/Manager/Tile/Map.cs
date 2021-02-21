@@ -117,13 +117,12 @@ public class Map : MonoBehaviour
     {
         SetPrefabs();
         //
-        float posY = 30.0f;
+        //float posY = 30.0f;
+        float posY = 0.0f;
         //
-        //CreateBlock("ReadyBlock", 2, posY, out readyBlock);
         CreateBlock("ReadyBlock", 2, posY);
         posY += 47 * 2;
         //
-        //CreateBlock("1_Stage", 10, posY, out stage1);
         CreateBlock("1_Stage", 10, posY);
         SetConcreteInside(blocks[1]);
         SetMine(blocks[1]);
@@ -134,6 +133,8 @@ public class Map : MonoBehaviour
     {
         SetArroundMineInfo(blocks[0]);
         SetArroundMineInfo(blocks[1]);
+        //
+        GameManager.instance.StartGame();
     }
 
     private void CreateBlock(string blockName,
@@ -253,8 +254,8 @@ public class Map : MonoBehaviour
             for (int x = 0; x < tileCount; ++x)
             {
                 Inner inner = stage.GetFloor(y).tiles[x].GetComponent<Tile>().inner;
-                if (inner.isDanger == true)
-                    continue;
+                //if (inner.isDanger == true)
+                //    continue;
                 inner.CheckArround();
             }
         }

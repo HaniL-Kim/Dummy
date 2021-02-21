@@ -7,6 +7,9 @@ public class MineController : MonoBehaviour
     //=========================================//
     public static MineController instance;
     //=========================================//
+    public enum Difficulty { NORMAL, HARD, IMPOSSIBLE }
+    public Difficulty difficulty = Difficulty.NORMAL;
+    //=========================================//
     public float crashTime = 1.0f;
     public float crashWaitTime = 0.5f;
     WaitForSeconds cwt;
@@ -93,9 +96,10 @@ public class MineController : MonoBehaviour
         }
     }
     //=========================================//
-       private void SetCrashMine(Transform tf)
+       private void SetCrashMine(Inner inner)
     {
         //Debug.Log("Crash At " + tf.position);
+        /*
         Transform floorTF = tf.parent.parent.parent;
         Transform stageTF = floorTF.parent;
         //
@@ -103,6 +107,10 @@ public class MineController : MonoBehaviour
         int stageNum = stageTF.name[0] - '0';
         //
         Floor floor = Map.instance.GetFloor(stageNum, floorNum);
+        */
+        Floor floor = inner.GetFloor();
+        Transform tf = inner.transform;
+
         //
         Transform concA = floor.concreteTiles[2].transform;
         bool isRight = (concA.position.x - tf.position.x) > 0;
@@ -192,9 +200,7 @@ public class MineController : MonoBehaviour
             else
             {
                 t += Time.deltaTime;
-                //aA += 1.0f * Time.deltaTime;
-                //aB += 1.0f * Time.deltaTime;
-                ////
+                //
                 vA += aA * Time.deltaTime;
                 vB += aB * Time.deltaTime;
                 //
@@ -244,27 +250,70 @@ public class MineController : MonoBehaviour
         }
     }
     //=========================================//
-    public void ActivateMine(MineTypes type, Transform tf = null)
+    public void BeginAlert(MineTypes type, Inner inner)
     {
         switch (type)
         {
             case MineTypes.NONE:
                 break;
             case MineTypes.PULL:
+                {
+                    if (difficulty == Difficulty.HARD || difficulty == Difficulty.IMPOSSIBLE)
+                        inner.FlipSides();
+                    //
+                    EffectManager.instance.Play("Pull", inner.transform);
+                }
+                break;
             case MineTypes.PUSH:
-                SetExplosion(type, tf);
+                {
+                    if (difficulty == Difficulty.HARD || difficulty == Difficulty.IMPOSSIBLE)
+                        inner.FlipArround(false);
+                    //
+                    EffectManager.instance.Play("Push", inner.transform);
+                }
+                break;
+            case MineTypes.NARROWING:
+                break;
+            case MineTypes.CRASH:
+                {
+                    if (difficulty == Difficulty.HARD || difficulty == Difficulty.IMPOSSIBLE)
+                    {
+                        Floor floor = inner.GetComponent<Inner>().GetFloor();
+                        foreach (GameObject item in floor.tiles)
+                            item.GetComponent<Tile>().closet.Flip();
+                    }
+                }
+                break;
+            case MineTypes.GHOST:
+                break;
+            case MineTypes.THUNDER:
+                break;
+            default:
+                break;
+        }
+    }
+    //
+    public void ActivateMine(Inner inner)
+    {
+        switch (inner.mineType)
+        {
+            case MineTypes.NONE:
+                break;
+            case MineTypes.PULL:
+            case MineTypes.PUSH:
+                SetExplosion(inner.mineType, inner.transform);
                 break;
             case MineTypes.NARROWING:
                 GameManager.instance.elecShooter.UpLevel();
                 break;
             case MineTypes.CRASH:
-                SetCrashMine(tf);
+                SetCrashMine(inner);
                 break;
             case MineTypes.GHOST:
-                ActivateGhost(tf);
+                ActivateGhost(inner.transform);
                 break;
             case MineTypes.THUNDER:
-                EffectManager.instance.Play("Thunder", tf);
+                EffectManager.instance.Play("Thunder", inner.transform);
                 break;
             default:
                 break;

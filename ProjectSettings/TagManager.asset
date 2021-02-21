@@ -46,6 +46,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Tile
+    uniqueID: 2441944405
+    locked: 0
   - name: AirJumpPack
     uniqueID: 4285967021
     locked: 0

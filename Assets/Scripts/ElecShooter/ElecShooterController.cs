@@ -8,6 +8,9 @@ public class ElecShooterController : MonoBehaviour
     public enum NarrowLevel
     { NONE, ONE, TWO, THREE }
     //==========================================//
+    public const float floorHeight = 47.0f;
+    public const float levelHeight = 40.0f;
+    //
     public GameObject Up;
     public GameObject Down;
     //
@@ -142,8 +145,10 @@ public class ElecShooterController : MonoBehaviour
         Vector3 up_lp, up_target, up_dir, up_dirN, up_pos;
         Vector3 down_lp, down_target, down_dir, down_dirN, down_pos;
         //
-        float up_target_y = 470.0f - (float)level * 47.0f;
-        float down_target_y = 000.0f + (float)level * 47.0f;
+        float up_target_y = 186.0f - (float)level * levelHeight;
+        float down_target_y = -186.0f + (float)level * levelHeight;
+        //float up_target_y = 470.0f - (float)level * 47.0f;
+        //float down_target_y = 000.0f + (float)level * 47.0f;
         //
         {
             up_lp = Up.transform.localPosition;
