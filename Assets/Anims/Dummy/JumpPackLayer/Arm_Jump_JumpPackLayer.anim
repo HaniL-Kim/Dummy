@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: jump_JumpPackLayer
+  m_Name: Arm_Jump_JumpPackLayer
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0

@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Falling
+  m_Name: Arm_DownNFall_JumpPackLayer
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,16 +20,9 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 21300000, guid: 516ec3234a20204488ab5d1999d05bb4, type: 3}
+      value: {fileID: 21300000, guid: cf0e522d38041934e9d00b20bcf40f69, type: 3}
     - time: 0.75
-      value: {fileID: 21300000, guid: 516ec3234a20204488ab5d1999d05bb4, type: 3}
-    attribute: m_Sprite
-    path: 
-    classID: 212
-    script: {fileID: 0}
-  - curve:
-    - time: 0
-      value: {fileID: 21300000, guid: 29319d4bde84dfe4fafc2c986b67f09b, type: 3}
+      value: {fileID: 21300000, guid: cf0e522d38041934e9d00b20bcf40f69, type: 3}
     attribute: m_Sprite
     path: Arm
     classID: 212
@@ -42,13 +35,6 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 0
-      attribute: 0
-      script: {fileID: 0}
-      typeID: 212
-      customType: 23
-      isPPtrCurve: 1
-    - serializedVersion: 2
       path: 2685614196
       attribute: 0
       script: {fileID: 0}
@@ -56,9 +42,8 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 21300000, guid: 516ec3234a20204488ab5d1999d05bb4, type: 3}
-    - {fileID: 21300000, guid: 516ec3234a20204488ab5d1999d05bb4, type: 3}
-    - {fileID: 21300000, guid: 29319d4bde84dfe4fafc2c986b67f09b, type: 3}
+    - {fileID: 21300000, guid: cf0e522d38041934e9d00b20bcf40f69, type: 3}
+    - {fileID: 21300000, guid: cf0e522d38041934e9d00b20bcf40f69, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

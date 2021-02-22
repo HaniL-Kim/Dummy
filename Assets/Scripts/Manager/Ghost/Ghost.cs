@@ -213,7 +213,10 @@ public class Ghost : MonoBehaviour
                             Dead();
                             break;
                         case ShieldEffect.ShieldState.NORMAL:
-                            d.ActiveShield();
+                            {
+                                d.ActiveShield();
+                                Dead();
+                            }
                             break;
                         case ShieldEffect.ShieldState.ACTIVE:
                             break;
