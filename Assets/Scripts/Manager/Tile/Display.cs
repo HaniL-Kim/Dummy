@@ -12,6 +12,9 @@ public class Display : MonoBehaviour
     //==================================//
     public bool flagHit = false;
     //==================================//
+    int type = 0;
+    bool danger = false;
+    //==================================//
     private Animator anim;
     private SpriteRenderer sr;
     //==================================//
@@ -31,6 +34,13 @@ public class Display : MonoBehaviour
         playCount = 5;
         anim.SetInteger(hashPlayCount, playCount);
     }
+    //
+    private void OnEnable()
+    {
+        anim.SetBool(hashIsDanger, danger);
+        anim.SetFloat(hashMineType, type);
+        anim.SetInteger(hashPlayCount, playCount);
+    }
     //==================================//
     // Anim Frame Event
     public void SetItem()
@@ -48,12 +58,15 @@ public class Display : MonoBehaviour
     {
         sr.sprite = GameManager.instance.numIcons[type].texture;
     }
-    public void SetDanger(bool danger, int type)
+    public void SetDanger(bool _danger, int _type)
     {
+        danger = _danger;
+        type = _type;
+        //
         sr.sprite = GameManager.instance.mineIcons[type].texture;
         //
         anim.SetBool(hashIsDanger, danger);
-        anim.SetFloat(hashMineType, type);
+        anim.SetFloat(hashMineType, (float)type);
         //
         switch ((MineTypes)type)
         {

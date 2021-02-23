@@ -202,6 +202,7 @@ public class Map : MonoBehaviour
             SetMine(blocks[i + 1], sd);
             blockPosY += MyUtility.cFloorHeight * blockfloorCount;
         }
+        //
         Invoke("SetMineInfo", 0.1f);
     }
     ///////////////////////////////////////
@@ -212,7 +213,7 @@ public class Map : MonoBehaviour
         // Active only ready_block & 1_block
         for (int i = 2; i < blocks.Count; ++i)
             blocks[i].block.SetActive(false);
-        //
+
         GameManager.instance.StartGame();
     }
     ///////////////////////////////////////
@@ -288,26 +289,26 @@ public class Map : MonoBehaviour
     private void SetMine(Block stage, StageData sd = null)
     {
         int[] mineArr;
-        if (sd == null)
-        {
-            mineArr = new int[10];
-            { // For Debug
-                int idx = 0;
-                // Set MineArr From List
-                int i = 0; // MineNumber
-                foreach (var data in mineCounts)
-                {
-                    int count = data.Value;
-                    for (int j = 0; j < count; ++j)
-                    {
-                        mineArr[idx++] = i;
-                    }
-                    // next MineNumber
-                    ++i;
-                }
-            }
-        }
-        else
+        //if (sd == null)
+        //{
+        //    mineArr = new int[10];
+        //    { // For Debug
+        //        int idx = 0;
+        //        // Set MineArr From List
+        //        int i = 0; // MineNumber
+        //        foreach (var data in mineCounts)
+        //        {
+        //            int count = data.Value;
+        //            for (int j = 0; j < count; ++j)
+        //            {
+        //                mineArr[idx++] = i;
+        //            }
+        //            // next MineNumber
+        //            ++i;
+        //        }
+        //    }
+        //}
+        //else
         { // Crate Mine Array
             // 4, 4, 5, 5, 5 / 1(crash)
             int[] mines = { sd.pull, sd.push, sd.ghost, sd.thunder, sd.narrow };

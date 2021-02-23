@@ -16,7 +16,7 @@ public class Inner : MonoBehaviour
     public Animator anim;
     //=============================================//
     public Display display;
-    private GameObject footBoard;
+    public GameObject footBoard;
     //
     private readonly int hashInnerIsDanger
         = Animator.StringToHash("InnerIsDanger");
@@ -25,13 +25,12 @@ public class Inner : MonoBehaviour
     private void Awake()
     {
         mineType = MineTypes.NONE;
-        //anim = GetComponent<Animator>();
-        //
-        //display = transform.GetChild(0).GetComponent<Display>();
-        display.inner = this;
-        //
-        footBoard = transform.GetChild(1).gameObject;
     } // End Start
+    //
+    private void OnEnable()
+    {
+        anim.SetBool(hashInnerIsDanger, isDanger);
+    }
     //=============================================//
     public Floor GetFloor()
     {
@@ -102,6 +101,7 @@ public class Inner : MonoBehaviour
     //=============================================//
     public void SetDanger(int value)
     { // value : 0 ~ 5
+        //GameManager.instance.Loading(); // MineCount
         mineType = (MineTypes)(value);
         //
         isDanger = true;

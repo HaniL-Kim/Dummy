@@ -47,6 +47,8 @@ public class GameManager : MonoBehaviour
         KeyCode.Mouse0, KeyCode.Mouse1, KeyCode.Space
     };
     //====================================//
+    public int mineCount = 0;
+    //====================================//
     private void Awake()
     {
         instance = this;
@@ -74,6 +76,20 @@ public class GameManager : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(tf.position, dirs[dir], dist, layer);
         return hit;
     }
+    //====================================//
+    //public void Loading()
+    //{
+    //    ++mineCount;
+    //    Debug.Log(mineCount);
+    //    if(mineCount == 240)
+    //    {
+    //        // Active only ready_block & 1_block
+    //        for (int i = 2; i < Map.instance.blocks.Count; ++i)
+    //            Map.instance.blocks[i].block.SetActive(false);
+
+    //        StartGame();
+    //    }
+    //}
     //====================================//
     public void StartGame()
     {

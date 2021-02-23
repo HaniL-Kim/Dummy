@@ -206,6 +206,7 @@ MonoBehaviour:
   arroundInners: []
   anim: {fileID: 6000934991618846781}
   display: {fileID: 5776773111809686728}
+  footBoard: {fileID: 943786390806261177}
 --- !u!212 &943786389988425309
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -626,7 +627,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f8ebb5fa26662c498e76f97fa0a6693, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inner: {fileID: 0}
+  inner: {fileID: 4692979696888085268}
   playCount: 0
   flagHit: 0
 --- !u!212 &2861845634397103259
