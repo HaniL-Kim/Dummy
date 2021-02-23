@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using RotaryHeart.Lib.SerializableDictionary;
+//using RotaryHeart.Lib.SerializableDictionary;
 
 //=============================================//
-[System.Serializable]
-public class StringInt : SerializableDictionaryBase<string, int> {}
+//[System.Serializable]
+//public class StringInt : SerializableDictionaryBase<string, int> {}
+//[System.Serializable]
+//public class StringObject : SerializableDictionaryBase<string, object> {}
 //=============================================//
 [System.Serializable]
 public struct Floor
@@ -81,66 +83,140 @@ public class Map : MonoBehaviour
     public GameObject concretePrefab;
     //
     public List<Block> blocks = new List<Block>();
-    //public Block readyBlock;
-    //public Block stage1;
     //
     public float blockStartPos;
+    //=============================================//
+    public DicStageData stageData = new DicStageData();
     //=============================================//
     private void Awake()
     {
         instance = this;
     }
-    //
+    ///////////////////////////////////////
     private void Start()
     {
-        CreateStage();
-    } // End Start()
+        ReadStageData();
+        //CreateStage("IMPOSSIBLE", 6);
+        CreateStage("HARD", 6);
+    }
     //=============================================//
-    private void Update()
+    public void ReadStageData()
     {
-        //if (Input.GetKeyDown(KeyCode.F1))
-        //    SetArroundMineInfo(blocks[1]);
+        List<StringString> ss = CSVReader.Read("MapData/StageData");
+        //
+        string[] diffs = { "NORMAL", "HARD", "IMPOSSIBLE" };
+        for (int i = 0; i < diffs.Length; ++i)
+            stageData.Add(diffs[i], new IntStageData());
+        //
+        foreach (var data in ss)
+        {
+            StageData sd = new StageData();
+            //
+            string difficulty = data["Difficulty"];
+            int stage = int.Parse(data["Stage"]);
+            //
+            sd.blocks = int.Parse(data["Blocks"]);
+            sd.unit = int.Parse(data["Unit"]);
+            //
+            sd.pull = int.Parse(data["Pull"]);
+            sd.push = int.Parse(data["Push"]);
+            sd.ghost = int.Parse(data["Ghost"]);
+            sd.thunder = int.Parse(data["Thunder"]);
+            sd.narrow = int.Parse(data["Narrow"]);
+            sd.crash = int.Parse(data["Crash"]);
+            //
+            stageData[difficulty][stage] = sd;
+        }
+    }
+    //=============================================//
+    // For Debug
+    public void FlipAllMine()
+    {
+        for (int i = 0; i < blocks.Count; ++i)
+        {
+            Block b = blocks[i];
+            for (int j = 0; j < b.floors.Count; ++j)
+            {
+                Floor f = b.floors[j];
+                for (int k = 0; k < f.tiles.Count; ++k)
+                {
+                    Inner inner = f.tiles[k].GetComponent<Tile>().inner;
+                    if (inner.isDanger == true)
+                        inner.closet.Flip();
+                }
+            }
+        }
+    }
+    //
+    public void SetMineColor(Color c)
+    {
+        for (int i = 0; i < blocks.Count; ++i)
+        {
+            Block b = blocks[i];
+            for (int j = 0; j < b.floors.Count; ++j)
+            {
+                Floor f = b.floors[j];
+                for (int k = 0; k < f.tiles.Count; ++k)
+                {
+                    Inner inner = f.tiles[k].GetComponent<Tile>().inner;
+                    if(inner.isDanger == true)
+                        inner.closet.GetComponent<SpriteRenderer>().color = c;
+                }
+            }
+        }
     }
     //=============================================//
     public Floor GetFloor(int stage, int floor)
     {
         return blocks[stage].GetFloor(floor);
     }
-    //
-    private void SetPrefabs()
+    ///////////////////////////////////////
+    private void LoadTilePrefabs()
     {
         tilePrefab = Resources.Load<GameObject>("Prefabs/Tiles/Tile");
         concretePrefab = Resources.Load<GameObject>("Prefabs/Tiles/Concrete");
-    } // End SetPrefabs()
-
-    private void CreateStage()
+    }
+    ///////////////////////////////////////
+    private void CreateStage(string diff, int lv)
     {
-        SetPrefabs();
+        LoadTilePrefabs();
         //
-        //float posY = 30.0f;
-        float posY = 0.0f;
+        StageData sd = stageData[diff][lv];
         //
-        CreateBlock("ReadyBlock", 2, posY);
-        posY += 47 * 2;
+        MineController.instance.SetDifficulty(diff);
+        GameManager.instance.elecShooter.superViser.SetUnit(sd.unit);
         //
-        CreateBlock("1_Stage", 10, posY);
-        SetConcreteInside(blocks[1]);
-        SetMine(blocks[1]);
+        float blockPosY = 0.0f;
+        //
+        int readyBlockfloorCount = 2;
+            CreateBlock("ReadyBlock", readyBlockfloorCount, blockPosY);
+        blockPosY += MyUtility.cFloorHeight * 2.0f;
+        //
+        int blockfloorCount = 10;
+        for (int i = 0; i < sd.blocks; ++i)
+        {
+            string blockName = (i + 1).ToString() + "_block";
+            CreateBlock(blockName, blockfloorCount, blockPosY);
+            //
+            SetConcreteInside(blocks[i + 1]);
+            SetMine(blocks[i + 1], sd);
+            blockPosY += MyUtility.cFloorHeight * blockfloorCount;
+        }
         Invoke("SetMineInfo", 0.1f);
-    } // End CreateStage()
-
+    }
+    ///////////////////////////////////////
     private void SetMineInfo()
     {
-        SetArroundMineInfo(blocks[0]);
-        SetArroundMineInfo(blocks[1]);
+        for(int i = 0; i < blocks.Count; ++i)
+            SetArroundMineInfo(blocks[i]);
+        // Active only ready_block & 1_block
+        for (int i = 2; i < blocks.Count; ++i)
+            blocks[i].block.SetActive(false);
         //
         GameManager.instance.StartGame();
     }
-
-    private void CreateBlock(string blockName,
-        int floorCount, float posY)
-    //private void CreateBlock(string blockName,
-    //    int floorCount, float posY, out Block _block)
+    ///////////////////////////////////////
+    private void CreateBlock(string blockName, int floorCount, float posY)
     {
         Block _block = new Block(blockName, floorCount);
         _block.block.transform.parent = transform;
@@ -150,7 +226,6 @@ public class Map : MonoBehaviour
         float tileWidth = 64;
         for (int y = 0; y < floorCount; ++y)
         {
-            // SetFloorPos (x : 0<->32 / y : +47)
             float fPosX = ((y % 2 == 0) ? 0 : 32);
             Vector3 floorPos = new Vector3(fPosX, 47 * y, 1);
             _block.GetFloor(y).SetPos(floorPos);
@@ -165,9 +240,13 @@ public class Map : MonoBehaviour
             }
         }
         //
+        BlockControl bc = _block.block.AddComponent<BlockControl>();
+        bc.tf_bottom = _block.GetFloor(0).floor.transform;
+        bc.tf_top = _block.GetFloor(floorCount - 1).floor.transform;
+        //
         blocks.Add(_block);
-    } // End CreateBlock()
-
+    }
+    ///////////////////////////////////////
     void CreateTile(int xOrder, int floorIdx, Vector3 pos, GameObject prefab, Block _block)
     {
         GameObject tile = Instantiate(prefab, _block.GetFloor(floorIdx).floor.transform);
@@ -184,8 +263,8 @@ public class Map : MonoBehaviour
             tile.transform.Translate(Vector3.back);
             _block.GetFloor(floorIdx).concreteTiles.Add(tile);
         }
-    } // End CreateTile()
-
+    }
+    ///////////////////////////////////////
     private void SetConcreteInside(Block stage)
     {
         for(int y = 0; y < stage.floors.Count; ++y)
@@ -199,52 +278,115 @@ public class Map : MonoBehaviour
             concrete.transform.localPosition = pos;
             concrete.transform.Translate(Vector3.back);
             concrete.name = (randIdx + 1) + "_Concrete";
-            // Debug Color
+            // For Debug
             concrete.GetComponent<SpriteRenderer>().color = Color.green;
             //
             stage.GetFloor(y).concreteTiles.Add(concrete);
         }
-    } // End SetConcreteInside()
-
-    private void SetMine(Block stage)
+    }
+    ///////////////////////////////////////
+    private void SetMine(Block stage, StageData sd = null)
     {
-        int[] mineArr = new int[10];
+        int[] mineArr;
+        if (sd == null)
         {
-            int idx = 0;
-            // Set MineArr From List
-            int i = 0; // MineNumber
-            foreach (var data in mineCounts)
-            {
-                int count = data.Value;
-                for (int j = 0; j < count; ++j)
+            mineArr = new int[10];
+            { // For Debug
+                int idx = 0;
+                // Set MineArr From List
+                int i = 0; // MineNumber
+                foreach (var data in mineCounts)
                 {
-                    mineArr[idx++] = i;
+                    int count = data.Value;
+                    for (int j = 0; j < count; ++j)
+                    {
+                        mineArr[idx++] = i;
+                    }
+                    // next MineNumber
+                    ++i;
                 }
-                // next MineNumber
-                ++i;
             }
-            // Shuffle Arr
-            MyUtility.ShuffleArray(mineArr);
+        }
+        else
+        { // Crate Mine Array
+            // 4, 4, 5, 5, 5 / 1(crash)
+            int[] mines = { sd.pull, sd.push, sd.ghost, sd.thunder, sd.narrow };
+            //
+            int totalCount = 0;
+            for(int i = 0; i < mines.Length; ++i)
+                totalCount += mines[i];
+            //
+            mineArr = new int[totalCount];
+            int idx = 0;
+            for(int i = 0; i < mines.Length; ++i)
+            {
+                for (int j = 0; j < mines[i]; ++j)
+                    mineArr[idx++] = i;
+            }
+        }
+        int floorCount = stage.floors.Count, tileCount = stage.GetFloor(0).tiles.Count;
+        // Set Crash Mine First
+        if (sd.crash > 0)
+        {
+            Tile t;
+            int randTileIdx = 0;
+            //
+            if (sd.crash == 1)
+            {
+                int randFloor = Random.Range(0, floorCount); // 0 ~ 9
+                randTileIdx = Random.Range(0, tileCount);
+                t = stage.GetFloor(randFloor).tiles[randTileIdx].GetComponent<Tile>();
+                t.inner.SetDanger((int)MineTypes.CRASH);
+            }
+            if (sd.crash == 2)
+            {
+                int oddFloor = (Random.Range(0, floorCount / 2) * 2) + 0; // 0, 2, 4, 6, 8
+                int eveFloor = (Random.Range(0, floorCount / 2) * 2) + 1; // 1, 3, 5, 7, 9
+                                                                          //
+                randTileIdx = Random.Range(0, 6);
+                t = stage.GetFloor(oddFloor).tiles[randTileIdx].GetComponent<Tile>();
+                t.inner.SetDanger(5);
+                //
+                randTileIdx = Random.Range(0, 6);
+                t = stage.GetFloor(eveFloor).tiles[randTileIdx].GetComponent<Tile>();
+                t.inner.SetDanger(5);
+            }
         }
         //
+
+        // Get All Tiles
+        List<Tile> allTiles = new List<Tile>();
+        for (int i = 0; i < floorCount; ++i)
+        {
+            for (int j = 0; j < tileCount; ++j)
+            {
+                Tile t = stage.GetFloor(i).tiles[j].GetComponent<Tile>();
+                // pass crash mine
+                if (t.inner.isDanger == true)
+                    continue;
+                //
+                allTiles.Add(t);
+            }
+        }
+        // Shuffle All Tiles Be Set
+        MyUtility.ShuffleList(allTiles);
+        // Shuffle Mines To Set
+        MyUtility.ShuffleArray(mineArr);
+        // Set Mine
+        for (int i = 0; i < mineArr.Length; ++i)
+            allTiles[i].inner.SetDanger(mineArr[i]);
+        //
+        /* Test : one mine in one floor
         for (int y = 0; y < stage.floors.Count; ++y)
         {
             int randIdx = Random.Range(0, 6);
             Tile tile = stage.GetFloor(y).tiles[randIdx].GetComponent<Tile>();
             //
-            //int mineType = Random.Range(0, 2); // Random
-            //int mineType = 0; // Pull
-            //int mineType = 1; // Push
-            //int mineType = 2; // Narrow
-            //int mineType = 3; // Crash
-            //tile.inner.SetDanger(mineType);
             tile.inner.SetDanger(mineArr[y]);
-            // Debug
-            //
-            tile.closet.GetComponent<SpriteRenderer>().color = Color.red;
         }
-    } // End SetMine()
-
+        */
+    }
+    ///////////////////////////////////////
     private void SetArroundMineInfo(Block stage)
     {
         int tileCount = stage.GetFloor(0).tiles.Count;
@@ -254,12 +396,11 @@ public class Map : MonoBehaviour
             for (int x = 0; x < tileCount; ++x)
             {
                 Inner inner = stage.GetFloor(y).tiles[x].GetComponent<Tile>().inner;
-                //if (inner.isDanger == true)
-                //    continue;
+                if (inner.isDanger == true)
+                    continue;
                 inner.CheckArround();
             }
         }
-
-    } // End SetArroundMineInfo()
+    }
     //=============================================//
 }

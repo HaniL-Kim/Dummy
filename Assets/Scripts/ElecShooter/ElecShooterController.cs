@@ -8,6 +8,10 @@ public class ElecShooterController : MonoBehaviour
     public enum NarrowLevel
     { NONE, ONE, TWO, THREE }
     //==========================================//
+    private Transform tf;
+    //==========================================//
+    public SuperVisor superViser;
+    //==========================================//
     public const float floorHeight = 47.0f;
     public const float levelHeight = 40.0f;
     //
@@ -18,8 +22,6 @@ public class ElecShooterController : MonoBehaviour
     public List<Sprite> narrowLevelTimeSprites;
     public List<SpriteRenderer> NarrowLevels; // UL, UR, DL, DR
     public List<SpriteRenderer> NarrowLevelTimes; // UL, UR, DL, DR
-    //==========================================//
-    private Transform tf;
     //==========================================//
     public bool isElevate = false;
     public float elevateSpeed;

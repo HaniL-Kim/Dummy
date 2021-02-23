@@ -923,6 +923,8 @@ MonoBehaviour:
   camBorder_Down: {fileID: 5631406483277316271}
   minPos: {x: 0, y: 0}
   maxPos: {x: 0, y: 0}
+  blockCulling: 1
+  blockCullDist: 94
 --- !u!1 &603600581
 GameObject:
   m_ObjectHideFlags: 0
@@ -1906,11 +1908,37 @@ MonoBehaviour:
     - Crash
     - Ghost
     - Thunder
-    _values: 00000000000000000000000000000000000000000a000000
+    _values: 020000000200000002000000020000000200000000000000
   tilePrefab: {fileID: 0}
   concretePrefab: {fileID: 0}
   blocks: []
   blockStartPos: -272
+  stageData:
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 1
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 0}
+    isExpanded: 1
+    _keyValues: []
+    _keys: []
+    _values: []
 --- !u!1 &1524187397
 GameObject:
   m_ObjectHideFlags: 0
@@ -2613,16 +2641,16 @@ MonoBehaviour:
     texture: {fileID: 21300000, guid: 9634b6c81f1405549a08de19b87009d8, type: 3}
   - mineType: 2
     number: 0
-    texture: {fileID: 21300000, guid: a6a5078c77025634eadc2298b7a12855, type: 3}
+    texture: {fileID: 21300000, guid: 27a5473b941c7bb4cac65a5101fbb40a, type: 3}
   - mineType: 3
     number: 0
-    texture: {fileID: 21300000, guid: 2e715a4f3a13eab4dba1838fce5914c7, type: 3}
+    texture: {fileID: 21300000, guid: 0fca9a2ec43c3b246944c5f183ed7bab, type: 3}
   - mineType: 4
     number: 0
-    texture: {fileID: 21300000, guid: 27a5473b941c7bb4cac65a5101fbb40a, type: 3}
+    texture: {fileID: 21300000, guid: a6a5078c77025634eadc2298b7a12855, type: 3}
   - mineType: 5
     number: 0
-    texture: {fileID: 21300000, guid: 0fca9a2ec43c3b246944c5f183ed7bab, type: 3}
+    texture: {fileID: 21300000, guid: 2e715a4f3a13eab4dba1838fce5914c7, type: 3}
   numIcons:
   - mineType: -1
     number: 0
@@ -2821,9 +2849,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 93386951159554346, guid: e9b9b360b1e1ef841ba61aaf447b81c7, type: 3}
+      propertyPath: m_text
+      value: null
+      objectReference: {fileID: 0}
+    - target: {fileID: 1170762046126595696, guid: e9b9b360b1e1ef841ba61aaf447b81c7, type: 3}
+      propertyPath: m_text
+      value: null
+      objectReference: {fileID: 0}
     - target: {fileID: 5631406482672435620, guid: e9b9b360b1e1ef841ba61aaf447b81c7, type: 3}
       propertyPath: m_Name
       value: ElecShooters
+      objectReference: {fileID: 0}
+    - target: {fileID: 5631406482672435620, guid: e9b9b360b1e1ef841ba61aaf447b81c7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5631406482672435621, guid: e9b9b360b1e1ef841ba61aaf447b81c7, type: 3}
       propertyPath: m_RootOrder
@@ -2869,9 +2909,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5806647844274523177, guid: e9b9b360b1e1ef841ba61aaf447b81c7, type: 3}
+      propertyPath: m_text
+      value: null
+      objectReference: {fileID: 0}
+    - target: {fileID: 7242991198889358442, guid: e9b9b360b1e1ef841ba61aaf447b81c7, type: 3}
+      propertyPath: m_text
+      value: null
+      objectReference: {fileID: 0}
     - target: {fileID: 7454201974021728066, guid: e9b9b360b1e1ef841ba61aaf447b81c7, type: 3}
       propertyPath: unit
-      value: 25
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e9b9b360b1e1ef841ba61aaf447b81c7, type: 3}

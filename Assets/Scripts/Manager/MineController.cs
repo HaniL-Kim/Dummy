@@ -29,6 +29,33 @@ public class MineController : MonoBehaviour
     private void Update()
     {
         DebugGhost();
+        DebugMineColor();
+    }
+    //=========================================//
+    public void DebugMineColor()
+    {
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            Map.instance.SetMineColor(Color.red);
+        }
+        else if (Input.GetKeyDown(KeyCode.F2))
+        {
+            Map.instance.SetMineColor(Color.white);
+        }
+        else if (Input.GetKeyDown(KeyCode.F3))
+        {
+            Map.instance.FlipAllMine();
+        }
+    }
+    //
+    public void SetDifficulty(string diff)
+    {
+        if (diff == "NORMAL")
+            difficulty = Difficulty.NORMAL;
+        else if (diff == "HARD")
+            difficulty = Difficulty.HARD;
+        else if (diff == "IMPOSSIBLE")
+            difficulty = Difficulty.IMPOSSIBLE;
     }
     //
     public void DebugGhost()
@@ -254,8 +281,7 @@ public class MineController : MonoBehaviour
     {
         switch (type)
         {
-            case MineTypes.NONE:
-                break;
+            case MineTypes.NONE: break;
             case MineTypes.PULL:
                 {
                     if (difficulty == Difficulty.HARD || difficulty == Difficulty.IMPOSSIBLE)
@@ -272,8 +298,9 @@ public class MineController : MonoBehaviour
                     EffectManager.instance.Play("Push", inner.transform);
                 }
                 break;
-            case MineTypes.NARROWING:
-                break;
+            case MineTypes.GHOST: break;
+            case MineTypes.THUNDER: break;
+            case MineTypes.NARROWING: break;
             case MineTypes.CRASH:
                 {
                     if (difficulty == Difficulty.HARD || difficulty == Difficulty.IMPOSSIBLE)
@@ -284,10 +311,6 @@ public class MineController : MonoBehaviour
                     }
                 }
                 break;
-            case MineTypes.GHOST:
-                break;
-            case MineTypes.THUNDER:
-                break;
             default:
                 break;
         }
@@ -297,23 +320,22 @@ public class MineController : MonoBehaviour
     {
         switch (inner.mineType)
         {
-            case MineTypes.NONE:
-                break;
+            case MineTypes.NONE: break;
             case MineTypes.PULL:
             case MineTypes.PUSH:
                 SetExplosion(inner.mineType, inner.transform);
-                break;
-            case MineTypes.NARROWING:
-                GameManager.instance.elecShooter.UpLevel();
-                break;
-            case MineTypes.CRASH:
-                SetCrashMine(inner);
                 break;
             case MineTypes.GHOST:
                 ActivateGhost(inner.transform);
                 break;
             case MineTypes.THUNDER:
                 EffectManager.instance.Play("Thunder", inner.transform);
+                break;
+            case MineTypes.NARROWING:
+                GameManager.instance.elecShooter.UpLevel();
+                break;
+            case MineTypes.CRASH:
+                SetCrashMine(inner);
                 break;
             default:
                 break;

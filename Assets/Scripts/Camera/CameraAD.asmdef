@@ -1,7 +1,8 @@
 {
     "name": "CameraAD",
     "references": [
-        "GUID:f37ab773fa332d349b4ed6001dfb4be9"
+        "GUID:f37ab773fa332d349b4ed6001dfb4be9",
+        "GUID:967b47bbb03254145913b08c29795f58"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

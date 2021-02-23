@@ -202,9 +202,10 @@ MonoBehaviour:
   dangerCount: 0
   isDanger: 0
   mineType: -1
-  closet: {fileID: 0}
+  closet: {fileID: 3805840345685866091}
   arroundInners: []
-  display: {fileID: 0}
+  anim: {fileID: 6000934991618846781}
+  display: {fileID: 5776773111809686728}
 --- !u!212 &943786389988425309
 SpriteRenderer:
   m_ObjectHideFlags: 0

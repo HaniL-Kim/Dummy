@@ -26,13 +26,6 @@ public class UIManager : MonoBehaviour
         UpdateShieldText();
     }
     //============================//
-    private void Update()
-    {
-        // Debug
-        if (Input.GetKeyDown(KeyCode.J))
-            AddAJPack();
-    }
-    //============================//
     public bool UseRSC(int cost)
     {
         if (rscCount - cost >= 0)

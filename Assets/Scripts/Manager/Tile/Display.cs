@@ -59,8 +59,6 @@ public class Display : MonoBehaviour
         {
             case MineTypes.PULL:
             case MineTypes.PUSH:
-            case MineTypes.NARROWING:
-            case MineTypes.CRASH:
             case MineTypes.GHOST:
                 {
                     playCount = 5;
@@ -73,6 +71,8 @@ public class Display : MonoBehaviour
                     anim.SetInteger(hashPlayCount, playCount);
                 }
                 break;
+            case MineTypes.NARROWING:
+            case MineTypes.CRASH:
             default:
                 break;
         }

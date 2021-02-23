@@ -13,9 +13,9 @@ public class SuperVisor : MonoBehaviour
     public List<float> speeds = new List<float>();
     //
     public int lv = -1;
-    public float speed = 12;
-    public int unit = 25;
-    public int countDown = 0;
+    public float speed;
+    public int unit;
+    public int countDown;
     //==================================//
     public TextMeshPro lvText;
     public TextMeshPro speedText;
@@ -27,12 +27,19 @@ public class SuperVisor : MonoBehaviour
     private void Awake()
     {
         startPos = transform.position;
+        lv = -1;
     }
     //==================================//
     private void Update()
     {
         CountDown();
         SetUIText();
+    }
+    //==================================//
+    public void SetUnit(int value)
+    {
+        unit = value;
+        unitText.text = unit.ToString();
     }
     //==================================//
     private void SpeedUp()

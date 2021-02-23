@@ -13,18 +13,21 @@ public class Inner : MonoBehaviour
     //=============================================//
     public List<Inner> arroundInners;
     //=============================================//
-    private Animator anim;
+    public Animator anim;
     //=============================================//
     public Display display;
     private GameObject footBoard;
+    //
+    private readonly int hashInnerIsDanger
+        = Animator.StringToHash("InnerIsDanger");
     //=============================================//
     //private void Start()
     private void Awake()
     {
         mineType = MineTypes.NONE;
-        anim = GetComponent<Animator>();
+        //anim = GetComponent<Animator>();
         //
-        display = transform.GetChild(0).GetComponent<Display>();
+        //display = transform.GetChild(0).GetComponent<Display>();
         display.inner = this;
         //
         footBoard = transform.GetChild(1).gameObject;
@@ -101,7 +104,8 @@ public class Inner : MonoBehaviour
     { // value : 0 ~ 5
         mineType = (MineTypes)(value);
         //
-        anim.SetBool("Danger", (isDanger = true));
+        isDanger = true;
+        anim.SetBool(hashInnerIsDanger, isDanger);
         //
         display.SetDanger(isDanger, value);
     } // End SetDanger()
@@ -131,7 +135,9 @@ public class Inner : MonoBehaviour
                 //else
             }
         }
-        SetNumber(dangerCount);
+        if(isDanger == false)
+            SetNumber(dangerCount);
+        //
         GetComponent<CircleCollider2D>().enabled = true;
     } // End CheckArround()
     //

@@ -6,7 +6,7 @@ using UnityEngine;
 public enum MineTypes
 {
     NONE = -1,
-    PULL, PUSH, NARROWING, CRASH, GHOST, THUNDER
+    PULL, PUSH, GHOST, THUNDER, NARROWING, CRASH
 }
 //
 public enum NumberIcons
@@ -66,10 +66,6 @@ public class GameManager : MonoBehaviour
             for (int i = 0; i < controlKeyCodes.Length; ++i)
                 if (Input.GetKeyDown(controlKeyCodes[i]))
                     elecShooter.isElevate = true;
-        //if (Input.GetKeyDown(KeyCode.F1))
-        //  elecShooter.isElevate = true;
-        //if (Input.GetKeyDown(KeyCode.F2))
-        //    SoundManager.instance.PlayBGM(SoundKey.BGM);
     }
     //====================================//
     public RaycastHit2D RayToDirs(Transform tf, int dir, int layer)

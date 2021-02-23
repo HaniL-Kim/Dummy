@@ -16,6 +16,9 @@ public class FollowTarget : MonoBehaviour
     //
     private Transform tf;
     private Vector3 targetPos = Vector2.zero;
+    //
+    public bool blockCulling = false;
+    public float blockCullDist = 2 * MyUtility.cFloorHeight;
     //==========================================//
     private void Awake()
     {
@@ -28,30 +31,26 @@ public class FollowTarget : MonoBehaviour
     void Update()
     {
         SetBorder();
+        //
         Move();
+        //
         LimitToBorder();
+        //
+        BlockCulling();
     }
     //==========================================//
     private void OnDrawGizmos()
     {
         // Draw Border
         {
-            Gizmos.color = Color.red;
+            Gizmos.color = Color.yellow;
             if (camBorder_Up)
             {
-                Vector3 start = camBorder_Up.position;
-                start.x = -272.0f;
-                Vector3 dir = camBorder_Up.position;
-                dir.x = 304.0f;
-                Gizmos.DrawLine(start, dir);
+                Gizmos.DrawRay(camBorder_Up.position, Vector3.left * 348.0f * 2.0f);
             }
             if (camBorder_Down)
             {
-                Vector3 start = camBorder_Down.position;
-                start.x = -272.0f;
-                Vector3 dir = camBorder_Down.position;
-                dir.x = 304.0f;
-                Gizmos.DrawLine(start, dir);
+                Gizmos.DrawRay(camBorder_Down.position, Vector3.left * 348.0f * 2.0f);
             }
         }
     }
@@ -92,5 +91,38 @@ public class FollowTarget : MonoBehaviour
             targetPos.y = maxPos.y;
         //
         tf.position = targetPos;
+    }
+    //============================================//
+    private void BlockCulling()
+    {
+        if (blockCulling == false)
+            return;
+        //
+        float ct = camBorder_Up.position.y;
+        float cb = camBorder_Down.position.y;
+        //
+        Map m = Map.instance;
+        for (int i = 0; i < m.blocks.Count; ++i)
+        {
+            BlockControl b = m.blocks[i].block.GetComponent<BlockControl>();
+            //
+            float bt = b.tf_top.position.y;
+            float bb = b.tf_bottom.position.y;
+            //
+            float dist_BB_CT = bb - ct;
+            float dist_CB_BT = cb - bt;
+            // Block is Above Camera
+            if (ct < bb && dist_BB_CT < blockCullDist)
+            {
+                if (b.gameObject.activeSelf == false)
+                    b.gameObject.SetActive(true);
+            }
+            // Block is Below Camera
+            else if (cb > bt && dist_CB_BT < blockCullDist)
+            {
+                if (b.gameObject.activeSelf == true)
+                    b.gameObject.SetActive(false);
+            }
+        }
     }
 }

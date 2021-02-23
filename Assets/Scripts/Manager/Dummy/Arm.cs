@@ -22,10 +22,10 @@ public class Arm : MonoBehaviour
     private void Update()
     {
         // Debug
-        if (Input.GetKeyDown(KeyCode.F2))
-            EquipJumpPack(true);
-        if (Input.GetKeyDown(KeyCode.F3))
-            EquipJumpPack(false);
+        if (Input.GetKeyDown(KeyCode.J))
+            UIManager.instance.AddAJPack();
+        if (Input.GetKeyDown(KeyCode.K))
+            UIManager.instance.UseAirJump();
     }
     //
     public void FlipX(bool value)
