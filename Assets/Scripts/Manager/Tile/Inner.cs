@@ -5,21 +5,26 @@ using UnityEngine;
 public class Inner : MonoBehaviour
 {
     //=============================================//
-    public int dangerCount = 0;
+    public Closet closet;
+    //=============================================//
     public bool isDanger = false;
     public MineTypes mineType = MineTypes.NONE;
     //=============================================//
-    public Closet closet;
-    //=============================================//
+    public int dangerCount = 0;
     public List<Inner> arroundInners;
     //=============================================//
+    // Component
+    public SpriteRenderer sr;
     public Animator anim;
-    //=============================================//
-    public Display display;
-    public GameObject footBoard;
-    //
+    // Anim Hash
     private readonly int hashInnerIsDanger
         = Animator.StringToHash("InnerIsDanger");
+    private readonly int hashFlipInner
+        = Animator.StringToHash("FlipInner");
+    //=============================================//
+    // Children
+    public Display display;
+    public FootBoard footBoard;
     //=============================================//
     //private void Start()
     private void Awake()
@@ -30,6 +35,29 @@ public class Inner : MonoBehaviour
     private void OnEnable()
     {
         anim.SetBool(hashInnerIsDanger, isDanger);
+    }
+    //=============================================//
+    public void ResetInner()
+    {
+        { // Inner
+            sr.sprite = null;
+            //
+            isDanger = false;
+            mineType = MineTypes.NONE;
+            dangerCount = 0;
+            // arround
+            arroundInners.Clear();
+            // anim
+            anim.SetBool(hashInnerIsDanger, false);
+            anim.SetBool(hashFlipInner, false);
+        }
+        // Thunder
+        foreach (var item in GetComponentsInChildren<Thunder>())
+            item.ResetThunder();
+        // Display
+        display.ResetDisplay();
+        // FootBoard
+        footBoard.ResetFootBoard();
     }
     //=============================================//
     public Floor GetFloor()
@@ -78,7 +106,7 @@ public class Inner : MonoBehaviour
     //
     public void Flip()
     {
-        anim.SetBool("Flip", true);
+        anim.SetBool(hashFlipInner, true);
         //
         if (dangerCount == 0 && isDanger == false)
             FlipArround();
@@ -86,7 +114,7 @@ public class Inner : MonoBehaviour
     //
     public void EndFlip()
     { // Flip Anim Frame(10) Event1
-        footBoard.GetComponent<FootBoard>().Set();
+        footBoard.Set();
     }
     //
     public void ActivateInner()
@@ -95,7 +123,8 @@ public class Inner : MonoBehaviour
         if (display.flagHit == true)
             return;
         //
-        MineController.instance.BeginAlert(mineType, this);
+        if (isDanger)
+            MineController.instance.BeginAlert(mineType, this);
     } // End ShowDisplay()
 
     //=============================================//
@@ -117,6 +146,7 @@ public class Inner : MonoBehaviour
     
     public void CheckArround()
     {
+        arroundInners.Clear();
         // avoid Self Collision
         GetComponent<CircleCollider2D>().enabled = false;
         // 

@@ -15,7 +15,8 @@ public class SuperVisor : MonoBehaviour
     public int lv = -1;
     public float speed;
     public int unit;
-    public int countDown;
+    public int countOfFloorClimb;
+    public float moveDist = 0;
     //==================================//
     public TextMeshPro lvText;
     public TextMeshPro speedText;
@@ -51,10 +52,15 @@ public class SuperVisor : MonoBehaviour
         ec.elevateSpeed = speed;
     }
     //
+    public void AddDist(float value)
+    {
+        moveDist += value;
+    }
+    //
     private void CountDown()
     {
-        countDown = (int)((transform.position.y - startPos.y) / floorHeight);
-        if ((countDown % unit) == 0 && (countDown / unit) != lv)
+        countOfFloorClimb = (int)(moveDist / floorHeight);
+        if ((countOfFloorClimb % unit) == 0 && (countOfFloorClimb / unit) != lv)
             SpeedUp();
     }
     //
@@ -65,7 +71,7 @@ public class SuperVisor : MonoBehaviour
         lvText.text = lv.ToString();
         speedText.text = speed.ToString();
         unitText.text = unit.ToString();
-        countDownText.text = countDown.ToString();
+        countDownText.text = countOfFloorClimb.ToString();
     }
     //==================================//
 }

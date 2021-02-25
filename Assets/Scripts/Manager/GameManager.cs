@@ -11,16 +11,7 @@ public enum MineTypes
 //
 public enum NumberIcons
 {
-    NONE = -1,
     ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX,
-}
-//==================// //==================//
-[System.Serializable]
-public struct DisplayTexture
-{
-    public MineTypes mineType;
-    public NumberIcons number;
-    public Sprite texture;
 }
 //==================// //==================//
 public class GameManager : MonoBehaviour
@@ -30,9 +21,6 @@ public class GameManager : MonoBehaviour
     //====================================//
     public Transform player;
     public ElecShooterController elecShooter;
-    //====================================//
-    public DisplayTexture[] mineIcons;
-    public DisplayTexture[] numIcons;
     //====================================//
     // layer hashing
     [HideInInspector] public int footBoardLayer;
@@ -74,22 +62,9 @@ public class GameManager : MonoBehaviour
     {
         float dist = dirs[dir].magnitude;
         RaycastHit2D hit = Physics2D.Raycast(tf.position, dirs[dir], dist, layer);
+        Debug.DrawRay(tf.position, dirs[dir], Color.green, 5.0f);
         return hit;
     }
-    //====================================//
-    //public void Loading()
-    //{
-    //    ++mineCount;
-    //    Debug.Log(mineCount);
-    //    if(mineCount == 240)
-    //    {
-    //        // Active only ready_block & 1_block
-    //        for (int i = 2; i < Map.instance.blocks.Count; ++i)
-    //            Map.instance.blocks[i].block.SetActive(false);
-
-    //        StartGame();
-    //    }
-    //}
     //====================================//
     public void StartGame()
     {
@@ -98,12 +73,12 @@ public class GameManager : MonoBehaviour
     //====================================//
     private void SetDirs()
     {
-        dirs.Add(new Vector3(+64.0f, 0, 0));
-        dirs.Add(new Vector3(+32.0f, +47.0f, 0));
-        dirs.Add(new Vector3(-32.0f, +47.0f, 0));
-        dirs.Add(new Vector3(-64.0f, 0, 0));
-        dirs.Add(new Vector3(-32.0f, -47.0f, 0));
-        dirs.Add(new Vector3(+32.0f, -47.0f, 0));
+        dirs.Add(new Vector3(+64.0f, 0, 4.0f));
+        dirs.Add(new Vector3(+32.0f, +47.0f, 4.0f));
+        dirs.Add(new Vector3(-32.0f, +47.0f, 4.0f));
+        dirs.Add(new Vector3(-64.0f, 0, 4.0f));
+        dirs.Add(new Vector3(-32.0f, -47.0f, 4.0f));
+        dirs.Add(new Vector3(+32.0f, -47.0f, 4.0f));
     }
     //
     private void CreateLayerHash()

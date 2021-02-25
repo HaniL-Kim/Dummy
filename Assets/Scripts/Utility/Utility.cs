@@ -28,8 +28,6 @@ public class DicStageData : SerializableDictionaryBase<string, IntStageData> {}
 
 public static class MyUtility
 {
-    public const float cFloorHeight = 47.0f;
-    //
     public static List<T> ShuffleList<T>(List<T> list)
     {
         int seed = Random.Range(0, 1000);
@@ -97,5 +95,40 @@ public static class MyUtility
         }
 
         return result;
+    }
+    //
+    public static void DownHeight(Transform tf, float value)
+    {
+        Vector3 temp = tf.position;
+        temp.y -= value;
+        tf.position = temp;
+    }
+    //
+    public static void SwapPos(Transform crash, Transform tile)
+    {
+        Vector3 crashPos = crash.localPosition;
+        Vector3 tilePos = tile.localPosition;
+        //
+        crashPos.z = 0;
+        tilePos.z = -1;
+        //
+        crash.localPosition = tilePos;
+        tile.localPosition = crashPos;
+    }
+    //
+    public static void SwapNameAt(Transform crash, Transform tile, int idx)
+    {
+        char charCrash = crash.name[idx];
+        char charTile = tile.name[idx];
+        {
+            char[] arrCharCrash = crash.name.ToCharArray();
+            arrCharCrash[idx] = charTile;
+            crash.name = new string(arrCharCrash);
+        }
+        {
+            char[] arrCharTile = tile.name.ToCharArray();
+            arrCharTile[idx] = charCrash;
+            tile.name = new string(arrCharTile);
+        }
     }
 }

@@ -5,7 +5,9 @@ using UnityEngine;
 public class Thunder : MonoBehaviour
 {
     //====================================//
-    public float vSpeed = 70.5f, hSpeed = 25.0f;
+    EffectType type = EffectType.THUNDER;
+    //
+    public float vSpeed = 70.0f, hSpeed = 30.0f;
     public int thunderWaitingFrame = 10;
     private WaitForSeconds ws;
     //====================================//
@@ -82,7 +84,7 @@ public class Thunder : MonoBehaviour
             Gizmos.DrawSphere(head_D.position, 0.5f);
     }
     //====================================//
-    public void Reset()
+    public void ResetThunder()
     { // Call By ThunderBody when anim(ThunderExplode) Frame Event
         head_U.GetComponent<SpriteRenderer>().color = Color.white;
         head_D.GetComponent<SpriteRenderer>().color = Color.white;
@@ -93,6 +95,8 @@ public class Thunder : MonoBehaviour
         ready_U = false;
         ready_D = false;
         isExplode = false;
+        //
+        transform.SetParent(EffectManager.instance.effHolders[(int)type]);
         //
         gameObject.SetActive(false);
     }
@@ -160,10 +164,11 @@ public class Thunder : MonoBehaviour
     //
     private void FollowHeads()
     {
+        float speed = GameManager.instance.elecShooter.elevateSpeed + vSpeed;
         if(ready_U == false)
         {
             if (head_U.transform.position.y <= e_Up.position.y)
-                head_U.Translate(Vector3.up * vSpeed * Time.deltaTime);
+                head_U.Translate(Vector3.up * speed * Time.deltaTime);
             else
             {
                 ready_U = true;
@@ -174,7 +179,7 @@ public class Thunder : MonoBehaviour
         if(ready_D == false)
         {
             if (head_D.transform.position.y >= e_Down.position.y)
-                head_D.Translate(Vector3.down * vSpeed * Time.deltaTime);
+                head_D.Translate(Vector3.down * speed * Time.deltaTime);
             else
             {
                 ready_D = true;

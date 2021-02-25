@@ -66,6 +66,22 @@ public class EffectManager : MonoBehaviour
         totalEffect.Add(effNames[(int)typeValue], effects);
     }
     //
+    public void DownActiveEffectHeight(string key, float value)
+    {
+        if (totalEffect.ContainsKey(key) == false)
+            return;
+        //
+        List<GameObject> effects = totalEffect[key];
+        //
+        foreach (GameObject effect in effects)
+        {
+            if (effect.activeSelf == false)
+                return;
+            //
+            MyUtility.DownHeight(effect.transform, value);
+        }
+    }
+    //
     public void Play(string key, Transform tf)
     {
         if (totalEffect.ContainsKey(key) == false)
@@ -78,11 +94,8 @@ public class EffectManager : MonoBehaviour
             if (effect.activeSelf == false)
             {
                 effect.SetActive(true);
-                Vector3 tempPos = tf.position;
-                tempPos.z = -5.0f;
-                effect.transform.position = tempPos;
-                effect.transform.localRotation = Quaternion.identity;
-                //
+                effect.transform.SetParent(tf);
+                effect.transform.localPosition = Vector3.zero;
                 return;
             }
         }

@@ -5,12 +5,22 @@ using UnityEngine;
 public class Resource : MonoBehaviour
 {
     //===============================================//
+    public void ResetResource()
+    {
+        gameObject.SetActive(true);
+    }
+    //
+    public void GainResource()
+    {
+        gameObject.SetActive(false);
+        UIManager.instance.AddRSC();
+    }
+    //===============================================//
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.CompareTag("Player"))
         {
-            gameObject.SetActive(false);
-            UIManager.instance.AddRSC();
+            GainResource();
         }
     }
     //===============================================//

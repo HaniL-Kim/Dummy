@@ -10,16 +10,15 @@ public class Closet : MonoBehaviour
     private Tile tile;
     private Inner inner;
     //=============================================//
-    private readonly int hashHitFlag = Animator.StringToHash("hitFlag");
     private readonly int hashFlip = Animator.StringToHash("Flip");
     //=============================================//
     // Shake
     public bool isShake = false;
     private Vector3 originPosition;
     private Quaternion originRotation;
-    public float shake_decay;
-    public float shake_intensity;
-    public float shake_time;
+    //
+    private float shake_decay, shake_intensity, shake_time;
+    private const float cDecay = 0.002f, cIntensity = 0.3f, cTime = 0.33f;
     //=============================================//
     private void Awake()
     {
@@ -29,6 +28,21 @@ public class Closet : MonoBehaviour
     private void Update()
     {
         Shake();
+    }
+    //=============================================//
+    public void ResetCloset()
+    {
+        isShake = false;
+        shake_decay = cDecay;
+        shake_intensity = cIntensity;
+        shake_time = cTime;
+        //
+        anim.SetBool(hashFlip, false);
+        //
+        inner.ResetInner();
+        //
+        GetComponent<SpriteRenderer>().color = Color.white;
+        transform.gameObject.SetActive(true);
     }
     //=============================================//
     public void SetTile(Tile value)
@@ -42,7 +56,6 @@ public class Closet : MonoBehaviour
     {
         StartShake();
         inner.display.flagHit = true;
-        //anim.SetTrigger(hashHitFlag);
     }
     //
     public void Flip()
@@ -68,7 +81,6 @@ public class Closet : MonoBehaviour
         if (isShake == false)
             return;
         //
-        //if (shake_intensity > 0)
         if (shake_time > 0)
         {
             transform.position = originPosition + Random.insideUnitSphere * shake_intensity;
@@ -85,14 +97,13 @@ public class Closet : MonoBehaviour
             isShake = false;
             Flip();
         }
-    } // End Shake()
+    }
+    //
     public void StartShake()
     {
         isShake = true;
         originPosition = transform.position;
         originRotation = transform.rotation;
-        //shake_intensity = 0.3f;
-        //shake_decay = 0.002f;
     } // End StartShake()
     //=============================================//
     private void OnTriggerEnter2D(Collider2D collision)

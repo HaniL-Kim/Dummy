@@ -18,14 +18,17 @@ public class FollowTarget : MonoBehaviour
     private Vector3 targetPos = Vector2.zero;
     //
     public bool blockCulling = false;
-    public float blockCullDist = 2 * MyUtility.cFloorHeight;
+    public float blockCullDist;
     //==========================================//
     private void Awake()
     {
         tf = GetComponent<Transform>();
+        //
         float halfCamHeight = Camera.main.orthographicSize;
         float halfCamWidth = halfCamHeight * Camera.main.aspect;
         halfSize = new Vector2(halfCamWidth, halfCamHeight);
+        //
+        blockCullDist = 3 * Map.FloorHeight;
     }
     //==========================================//
     void Update()
@@ -102,8 +105,8 @@ public class FollowTarget : MonoBehaviour
         float cb = camBorder_Down.position.y;
         //
         Map m = Map.instance;
-        for (int i = 0; i < m.blocks.Count; ++i)
-        {
+        for (int i = 1; i < m.blocks.Count; ++i)
+        { // i : 0 -> ReadyBlock
             BlockControl b = m.blocks[i].block.GetComponent<BlockControl>();
             //
             float bt = b.tf_top.position.y;
@@ -112,16 +115,16 @@ public class FollowTarget : MonoBehaviour
             float dist_BB_CT = bb - ct;
             float dist_CB_BT = cb - bt;
             // Block is Above Camera
-            if (ct < bb && dist_BB_CT < blockCullDist)
+            if (dist_BB_CT > 0 && dist_BB_CT < blockCullDist)
             {
                 if (b.gameObject.activeSelf == false)
-                    b.gameObject.SetActive(true);
+                    b.ActivateBlock();
             }
             // Block is Below Camera
-            else if (cb > bt && dist_CB_BT < blockCullDist)
+            else if (dist_CB_BT > 0 && dist_CB_BT > blockCullDist)
             {
                 if (b.gameObject.activeSelf == true)
-                    b.gameObject.SetActive(false);
+                    b.ResetBlock();
             }
         }
     }

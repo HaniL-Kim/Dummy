@@ -117,9 +117,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isShake: 0
-  shake_decay: 0.002
-  shake_intensity: 0.3
-  shake_time: 0.33
 --- !u!60 &7398027007306731510
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -199,14 +196,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bcec8e7245d0a8468918c75661bf598, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dangerCount: 0
+  closet: {fileID: 3805840345685866091}
   isDanger: 0
   mineType: -1
-  closet: {fileID: 3805840345685866091}
+  dangerCount: 0
   arroundInners: []
+  sr: {fileID: 943786389988425309}
   anim: {fileID: 6000934991618846781}
   display: {fileID: 5776773111809686728}
-  footBoard: {fileID: 943786390806261177}
+  footBoard: {fileID: 2989475193257143844}
 --- !u!212 &943786389988425309
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -512,6 +510,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   closet: {fileID: 3805840345685866091}
   inner: {fileID: 4692979696888085268}
+  resource: {fileID: 7193415852121296697}
 --- !u!1 &1786051693469670826
 GameObject:
   m_ObjectHideFlags: 0
@@ -630,6 +629,8 @@ MonoBehaviour:
   inner: {fileID: 4692979696888085268}
   playCount: 0
   flagHit: 0
+  anim: {fileID: 4237031657481036190}
+  sr: {fileID: 2861845634397103259}
 --- !u!212 &2861845634397103259
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -689,7 +690,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2200629555469927404}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 04097fd00bdcb31459b76928781031bd, type: 2}
   m_CullingMode: 0
@@ -772,7 +773,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1853022891
   m_SortingLayer: -2
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 672cf9e9df3d7404daf656fdbebabe20, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

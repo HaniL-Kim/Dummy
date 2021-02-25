@@ -1,11 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using RotaryHeart.Lib.SerializableDictionary;
 
-//////////////////////////////////////////
-[System.Serializable]
-public class StringFloat : SerializableDictionaryBase<string, float> {}
 //////////////////////////////////////////
 public class ItemManager : MonoBehaviour
 {
@@ -20,6 +16,7 @@ public class ItemManager : MonoBehaviour
     [SerializeField]
     private int order = 0;
     //=====================================//
+    public Transform itemHolder;
     public GameObject itemPrefab;
     private List<GameObject> listItems = new List<GameObject>();
     //
@@ -36,6 +33,7 @@ public class ItemManager : MonoBehaviour
     void Start()
     {
         CreateItem();
+        //
         CreateItemOrder();
         //
         CreateJumpPack();
@@ -56,11 +54,11 @@ public class ItemManager : MonoBehaviour
     //
     private void CreateItem()
     {
-        GameObject itemHolder = new GameObject("ItemHolder");
-        itemHolder.transform.SetParent(transform);
+        itemHolder = new GameObject("ItemHolder").transform;
+        itemHolder.SetParent(transform);
         for(int i = 0; i < cItemCount; ++i)
         {
-            GameObject item = Instantiate(itemPrefab, itemHolder.transform);
+            GameObject item = Instantiate(itemPrefab, itemHolder);
             item.SetActive(false);
             //
             listItems.Add(item);
@@ -113,8 +111,11 @@ public class ItemManager : MonoBehaviour
         Item.ItemType type = (Item.ItemType)listItemOrder[order];
         item.SetActive(true);
         item.GetComponent<Item>().SetItem(type);
-        item.transform.position = tf.position;
-        ////
+        //
+        item.transform.SetParent(tf);
+        item.transform.localPosition = Vector3.zero;
+        //item.transform.position = tf.position;
+        //
         order++;
         if (order == cItemOrderCount)
         {

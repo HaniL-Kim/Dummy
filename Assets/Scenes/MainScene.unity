@@ -1871,44 +1871,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93ed11305b8ad41429e145b7ab9284be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mineCounts:
-    reorderableList:
-      canAdd: 1
-      canRemove: 1
-      draggable: 1
-      expandable: 1
-      multipleSelection: 1
-      isExpanded: 1
-      label:
-        m_Text: Keys
-        m_Image: {fileID: 0}
-        m_Tooltip: 
-      headerHeight: 18
-      footerHeight: 13
-      slideEasing: 0.15
-      verticalSpacing: 2
-      showDefaultBackground: 1
-      elementDisplayType: 0
-      elementNameProperty: 
-      elementNameOverride: 
-      elementIcon: {fileID: 0}
-    reqReferences: {fileID: 0}
-    isExpanded: 1
-    _keyValues:
-    - Pull
-    - Push
-    - Narrow
-    - Crash
-    - Ghost
-    - Thunder
-    _keys:
-    - Pull
-    - Push
-    - Narrow
-    - Crash
-    - Ghost
-    - Thunder
-    _values: 020000000200000002000000020000000200000000000000
+  isInfinite: 0
   tilePrefab: {fileID: 0}
   concretePrefab: {fileID: 0}
   blocks: []
@@ -2632,52 +2595,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 670196563}
   elecShooter: {fileID: 654554441}
-  mineIcons:
-  - mineType: 0
-    number: 0
-    texture: {fileID: 21300000, guid: 5068716fe67a53b498a3bfcdedd105a3, type: 3}
-  - mineType: 1
-    number: 0
-    texture: {fileID: 21300000, guid: 9634b6c81f1405549a08de19b87009d8, type: 3}
-  - mineType: 2
-    number: 0
-    texture: {fileID: 21300000, guid: 27a5473b941c7bb4cac65a5101fbb40a, type: 3}
-  - mineType: 3
-    number: 0
-    texture: {fileID: 21300000, guid: 0fca9a2ec43c3b246944c5f183ed7bab, type: 3}
-  - mineType: 4
-    number: 0
-    texture: {fileID: 21300000, guid: a6a5078c77025634eadc2298b7a12855, type: 3}
-  - mineType: 5
-    number: 0
-    texture: {fileID: 21300000, guid: 2e715a4f3a13eab4dba1838fce5914c7, type: 3}
-  numIcons:
-  - mineType: -1
-    number: 0
-    texture: {fileID: 21300000, guid: cbe5a936a6d18ea4787edce841addf9b, type: 3}
-  - mineType: -1
-    number: 1
-    texture: {fileID: 21300000, guid: dbb8005bcd199d64fbd3c1222e8d336b, type: 3}
-  - mineType: -1
-    number: 2
-    texture: {fileID: 21300000, guid: 8ff412147261b09448d62ec580c7c1c7, type: 3}
-  - mineType: -1
-    number: 3
-    texture: {fileID: 21300000, guid: 3296496662587d6449db7800d5c904b9, type: 3}
-  - mineType: -1
-    number: 4
-    texture: {fileID: 21300000, guid: 4990f3e06cc3fa341be023929b24bde2, type: 3}
-  - mineType: -1
-    number: 5
-    texture: {fileID: 21300000, guid: 6f52c9a9e06b0194c8b813de212b4138, type: 3}
-  - mineType: -1
-    number: 6
-    texture: {fileID: 21300000, guid: 8e499da775fbe7c4481269b3b0cb02b5, type: 3}
   footBoardLayer: 0
   concreteLayer: 0
   closetLayer: 0
   innerLayer: 0
   dirs: []
+  mineCount: 0
 --- !u!4 &2073683429
 Transform:
   m_ObjectHideFlags: 0
@@ -2717,6 +2640,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3b4f894acc94e34eb9888b5afbf1784, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mineIcons:
+  - mineType: -1
+    texture: {fileID: 0}
+  - mineType: 0
+    texture: {fileID: 21300000, guid: 5068716fe67a53b498a3bfcdedd105a3, type: 3}
+  - mineType: 1
+    texture: {fileID: 21300000, guid: 9634b6c81f1405549a08de19b87009d8, type: 3}
+  - mineType: 2
+    texture: {fileID: 21300000, guid: 27a5473b941c7bb4cac65a5101fbb40a, type: 3}
+  - mineType: 3
+    texture: {fileID: 21300000, guid: 0fca9a2ec43c3b246944c5f183ed7bab, type: 3}
+  - mineType: 4
+    texture: {fileID: 21300000, guid: a6a5078c77025634eadc2298b7a12855, type: 3}
+  - mineType: 5
+    texture: {fileID: 21300000, guid: 2e715a4f3a13eab4dba1838fce5914c7, type: 3}
+  numIcons:
+  - number: 0
+    texture: {fileID: 21300000, guid: cbe5a936a6d18ea4787edce841addf9b, type: 3}
+  - number: 1
+    texture: {fileID: 21300000, guid: dbb8005bcd199d64fbd3c1222e8d336b, type: 3}
+  - number: 2
+    texture: {fileID: 21300000, guid: 8ff412147261b09448d62ec580c7c1c7, type: 3}
+  - number: 3
+    texture: {fileID: 21300000, guid: 3296496662587d6449db7800d5c904b9, type: 3}
+  - number: 4
+    texture: {fileID: 21300000, guid: 4990f3e06cc3fa341be023929b24bde2, type: 3}
+  - number: 5
+    texture: {fileID: 21300000, guid: 6f52c9a9e06b0194c8b813de212b4138, type: 3}
+  - number: 6
+    texture: {fileID: 21300000, guid: 8e499da775fbe7c4481269b3b0cb02b5, type: 3}
   difficulty: 1
   crashTime: 1
   crashWaitTime: 0.5
@@ -2774,6 +2727,7 @@ MonoBehaviour:
     - 0.25
     - 0.25
   order: 0
+  itemHolder: {fileID: 0}
   itemPrefab: {fileID: 2066505382597255817, guid: c2d7de9ad88b15b4e927255b9db496d6, type: 3}
   jumpPackHolder: {fileID: 0}
   jumpPackPrefab: {fileID: 7219236428634796359, guid: 43934b407938ebc4f86b75c31af451c9, type: 3}

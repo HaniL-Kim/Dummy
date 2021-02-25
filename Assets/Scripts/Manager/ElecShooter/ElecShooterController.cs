@@ -5,6 +5,9 @@ using UnityEngine;
 public class ElecShooterController : MonoBehaviour
 {
     //==========================================//
+    public const float cLoopHeight = 2000.0f;
+    public const float cCeilHeight = 4000.0f;
+    //
     public enum NarrowLevel
     { NONE, ONE, TWO, THREE }
     //==========================================//
@@ -12,8 +15,9 @@ public class ElecShooterController : MonoBehaviour
     //==========================================//
     public SuperVisor superViser;
     //==========================================//
-    public const float floorHeight = 47.0f;
-    public const float levelHeight = 40.0f;
+    public const float narrowHeight = 40.0f;
+    //
+    public bool infMode = false;
     //
     public GameObject Up;
     public GameObject Down;
@@ -48,6 +52,8 @@ public class ElecShooterController : MonoBehaviour
     {
         Elevate();
         CountDown();
+        ResetHeightAll();
+        //
         Test();
     }
     //==========================================//
@@ -65,6 +71,37 @@ public class ElecShooterController : MonoBehaviour
             UpLevel();
         else if (Input.GetKeyDown(KeyCode.Alpha5))
             DownLevel();
+        //
+        if (Input.GetKeyDown(KeyCode.Minus))
+            ResetHeightAll();
+    }
+    //==========================================//
+    public void ResetHeightAll()
+    {
+        if (tf.position.y > cCeilHeight)
+        { // cLoopHeight = 10 * blockHeight -> 4700.0f
+            Debug.Log("ResetHeightAll");
+            // Dummy
+            MyUtility.DownHeight(GameManager.instance.player, cLoopHeight);
+            // ElecShooter
+            MyUtility.DownHeight(tf, cLoopHeight);
+            // Camera
+            MyUtility.DownHeight(Camera.main.transform, cLoopHeight);
+            // Blocks
+            for (int i = 1; i < Map.instance.blocks.Count; ++i)
+                MyUtility.DownHeight(Map.instance.blocks[i].block.transform, cLoopHeight);
+            // Ghosts
+            for (int i = 0; i < MineController.instance.ghosts.Count; ++i)
+            {
+                GameObject g = MineController.instance.ghosts[i];
+                if (g.activeSelf == false)
+                    return;
+                //
+                MyUtility.DownHeight(g.transform, cLoopHeight);
+            }
+            // Thunder
+            EffectManager.instance.DownActiveEffectHeight("Thunder", cLoopHeight);
+        }
     }
     //==========================================//
     public void SlowSpeed()
@@ -112,7 +149,10 @@ public class ElecShooterController : MonoBehaviour
         if (isElevate == false)
             return;
         //
-        tf.Translate(Vector3.up * elevateSpeed * Time.deltaTime);
+        float moveValue = elevateSpeed * Time.deltaTime;
+        tf.Translate(Vector3.up * moveValue);
+        //
+        superViser.AddDist(moveValue);
     }
     //
     private void SetLevelSprite(int value)
@@ -147,8 +187,8 @@ public class ElecShooterController : MonoBehaviour
         Vector3 up_lp, up_target, up_dir, up_dirN, up_pos;
         Vector3 down_lp, down_target, down_dir, down_dirN, down_pos;
         //
-        float up_target_y = 186.0f - (float)level * levelHeight;
-        float down_target_y = -186.0f + (float)level * levelHeight;
+        float up_target_y = 186.0f - (float)level * narrowHeight;
+        float down_target_y = -186.0f + (float)level * narrowHeight;
         //float up_target_y = 470.0f - (float)level * 47.0f;
         //float down_target_y = 000.0f + (float)level * 47.0f;
         //

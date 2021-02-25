@@ -2,26 +2,42 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//==================// //==================//
+[System.Serializable]
+public struct DisplayTexture_Num
+{
+    public NumberIcons number;
+    public Sprite texture;
+}
+//
+[System.Serializable]
+public struct DisplayTexture_Mine
+{
+    public MineTypes mineType;
+    public Sprite texture;
+}
+//
 public class MineController : MonoBehaviour
 {
     //=========================================//
     public static MineController instance;
     //=========================================//
+    public DisplayTexture_Mine[] mineIcons;
+    public DisplayTexture_Num[] numIcons;
+    //====================================//
     public enum Difficulty { NORMAL, HARD, IMPOSSIBLE }
     public Difficulty difficulty = Difficulty.NORMAL;
     //=========================================//
     public float crashTime = 1.0f;
     public float crashWaitTime = 0.5f;
-    WaitForSeconds cwt;
     public float crashReturnTime = 3.0f;
     //=========================================//
     public GameObject ghostPrefab;
-    [SerializeField] private List<GameObject> ghosts;
+    public List<GameObject> ghosts;
     //=========================================//
     private void Awake()
     {
         instance = this;
-        cwt = new WaitForSeconds(crashWaitTime);
         //
         CreateGhosts();
     }
@@ -29,25 +45,8 @@ public class MineController : MonoBehaviour
     private void Update()
     {
         DebugGhost();
-        DebugMineColor();
     }
     //=========================================//
-    public void DebugMineColor()
-    {
-        if (Input.GetKeyDown(KeyCode.F1))
-        {
-            Map.instance.SetMineColor(Color.red);
-        }
-        else if (Input.GetKeyDown(KeyCode.F2))
-        {
-            Map.instance.SetMineColor(Color.white);
-        }
-        else if (Input.GetKeyDown(KeyCode.F3))
-        {
-            Map.instance.FlipAllMine();
-        }
-    }
-    //
     public void SetDifficulty(string diff)
     {
         if (diff == "NORMAL")
@@ -62,7 +61,7 @@ public class MineController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.I))
         { // 1체 생성
-            ActivateGhost();
+            ActivateGhost(Camera.main.transform);
         }
         else if (Input.GetKeyDown(KeyCode.O))
         { // 1체 파괴
@@ -125,31 +124,21 @@ public class MineController : MonoBehaviour
     //=========================================//
        private void SetCrashMine(Inner inner)
     {
-        //Debug.Log("Crash At " + tf.position);
-        /*
-        Transform floorTF = tf.parent.parent.parent;
-        Transform stageTF = floorTF.parent;
-        //
-        int floorNum = floorTF.name[0] - '0';
-        int stageNum = stageTF.name[0] - '0';
-        //
-        Floor floor = Map.instance.GetFloor(stageNum, floorNum);
-        */
         Floor floor = inner.GetFloor();
-        Transform tf = inner.transform;
+        Transform tileTF = inner.transform.parent;
 
         //
         Transform concA = floor.concreteTiles[2].transform;
-        bool isRight = (concA.position.x - tf.position.x) > 0;
+        bool isRight = (concA.localPosition.x - tileTF.localPosition.x) > 0;
         //
         Transform concB = isRight ?
             floor.concreteTiles[0].transform : floor.concreteTiles[1].transform;
         //
-        Vector3 targetPos = tf.position;
-        targetPos.z = -1;
+        Vector3 targetPos = tileTF.localPosition;
         Vector3 targetPosA = targetPos;
         Vector3 targetPosB = targetPos;
-        float tileHalfSize = 32;
+        //
+        float tileHalfSize = Map.TileWidth * 0.5f;
         //
         if (isRight)
         {
@@ -162,86 +151,8 @@ public class MineController : MonoBehaviour
             targetPosB.x += tileHalfSize;
         }
         //
-        StartCoroutine(GoToTarget(concA, concB, targetPosA, targetPosB));
-    }
-    //
-    private IEnumerator BackToOrigin(Transform concA, Transform concB,
-        Vector3 targetPosA, Vector3 targetPosB)
-    {
-        float t = 0;
-        float speed = 1.0f / crashReturnTime;
-        //
-        Vector3 startPosA = concA.position;
-        Vector3 startPosB = concB.position;
-        while (true)
-        {
-            if (t >= crashReturnTime)
-            {
-                concA.position = targetPosA;
-                concB.position = targetPosB;
-                yield break;
-            }
-            else
-            {
-                t += Time.deltaTime;
-                //
-                concA.position = Vector3.Lerp(startPosA, targetPosA, t*speed);
-                concB.position = Vector3.Lerp(startPosB, targetPosB, t*speed);
-            }
-            yield return null;
-        }
-    }
-    //
-    private IEnumerator GoToTarget(Transform concA, Transform concB,
-        Vector3 targetPosA, Vector3 targetPosB)
-    {
-        Vector3 originPosA = concA.position;
-        Vector3 originPosB = concB.position;
-        //
-        //float distA = 0, distB = 0;
-        //
-        // 등가속도 직선운동
-        // s = v0*t + 1/2 * a * t^2;
-        // a = 2*s / t^2;
-        float t = crashTime;
-        //
-        float sA = targetPosA.x - originPosA.x;
-        float aA = (2.0f * sA) / Mathf.Pow(t, 2.0f);
-        float sB = targetPosB.x - originPosB.x;
-        float aB = (2.0f * sB) / Mathf.Pow(t, 2.0f);
-        //
-        float vA = 0, vB = 0;
-        //
-        t = 0;
-        //
-        while (true)
-        {
-            if (t >= crashTime)
-            {
-                concA.position = targetPosA;
-                concB.position = targetPosB;
-                yield return cwt;
-                StartCoroutine(BackToOrigin(concA, concB, originPosA, originPosB));
-                yield break;
-            }
-            else
-            {
-                t += Time.deltaTime;
-                //
-                vA += aA * Time.deltaTime;
-                vB += aB * Time.deltaTime;
-                //
-                Vector3 tempA = concA.position;
-                tempA.x += (vA * Time.deltaTime);
-                concA.position = tempA;
-                //
-                Vector3 tempB = concB.position;
-                tempB.x += (vB * Time.deltaTime);
-                concB.position = tempB;
-            }
-
-            yield return null;
-        }
+        concA.GetComponent<Concrete>().StartToMove(targetPosA);
+        concB.GetComponent<Concrete>().StartToMove(targetPosB);
     }
     //=========================================//
     private void SetExplosion(MineTypes type, Transform tf)

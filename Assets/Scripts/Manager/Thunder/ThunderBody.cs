@@ -47,7 +47,7 @@ public class ThunderBody : MonoBehaviour
         //
         col.enabled = false;
         //
-        thunder.Reset();
+        thunder.ResetThunder();
     }
     //
     public void Explode()

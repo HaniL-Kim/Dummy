@@ -181,14 +181,14 @@ public class Ghost : MonoBehaviour
     //
     private void Explode()
     {
-        EffectManager.instance.Play("Explosion", tf);
+        EffectManager.instance.Play("Explosion", tf.position, tf.rotation);
         //
         SetToDefault();
     }
     //
     public void Dead()
     {
-        Debug.Log("GhostDead");
+        //Debug.Log("GhostDead");
         //
         SetToDead();
         // Explode //

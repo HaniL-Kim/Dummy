@@ -21,6 +21,11 @@ public class Item : MonoBehaviour
     {
         anim = GetComponent<Animator>();
     }
+    //
+    private void OnEnable()
+    {
+        anim.SetFloat(hashItemType, (float)type);
+    }
     //===============================================//
     public void Activate()
     {
@@ -57,7 +62,13 @@ public class Item : MonoBehaviour
     //
     public void ResetItem()
     {
+        // 초기화
         SetItem(ItemType.RESOURCE);
+        //
+        transform.position = Vector3.zero;
+        //
+        transform.SetParent(ItemManager.instance.itemHolder);
+        //
         gameObject.SetActive(false);
     }
     //===============================================//

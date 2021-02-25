@@ -15,8 +15,8 @@ public class Display : MonoBehaviour
     int type = 0;
     bool danger = false;
     //==================================//
-    private Animator anim;
-    private SpriteRenderer sr;
+    public Animator anim;
+    public SpriteRenderer sr;
     //==================================//
     private readonly int hashPlayCount = Animator.StringToHash("PlayCount");
     private readonly int hashIsDanger = Animator.StringToHash("IsDanger");
@@ -24,17 +24,6 @@ public class Display : MonoBehaviour
     private readonly int hashHit = Animator.StringToHash("Hit");
     private readonly int hashFlagHit = Animator.StringToHash("FlagHit");
     //==================================//
-    private void Awake()
-    {
-        sr = GetComponent<SpriteRenderer>();
-        //
-        anim = GetComponent<Animator>();
-        anim.enabled = false;
-        //
-        playCount = 5;
-        anim.SetInteger(hashPlayCount, playCount);
-    }
-    //
     private void OnEnable()
     {
         anim.SetBool(hashIsDanger, danger);
@@ -48,47 +37,55 @@ public class Display : MonoBehaviour
         ItemManager.instance.ShowItem(transform);
     }
     //==================================//
+    public void ResetDisplay()
+    {
+        flagHit = false;
+        SetDanger(danger = false, type = -1);
+        anim.enabled = false;
+        sr.enabled = false;
+        //
+        foreach (var item in GetComponentsInChildren<Item>())
+            item.ResetItem();
+
+    }
+    //==================================//
     public void Activate()
     {
         sr.enabled = true;
         Hit();
     }
     //
-    public void SetNumber(int type)
+    public void SetNumber(int _value)
     {
-        sr.sprite = GameManager.instance.numIcons[type].texture;
+        sr.sprite = MineController.instance.numIcons[_value].texture;
     }
     public void SetDanger(bool _danger, int _type)
     {
         danger = _danger;
         type = _type;
         //
-        sr.sprite = GameManager.instance.mineIcons[type].texture;
+        sr.sprite = MineController.instance.mineIcons[type + 1].texture;
         //
         anim.SetBool(hashIsDanger, danger);
         anim.SetFloat(hashMineType, (float)type);
         //
         switch ((MineTypes)type)
         {
+            case MineTypes.NONE:
             case MineTypes.PULL:
             case MineTypes.PUSH:
             case MineTypes.GHOST:
-                {
-                    playCount = 5;
-                    anim.SetInteger(hashPlayCount, playCount);
-                }
-                break;
-            case MineTypes.THUNDER:
-                {
-                    playCount = 3;
-                    anim.SetInteger(hashPlayCount, playCount);
-                }
-                break;
             case MineTypes.NARROWING:
             case MineTypes.CRASH:
+                playCount = 5;
+                break;
+            case MineTypes.THUNDER:
+                playCount = 3;
+                break;
             default:
                 break;
         }
+        anim.SetInteger(hashPlayCount, playCount);
     }
     //
     public void Hit()
@@ -111,7 +108,8 @@ public class Display : MonoBehaviour
         if (playCount == 0)
         {
             sr.sprite =
-                GameManager.instance.mineIcons[(int)inner.mineType].texture;
+                MineController.instance.mineIcons[(int)inner.mineType + 1].texture;
+            // debug
             sr.color = Color.white;
             //
             anim.enabled = false;

@@ -22,11 +22,25 @@ public class FootBoard : MonoBehaviour
         mat = GetComponent<Renderer>().material;
     }
     //=============================================//
+    public void ResetFootBoard()
+    {
+        sr.enabled = false;
+        canDistroy = false;
+        //
+        col.enabled = true;
+        //
+        col.isTrigger = false;
+        col.usedByEffector = true;
+        //
+        mat.SetFloat(hashDissolveAmount, dissolveValue);
+    }
+    //=============================================//
     public void Set()
     {
         sr.enabled = true;
         canDistroy = true;
     }
+    //
     public void DestroyFootBoard()
     {
         if (canDistroy == false)
@@ -37,6 +51,7 @@ public class FootBoard : MonoBehaviour
         // Dissolve
         StartCoroutine(DissolveEffect());
     }
+    //
     private IEnumerator DissolveEffect()
     {
         while (true)
@@ -55,6 +70,5 @@ public class FootBoard : MonoBehaviour
             }
         }
     }
-    //=============================================//
     //=============================================//
 }
