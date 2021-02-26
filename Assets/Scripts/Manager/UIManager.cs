@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class UIManager : MonoBehaviour
@@ -16,6 +17,8 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI airJumpUI;
     public int shieldCount = 0;
     public TextMeshProUGUI shieldUI;
+    //
+    public TextMeshProUGUI pressToRetry;
     //============================//
     private void Awake()
     {
@@ -96,4 +99,15 @@ public class UIManager : MonoBehaviour
         rscUI.text = rscCount.ToString();
     }
     //============================//
+    public void ActivatePressToRetry()
+    {
+        pressToRetry.gameObject.SetActive(true);
+    }
+    //public void SetSliderValue(float value)
+    //{
+    //    if (loadingSlider.gameObject.activeSelf == false)
+    //        loadingSlider.gameObject.SetActive(true);
+    //    //
+    //    loadingSlider.value = value;
+    //}
 }

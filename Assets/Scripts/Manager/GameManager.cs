@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 //==================// //==================//
 public enum MineTypes
@@ -19,7 +20,7 @@ public class GameManager : MonoBehaviour
     //====================================//
     public static GameManager instance;
     //====================================//
-    public Transform player;
+    public Dummy dummy;
     public ElecShooterController elecShooter;
     //====================================//
     // layer hashing
@@ -36,7 +37,7 @@ public class GameManager : MonoBehaviour
     };
     //====================================//
     public int mineCount = 0;
-    //====================================//
+    //====================================// //====================================//
     private void Awake()
     {
         instance = this;
@@ -52,10 +53,7 @@ public class GameManager : MonoBehaviour
     //====================================//
     private void Update()
     {
-        if (elecShooter.isElevate == false)
-            for (int i = 0; i < controlKeyCodes.Length; ++i)
-                if (Input.GetKeyDown(controlKeyCodes[i]))
-                    elecShooter.isElevate = true;
+        LetElecShooterMove();
     }
     //====================================//
     public RaycastHit2D RayToDirs(Transform tf, int dir, int layer)
@@ -66,9 +64,18 @@ public class GameManager : MonoBehaviour
         return hit;
     }
     //====================================//
+    private void LetElecShooterMove()
+    {
+        if (dummy.isDead == false)
+            if (elecShooter.isElevate == false)
+                for (int i = 0; i < controlKeyCodes.Length; ++i)
+                    if (Input.GetKeyDown(controlKeyCodes[i]))
+                        elecShooter.isElevate = true;
+    }
+    //
     public void StartGame()
     {
-        player.gameObject.SetActive(true);
+        dummy.gameObject.SetActive(true);
     }
     //====================================//
     private void SetDirs()
@@ -101,5 +108,36 @@ public class GameManager : MonoBehaviour
             return hit.transform;
         else
             return null;
+    }
+    //====================================//
+    public void ReloadPlayScene()
+    {
+        elecShooter.isElevate = false;
+        //
+        StartCoroutine(LoadScene("MainScene"));
+        //SceneManager.LoadScene(0); // "MainScene"
+    }
+    //
+    IEnumerator LoadScene(string sceneName)
+    {
+        AsyncOperation asyncOper = SceneManager.LoadSceneAsync(sceneName);
+        asyncOper.allowSceneActivation = false;
+        //
+        UIManager.instance.ActivatePressToRetry();
+        //
+        while (!asyncOper.isDone)
+        {
+            //UIManager.instance.SetSliderValue(asyncOper.progress);
+            if (asyncOper.progress >= 0.9f)
+            {
+                if (Input.anyKeyDown)
+                {
+                    yield return new WaitForSeconds(1.0f);
+                    asyncOper.allowSceneActivation = true;
+                }
+            }
+            //
+            yield return null;
+        }
     }
 }

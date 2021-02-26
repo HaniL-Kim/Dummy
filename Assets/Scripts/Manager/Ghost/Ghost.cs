@@ -57,7 +57,7 @@ public class Ghost : MonoBehaviour
     }
     private void Start()
     {
-        playerTF = GameManager.instance.player;
+        playerTF = GameManager.instance.dummy.transform;
         elecShooter = GameManager.instance.elecShooter
             .GetComponent<ElecShooterController>();
         //

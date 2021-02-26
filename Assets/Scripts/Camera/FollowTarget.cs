@@ -104,10 +104,9 @@ public class FollowTarget : MonoBehaviour
         float ct = camBorder_Up.position.y;
         float cb = camBorder_Down.position.y;
         //
-        Map m = Map.instance;
-        for (int i = 1; i < m.blocks.Count; ++i)
+        for (int i = 1; i < Map.instance.blocks.Count; ++i)
         { // i : 0 -> ReadyBlock
-            BlockControl b = m.blocks[i].block.GetComponent<BlockControl>();
+            BlockControl b = Map.instance.blocks[i].block.GetComponent<BlockControl>();
             //
             float bt = b.tf_top.position.y;
             float bb = b.tf_bottom.position.y;

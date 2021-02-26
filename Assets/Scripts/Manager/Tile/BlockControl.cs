@@ -31,24 +31,22 @@ public class BlockControl : MonoBehaviour
     public void ResetBlock()
     {
         if(Map.instance.isInfinite == false)
-        {
+        { // 1. Normal Mode
             gameObject.SetActive(false);
             return;
         }
-        //
-        // Set Pos //
-        // Move to over Top Block
+        // 2. Infinty Mode
+        // a. Set Block Pos : Move to over Top Block //
         Vector3 temp = transform.position;
         temp.y += Map.BlockHeight * 3.0f;
         transform.position = temp;
-        //
-        // a. Reset Tiles //
+        // b. Reset Tiles //
         Tile[] tiles = GetComponentsInChildren<Tile>();
         foreach (var t in tiles)
         {
             t.ResetTile();
         }
-        // b. Reset Concrete Tiles //
+        // c. Reset Concrete Tiles //
         foreach (Floor floor in block.floors)
         {
             // Reset Concretes
@@ -61,9 +59,9 @@ public class BlockControl : MonoBehaviour
             MyUtility.SwapPos(crash, tile);
             MyUtility.SwapNameAt(crash, tile, 0);
         }
-        // c. Reset Mine // 
+        // d. Reset Mine // 
         Map.instance.SetMine(block);
-        // d. Reset ArroundTileInfo //
+        // e. Reset ArroundTileInfo //
         Invoke("ReSetMineInfo", 0.1f);
     }
     //

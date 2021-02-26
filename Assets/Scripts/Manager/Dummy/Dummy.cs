@@ -5,7 +5,8 @@ using UnityEngine;
 public class Dummy : MonoBehaviour
 {
     //===============================//
-    List<string> deadTags = new List<string>()
+    public bool isDead = false;
+    private List<string> deadTags = new List<string>()
         { "Explosion", "Thunder", "Laser" };
     //Debug
     float R_LeftBorder;
@@ -554,6 +555,9 @@ public class Dummy : MonoBehaviour
         //
         // Dead Sequance
         Debug.Log("Player Dead By [" + tag + "]");
+        isDead = true;
+        //
+        GameManager.instance.ReloadPlayScene();
     }
     //
     private void OnTriggerEnter2D(Collider2D collision)

@@ -82,7 +82,7 @@ public class ElecShooterController : MonoBehaviour
         { // cLoopHeight = 10 * blockHeight -> 4700.0f
             Debug.Log("ResetHeightAll");
             // Dummy
-            MyUtility.DownHeight(GameManager.instance.player, cLoopHeight);
+            MyUtility.DownHeight(GameManager.instance.dummy.transform, cLoopHeight);
             // ElecShooter
             MyUtility.DownHeight(tf, cLoopHeight);
             // Camera
