@@ -42,21 +42,21 @@ public class FollowTarget : MonoBehaviour
         BlockCulling();
     }
     //==========================================//
-    private void OnDrawGizmos()
-    {
-        // Draw Border
-        {
-            Gizmos.color = Color.yellow;
-            if (camBorder_Up)
-            {
-                Gizmos.DrawRay(camBorder_Up.position, Vector3.left * 348.0f * 2.0f);
-            }
-            if (camBorder_Down)
-            {
-                Gizmos.DrawRay(camBorder_Down.position, Vector3.left * 348.0f * 2.0f);
-            }
-        }
-    }
+    //private void OnDrawGizmos()
+    //{
+    //    // Draw Border
+    //    {
+    //        Gizmos.color = Color.yellow;
+    //        if (camBorder_Up)
+    //        {
+    //            Gizmos.DrawRay(camBorder_Up.position, Vector3.left * 348.0f * 2.0f);
+    //        }
+    //        if (camBorder_Down)
+    //        {
+    //            Gizmos.DrawRay(camBorder_Down.position, Vector3.left * 348.0f * 2.0f);
+    //        }
+    //    }
+    //}
     //==========================================//
     private void Move()
     {

@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
     //====================================//
     public static GameManager instance;
     //====================================//
+    public bool pause = false;
+    //====================================//
     public Dummy dummy;
     public ElecShooterController elecShooter;
     //====================================//
@@ -60,7 +62,7 @@ public class GameManager : MonoBehaviour
     {
         float dist = dirs[dir].magnitude;
         RaycastHit2D hit = Physics2D.Raycast(tf.position, dirs[dir], dist, layer);
-        Debug.DrawRay(tf.position, dirs[dir], Color.green, 5.0f);
+        //Debug.DrawRay(tf.position, dirs[dir], Color.green, 5.0f);
         return hit;
     }
     //====================================//

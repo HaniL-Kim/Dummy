@@ -17,8 +17,10 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI airJumpUI;
     public int shieldCount = 0;
     public TextMeshProUGUI shieldUI;
-    //
+    // Retry
     public TextMeshProUGUI pressToRetry;
+    // Exit
+    public Image exitPannel;
     //============================//
     private void Awake()
     {
@@ -27,6 +29,34 @@ public class UIManager : MonoBehaviour
         UpdateRSCText();
         UpdateAirJumpText();
         UpdateShieldText();
+    }
+    //============================//
+    private void Update()
+    {
+        PauseControl();
+    }
+    //============================//
+    public void ExitGame()
+    { // Button Event
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#elif UNITY_WEBPLAYER
+        Application.OpenURL("http://google.com");
+#else
+        Application.Quit(); //어플리케이션 종료
+#endif
+    }
+    //
+    private void PauseControl()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            bool isActive = exitPannel.gameObject.activeSelf;
+            //
+            Time.timeScale = isActive ? 1.0f : 0.0f;
+            GameManager.instance.pause = !isActive;
+            exitPannel.gameObject.SetActive(!isActive);
+        }
     }
     //============================//
     public bool UseRSC(int cost)

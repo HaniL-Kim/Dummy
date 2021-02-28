@@ -104,13 +104,6 @@ public class ElecShooterController : MonoBehaviour
         }
     }
     //==========================================//
-    public void SlowSpeed()
-    { // Call By Item::Slow
-        // Slow Speed By Level
-        Debug.Log("SlowSpeed");
-        //elevateSpeed -= value;
-    }
-    //
     public void UpLevel()
     { // Call When Mine Activate
         level += 1;

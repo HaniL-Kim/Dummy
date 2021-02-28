@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using RotaryHeart;
 using System.Linq;
+using MyUtilityNS;
 
 //=============================================//
 [System.Serializable]
@@ -343,7 +345,7 @@ public class Map : MonoBehaviour
             concrete.transform.Translate(Vector3.back);
             concrete.name = (randIdx + 1) + "_Concrete";
             // For Debug
-            concrete.GetComponent<SpriteRenderer>().color = Color.green;
+            //concrete.GetComponent<SpriteRenderer>().color = Color.green;
             //
             stage.GetFloor(y).concreteTiles.Add(concrete);
         }

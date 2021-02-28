@@ -3,29 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using RotaryHeart.Lib.SerializableDictionary;
 //===========================================//
-[System.Serializable]
-public class StringInt : SerializableDictionaryBase<string, int> {}
-
-[System.Serializable]
-public class StringFloat : SerializableDictionaryBase<string, float> {}
-
-[System.Serializable]
-public class StringString : SerializableDictionaryBase<string, string> {}
-
-[System.Serializable]
-public class StageData
+namespace MyUtilityNS
 {
-    public int blocks;
-    public int unit;
-    public int pull, push, ghost, thunder, narrow, crash;
+    [System.Serializable]
+    public class StringInt : SerializableDictionaryBase<string, int> { }
+
+    [System.Serializable]
+    public class StringFloat : SerializableDictionaryBase<string, float> { }
+
+    [System.Serializable]
+    public class StringString : SerializableDictionaryBase<string, string> { }
+
+    [System.Serializable]
+    public class StageData
+    {
+        public int blocks;
+        public int unit;
+        public int pull, push, ghost, thunder, narrow, crash;
+    }
+
+    [System.Serializable]
+    public class IntStageData : SerializableDictionaryBase<int, StageData> { }
+
+    [System.Serializable]
+    public class DicStageData : SerializableDictionaryBase<string, IntStageData> { }
 }
-
-[System.Serializable]
-public class IntStageData : SerializableDictionaryBase<int, StageData> {}
-
-[System.Serializable]
-public class DicStageData : SerializableDictionaryBase<string, IntStageData> {}
-
+//
 public static class MyUtility
 {
     public static List<T> ShuffleList<T>(List<T> list)

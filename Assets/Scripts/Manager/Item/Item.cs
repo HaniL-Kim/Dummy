@@ -41,7 +41,7 @@ public class Item : MonoBehaviour
                 UIManager.instance.AddShield();
                 break;
             case ItemType.SLOW:
-                GameManager.instance.elecShooter.SlowSpeed();
+                GameManager.instance.elecShooter.superViser.SpeedLVDown();
                 break;
             default:
                 break;

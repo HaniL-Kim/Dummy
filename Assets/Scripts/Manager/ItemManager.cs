@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using RotaryHeart;
+using MyUtilityNS;
 
 //////////////////////////////////////////
 public class ItemManager : MonoBehaviour
@@ -109,12 +111,12 @@ public class ItemManager : MonoBehaviour
             return;
         //
         Item.ItemType type = (Item.ItemType)listItemOrder[order];
+        //
         item.SetActive(true);
         item.GetComponent<Item>().SetItem(type);
         //
         item.transform.SetParent(tf);
         item.transform.localPosition = Vector3.zero;
-        //item.transform.position = tf.position;
         //
         order++;
         if (order == cItemOrderCount)

@@ -111,29 +111,34 @@ public class Dummy : MonoBehaviour
         //
         shieldEffect = tf.GetChild(2).GetComponent<ShieldEffect>();
         shieldEffect.dummy = this;
-        //
-        //dashTimeCounter = dashTime;
-        //
-    } // End Start
+    }
     //=========================================//
     private void Update()
     {
+        if (GameManager.instance.pause == true)
+            return;
+        //
         Control();
         //
         UpdateEyeState();
         //
         GroundCheck();
-    } // End Update
-    private void FixedUpdate()
-    {
+        //
         Move();
+        //
         Idle();
-    } // End FixedUpdate
+    } // End Update
+    //private void FixedUpdate()
+    //{
+    //    Move();
+    //    Idle();
+    //} // End FixedUpdate
     private void LateUpdate()
     {
         StuckInConcrete();
     }
     //=========================================//
+    /*
     private void OnDrawGizmos()
     {
         if (onConcrete || onFootBoard)
@@ -153,6 +158,7 @@ public class Dummy : MonoBehaviour
             Gizmos.DrawLine(from, to);
         }
     }
+    */
     //=========================================//
     private void StuckInConcrete()
     {
@@ -536,6 +542,9 @@ public class Dummy : MonoBehaviour
     //
     public void Dead(string tag)
     {
+        if (isDead)
+            return;
+        //
         switch (shieldState)
         {
             case ShieldEffect.ShieldState.NONE:
@@ -556,6 +565,8 @@ public class Dummy : MonoBehaviour
         // Dead Sequance
         Debug.Log("Player Dead By [" + tag + "]");
         isDead = true;
+        //
+        gameObject.SetActive(false);
         //
         GameManager.instance.ReloadPlayScene();
     }
