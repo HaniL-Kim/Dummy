@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using DG.Tweening;
 
 public class StageButton : MonoBehaviour
 {
+    [SerializeField]
+    private StageWindowControl swc;
     //========== Sprites ==========//
     public Sprite sprite_InActive;
     public Sprite sprite_OnMouse;
@@ -36,6 +39,15 @@ public class StageButton : MonoBehaviour
         Material mat = Instantiate(target.material);
         target.material = mat;
     }
+    private void Start()
+    {
+        swc = FindObjectOfType<StageWindowControl>(true);
+    }
+    //========== Func  ==========//
+    public void ActivateStageWindow()
+    {
+        swc.Activate();
+    }
     //========== Func : Call From DataManager ==========//
     public void Activate()
     {
@@ -49,14 +61,13 @@ public class StageButton : MonoBehaviour
             Sequence ActivateSequence = DOTween.Sequence()
             .Append(tween_Rotate)
             .Join(tween_TextureToTarget)
-            .AppendCallback(() =>
-            {
-                target.material.SetTexture(hashDiffuse_1, sprite_Normal.texture);
-            })
+            .AppendCallback(() => { target.material.SetTexture(hashDiffuse_1, sprite_Normal.texture); })
             .Append(tween_TextureToMain)
+            .AppendCallback(() => { target.material = null; })
             ;
         }
-        //ActivateSequence.Restart();
+        // To Fix : add number
+        nameCard.GetComponentInChildren<TextMeshProUGUI>().text = "Stage";
     }
     //
     public void DeActivate()

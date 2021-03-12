@@ -12,6 +12,7 @@ TagManager:
   - Thunder
   - Laser
   - Explosion
+  - StageWindowCanvas
   layers:
   - Default
   - TransparentFX

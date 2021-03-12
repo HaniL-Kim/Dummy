@@ -1342,6 +1342,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0de27c1336747f49929569883b3d20f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stagePanels: []
+  leftArrow: {fileID: 0}
+  rightArrow: {fileID: 0}
+  currentDifficulty: 0
+  difficultyTweenTime: 0
 --- !u!1 &1274869332
 GameObject:
   m_ObjectHideFlags: 0
@@ -1399,7 +1404,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ver_0.1gip2i01
+  m_text: ver_0.1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: da25e185240ded249905520c0433bb74, type: 2}
   m_sharedMaterial: {fileID: 6167519075827806693, guid: da25e185240ded249905520c0433bb74, type: 2}

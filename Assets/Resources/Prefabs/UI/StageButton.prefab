@@ -235,7 +235,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0ac81eb6b8c36254c96cf1a729e4da93, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e35683a55ba840247bf11996bad60ab7, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -298,6 +298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea5483a340f927246a76ea33392fb85a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  swc: {fileID: 0}
   sprite_InActive: {fileID: 21300000, guid: a83b74732e0439b47a3d9d7be430d921, type: 3}
   sprite_OnMouse: {fileID: 21300000, guid: 08b54ca6f2ea24f4ba621ce3279ac814, type: 3}
   sprite_Normal: {fileID: 21300000, guid: e35683a55ba840247bf11996bad60ab7, type: 3}
@@ -360,7 +361,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4970973163285759594}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4970973163939680465}
+        m_TargetAssemblyTypeName: StageButton, Assembly-CSharp
+        m_MethodName: ActivateStageWindow
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &4970973163939680470
 MonoBehaviour:
   m_ObjectHideFlags: 0
