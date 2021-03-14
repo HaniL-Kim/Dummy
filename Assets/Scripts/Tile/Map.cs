@@ -90,7 +90,7 @@ public class Map : MonoBehaviour
     //
     public float blockStartPos;
     //=============================================//
-    public DicStageData stageData = new DicStageData();
+    public DicStageData stageData;
     public StageData currentStageData = null;
     //=============================================//
     private void Awake()
@@ -100,7 +100,7 @@ public class Map : MonoBehaviour
     ///////////////////////////////////////
     private void Start()
     {
-        ReadStageData();
+        SetStageData();
         //CreateStage("IMPOSSIBLE", 6);
         //CreateStage("HARD", 6);
         CreateStage("HARD", 0);
@@ -130,33 +130,9 @@ public class Map : MonoBehaviour
         }
     }
     //=============================================//
-    public void ReadStageData()
+    public void SetStageData()
     {
-        List<StringString> ss = CSVReader.Read("MapData/StageData");
-        //
-        string[] diffs = { "NORMAL", "HARD", "IMPOSSIBLE" };
-        for (int i = 0; i < diffs.Length; ++i)
-            stageData.Add(diffs[i], new IntStageData());
-        //
-        foreach (var data in ss)
-        {
-            StageData sd = new StageData();
-            //
-            string difficulty = data["Difficulty"];
-            int stage = int.Parse(data["Stage"]);
-            //
-            sd.blocks = int.Parse(data["Blocks"]);
-            sd.unit = int.Parse(data["Unit"]);
-            //
-            sd.pull = int.Parse(data["Pull"]);
-            sd.push = int.Parse(data["Push"]);
-            sd.ghost = int.Parse(data["Ghost"]);
-            sd.thunder = int.Parse(data["Thunder"]);
-            sd.narrow = int.Parse(data["Narrow"]);
-            sd.crash = int.Parse(data["Crash"]);
-            //
-            stageData[difficulty][stage] = sd;
-        }
+        stageData = MyUtility.ReadStageData();
     }
     //=============================================//
     // For Debug

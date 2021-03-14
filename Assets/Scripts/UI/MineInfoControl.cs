@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using TMPro;
 
 public class MineInfoControl : MonoBehaviour
 {
@@ -11,20 +12,29 @@ public class MineInfoControl : MonoBehaviour
     private Vector2 pivotDefault = new Vector2(0.5f, 0.5f);
     private Vector2 pivotLeft = new Vector2(0.0f, 0.5f);
     //
-    public List<GameObject> mineButtons = new List<GameObject>();
+    public List<GameObject> mineIcons = new List<GameObject>();
+    public List<TextMeshProUGUI> mineCountTexts;
+
     private int mineCount;
     //
     public Button leftBtn;
     public Button rightBtn;
     public int currentIconIndex;
     //===========================================//
-    void Start()
+    private void Awake()
+    {
+        mineCountTexts = new List<TextMeshProUGUI>();
+        for (int i = 0; i < mineIcons.Count; ++i)
+            mineCountTexts.Add( mineIcons[i].GetComponentInChildren<TextMeshProUGUI>(true) );
+    }
+    //
+    private void Start()
     {
         //CheckMineCount();
         //ContentPivotControl();
     }
     //
-    void Update()
+    private void Update()
     {
         CheckMineCount();
         ContentPivotControl();
@@ -61,8 +71,8 @@ public class MineInfoControl : MonoBehaviour
     {
         mineCount = 0;
         //
-        for (int i = 0; i < mineButtons.Count; ++i)
-            if (mineButtons[i].activeSelf == true)
+        for (int i = 0; i < mineIcons.Count; ++i)
+            if (mineIcons[i].activeSelf == true)
                 mineCount++;
     }
     //

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4970973162476581137}
   - component: {fileID: 4970973162476581136}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: StageText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -144,7 +144,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4970973162612109960}
   m_Layer: 5
-  m_Name: StageButton
+  m_Name: StageObj
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -182,7 +182,7 @@ GameObject:
   - component: {fileID: 4970973163285759595}
   - component: {fileID: 4970973163285759594}
   m_Layer: 5
-  m_Name: Image
+  m_Name: BtnImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -259,7 +259,7 @@ GameObject:
   - component: {fileID: 4970973163939680466}
   - component: {fileID: 4970973163939680470}
   m_Layer: 5
-  m_Name: Btn
+  m_Name: StageBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -299,6 +299,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   swc: {fileID: 0}
+  diff: 
+  stageNum: 0
   sprite_InActive: {fileID: 21300000, guid: a83b74732e0439b47a3d9d7be430d921, type: 3}
   sprite_OnMouse: {fileID: 21300000, guid: 08b54ca6f2ea24f4ba621ce3279ac814, type: 3}
   sprite_Normal: {fileID: 21300000, guid: e35683a55ba840247bf11996bad60ab7, type: 3}
@@ -432,7 +434,7 @@ GameObject:
   - component: {fileID: 4970973164425105523}
   - component: {fileID: 4970973164425105522}
   m_Layer: 5
-  m_Name: Mask
+  m_Name: MaskOfNameCard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

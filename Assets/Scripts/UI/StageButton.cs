@@ -1,14 +1,19 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
+using MyUtilityNS;
 
 public class StageButton : MonoBehaviour
 {
     [SerializeField]
     private StageWindowControl swc;
+    //========== ID ==========//
+    public string diffStr;
+    public int stageNum;
     //========== Sprites ==========//
     public Sprite sprite_InActive;
     public Sprite sprite_OnMouse;
@@ -38,6 +43,9 @@ public class StageButton : MonoBehaviour
         // Create & Set Material Instance
         Material mat = Instantiate(target.material);
         target.material = mat;
+        //
+        stageNum = (int)Char.GetNumericValue(MyUtility.GetLastChar(transform.parent.name));
+        diffStr = transform.parent.parent.name;
     }
     private void Start()
     {
@@ -46,11 +54,14 @@ public class StageButton : MonoBehaviour
     //========== Func  ==========//
     public void ActivateStageWindow()
     {
-        swc.Activate();
+        swc.Activate(diffStr, stageNum);
     }
     //========== Func : Call From DataManager ==========//
     public void Activate()
     {
+        if (btn.interactable == true)
+            return;
+        //
         btn.interactable = true;
         // Activate Sequance
         {
