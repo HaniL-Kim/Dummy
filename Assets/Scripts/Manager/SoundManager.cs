@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 //==================// //==================//
 public enum SoundKey
 {
-    BGM,
+    BGR,
+    TEST,
     JUMP, LAND,
 }
 //==================// //==================//
@@ -24,11 +27,11 @@ public class SoundManager : MonoBehaviour
     //
     [Header("BGM Option")]
     [Range(0.0f, 1.0f)]
-    public float bgmVolume = 1.0f;
+    public float bgrVolume = 1.0f;
     //
     [Header("FX Option")]
     [Range(0.0f, 1.0f)]
-    public float fxVolume = 1.0f;
+    public float effVolume = 1.0f;
     public int audioPoolCount = 30;
     public int soundDistanceMin = 5;
     public int soundDistanceMax = 10;
@@ -37,14 +40,81 @@ public class SoundManager : MonoBehaviour
     //
     private AudioSource bgAuido;
     private List<AudioSource> fxAudios = new List<AudioSource>();
+    //
+    public Slider bgrSlider;
+    public Slider effSlider;
     //==============================================//
     private void Awake()
     {
-        instance = this;
-        //
-        CreateAudio();
+        if(instance == null)
+        {
+            instance = this;
+            CreateAudio();
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+    // ====================== Event : Slider ====================== //
+    public void SetSliders()
+    {
+        if(bgrSlider == null)
+            bgrSlider = GameObject.Find("Slider_BGR").GetComponent<Slider>();
+        if(effSlider == null)
+            effSlider = GameObject.Find("Slider_EFF").GetComponent<Slider>();
     }
     //
+    public void Slider_OnPointerDrag_BGR(BaseEventData eventData)
+    {
+        if (bgrSlider == null)
+            SetSliders();
+        //
+        PlayBGR(SoundKey.BGR, bgrSlider.value);
+    }
+    //
+    public void Slider_OnPointerUp_BGR(BaseEventData eventData)
+    {
+        if (bgrSlider == null)
+            SetSliders();
+        //
+        StopBGR();
+    }
+    //
+    public void Slider_OnPointerUp_EFF(BaseEventData eventData)
+    {
+        if (effSlider == null)
+            SetSliders();
+        //
+        Play(SoundKey.TEST, null, effSlider.value);
+    }
+    //==============================================//
+    public void SetSoundOption()
+    {
+        bgrVolume = (float)SceneControl.instance.saveData.bgrVolume;
+        effVolume = (float)SceneControl.instance.saveData.effVolume;
+        // Set Slider
+        SetSliderValue();
+    }
+    //
+    public void SetSliderValue()
+    {
+        if (bgrSlider == null || effSlider == null)
+            SetSliders();
+        //
+        bgrSlider.value = bgrVolume;
+        effSlider.value = effVolume;
+    }
+    //
+    public void SetVolumeBySlider()
+    {
+        if (bgrSlider == null || effSlider == null)
+            SetSliders();
+        //
+        bgrVolume = bgrSlider.value;
+        effVolume = effSlider.value;
+    }
+    //==============================================//
     private void CreateAudio()
     {
         foreach (ClipInfo clipInfo in clipInfos)
@@ -65,7 +135,7 @@ public class SoundManager : MonoBehaviour
         bgAuido = obj.AddComponent<AudioSource>();
         bgAuido.loop = true;
         bgAuido.playOnAwake = false;
-        bgAuido.volume = bgmVolume;
+        bgAuido.volume = bgrVolume;
     }
     //
     private void CreateFXAudio()
@@ -78,7 +148,7 @@ public class SoundManager : MonoBehaviour
             audio.playOnAwake = false;
             audio.minDistance = soundDistanceMin;
             audio.maxDistance = soundDistanceMax;
-            audio.volume = fxVolume;
+            audio.volume = effVolume;
             audio.spatialBlend = 0.8f;
 
             fxAudios.Add(audio);
@@ -87,17 +157,27 @@ public class SoundManager : MonoBehaviour
         }
     }
     //
-    public void PlayBGM(SoundKey key)
+    public void StopBGR()
+    {
+        bgAuido.Stop();
+    }
+    //
+    public void PlayBGR(SoundKey key, float vol = -1.0f)
     {
         if (clips.ContainsKey(key) == false)
             return;
         //
         bgAuido.clip = clips[key];
-        bgAuido.volume = bgmVolume;
-        bgAuido.Play();
+        if (vol == -1.0f)
+            bgAuido.volume = bgrVolume;
+        else
+            bgAuido.volume = vol;
+        //
+        if(bgAuido.isPlaying == false)
+            bgAuido.Play();
     }
     //
-    public void Play(SoundKey key, Transform target = null)
+    public void Play(SoundKey key, Transform target = null, float effVol = -1.0f)
     {
         if (clips.ContainsKey(key) == false)
             return;
@@ -124,6 +204,11 @@ public class SoundManager : MonoBehaviour
             playAudio.transform.SetParent(target);
         //
         playAudio.transform.localPosition = Vector3.zero;
+        //
+        if(effVol == -1.0f)
+            playAudio.volume = effVolume;
+        else
+            playAudio.volume = effVol;
         //
         playAudio.PlayOneShot(clips[key]);
         //
@@ -153,6 +238,7 @@ public class SoundManager : MonoBehaviour
         //
         playAudio.transform.position = pos;
         //
+        playAudio.volume = effVolume;
         playAudio.PlayOneShot(clips[key]);
         //
         StartCoroutine(AudioDisable(playAudio, clips[key].length));

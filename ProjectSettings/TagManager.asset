@@ -13,6 +13,9 @@ TagManager:
   - Laser
   - Explosion
   - StageWindowCanvas
+  - FrameScreen
+  - OptionWindow
+  - Stage
   layers:
   - Default
   - TransparentFX

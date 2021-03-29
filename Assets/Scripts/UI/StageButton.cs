@@ -57,13 +57,14 @@ public class StageButton : MonoBehaviour
         swc.Activate(diffStr, stageNum);
     }
     //========== Func : Call From DataManager ==========//
-    public void Activate()
+    public void Activate(bool tween = true)
     {
         if (btn.interactable == true)
             return;
         //
         btn.interactable = true;
         // Activate Sequance
+        if(tween == true)
         {
             Tween tween_Rotate = targetTF.DORotateQuaternion(endRot, tweenTime_Activate).SetEase(Ease.InCubic);
             Tween tween_TextureToTarget = target.material.DOFloat(1.0f, hashFactor, tweenTime_Activate).SetEase(Ease.InCubic);
@@ -77,8 +78,22 @@ public class StageButton : MonoBehaviour
             .AppendCallback(() => { target.material = null; })
             ;
         }
+        else
+        {
+            targetTF.rotation = endRot;
+            target.material.SetTexture(hashDiffuse_1, sprite_Normal.texture);
+            target.material = null;
+        }
         // To Fix : add number
-        nameCard.GetComponentInChildren<TextMeshProUGUI>().text = "Stage";
+        char c = MyUtility.GetLastChar(transform.parent.name);
+        string stageNum = "";
+        if (c == '0')
+            stageNum = "Infinite";
+        else
+            stageNum = c.ToString();
+        //
+        nameCard.GetComponentInChildren<TextMeshProUGUI>().text
+            = stageNum + " Stage";
     }
     //
     public void DeActivate()

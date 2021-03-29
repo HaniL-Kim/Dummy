@@ -39,6 +39,12 @@ public class SaveData
     //=========== Variables ===========//
     public string id;
     public List<int> stageClear;
+    //
+    public double bgrVolume;
+    public double effVolume;
+    //
+    public int resolution;
+    public int screenMode;
     //=========== ctor ===========//
     // (Default)
     public SaveData()
@@ -49,6 +55,12 @@ public class SaveData
         stageClear.Add(0); // NORMAL
         stageClear.Add(0); // HARD
         stageClear.Add(0); // IMPOSSIBLE
+        //
+        bgrVolume = 0.5;
+        effVolume = 0.5;
+        //
+        resolution = 0;
+        screenMode = 0;
     }
     // from Jason
     public SaveData(JsonData jd)
@@ -60,6 +72,12 @@ public class SaveData
         {
             stageClear.Add(int.Parse(jd["stageClear"][i].ToString()));
         }
+        //
+        bgrVolume = double.Parse(jd["bgrVolume"].ToString());
+        effVolume = double.Parse(jd["effVolume"].ToString());
+        //
+        resolution = int.Parse(jd["resolution"].ToString());
+        screenMode = int.Parse(jd["screenMode"].ToString());
     }
 }
 //================================================//
@@ -95,6 +113,7 @@ public static class MyUtility
     {
         JsonData jd = JsonMapper.ToJson(sd);
         //
+        DirectoryInfo dir = Directory.CreateDirectory(Application.dataPath + "/SaveData");
         string savePath = Application.dataPath + "/SaveData/SaveData.json";
         //
         File.WriteAllText(savePath, jd.ToString());
@@ -104,7 +123,13 @@ public static class MyUtility
     {
         string savePath = Application.dataPath + "/SaveData/SaveData.json";
         //
-        string jsonString = File.ReadAllText(savePath);
+        string jsonString = "";
+        // Initial SaveData
+        if (File.Exists(savePath) == false)
+            SaveDataToJson(new SaveData());
+        //
+        jsonString = File.ReadAllText(savePath);
+        //
         JsonData jd = JsonMapper.ToObject(jsonString);
         //
         SaveData sd = new SaveData(jd);

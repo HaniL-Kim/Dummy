@@ -4,17 +4,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using UnityEditor;
 using TMPro;
 //
 using MyUtilityNS;
+//
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class StageWindowControl : MonoBehaviour
 {
     // ================= Parent Object ================= //
     public GameObject bgPanel;
-    // ================= StageBtn Objects ================= //
-    public List<GameObject> stages = new List<GameObject>();
     // ================= Child Objects ================= //
     public Transform checkBoxes;
     public Color transparentColor;
@@ -27,64 +28,28 @@ public class StageWindowControl : MonoBehaviour
     public TextMeshProUGUI kindOfMine;
     public TextMeshProUGUI description;
     // ================= Variables ================= //
-    public List<bool> enabledBGRs = new List<bool>();
-    public List<bool> checkedBGRs = new List<bool>();
-    // ================= StageData ================= //
-    public DicStageData stageData;
-    public SaveData saveData;
+    public List<bool> enabledBGR = new List<bool>();
+    public List<bool> checkedBGR = new List<bool>();
     // ================= Default Func ================= //
     private void Awake()
     {
         bgPanel = transform.parent.gameObject;
         CheckBGREnabled();
-        //
-        saveData = new SaveData();
     }
+    //
     private void Start()
     {
-        ReadStageTable();
+        //ReadStageTable();
+        //Load();
     }
+    //
     // ================= Func ================= //
-    private void SetStageBtns()
-    {
-        stages[0].transform.GetChild(0).GetComponentInChildren<StageButton>().Activate();
-        //
-        for(int i = 0; i < stages.Count; ++i)
-        {
-            int clearStageMax = saveData.stageClear[i];
-            for (int j = 0; j < clearStageMax; ++j)
-            {
-                stages[i].transform.GetChild(j+1).GetComponentInChildren<StageButton>().Activate();
-            }
-
-        }
-
-    }
-    //
-    public void Load()
-    {
-        saveData = MyUtility.LoadDataFromJson();
-        SetStageBtns();
-        Debug.Log("Load Complete");
-    }
-    //
-    public void Save()
-    {
-        MyUtility.SaveDataToJson(saveData);
-        Debug.Log("Save Complete");
-    }
-    //
-    public void ReadStageTable()
-    {
-        stageData = MyUtility.ReadStageData();
-    }
-    //
     private void SetStageData(string diff, int stageNum)
     {
         string stageNameStr = stageNum == 0 ? "Infinite" : stageNum.ToString();
         stageName.text = stageNameStr + " Stage";
         //
-        StageData sd = stageData[diff][stageNum];
+        StageData sd = SceneControl.instance.stageData[diff][stageNum];
         //
         int floorCount = sd.blocks * 10;
         int unit = sd.unit;
@@ -97,7 +62,7 @@ public class StageWindowControl : MonoBehaviour
         //
         spdUpCD.text = unit.ToString();
         // From Save Data
-        int clearStage = saveData.stageClear[MyUtility.DiffToInt(diff)];
+        int clearStage = SceneControl.instance.saveData.stageClear[MyUtility.DiffToInt(diff)];
         if (stageNum <= clearStage)
             isClear.text = "YES";
         else
@@ -132,10 +97,20 @@ public class StageWindowControl : MonoBehaviour
     //
     public void CheckBGREnabled()
     {
-        for(int i = 0; i < checkBoxes.childCount; ++i)
+        SceneControl sc = SceneControl.instance;
+        //
+        for(int i = 0; i < sc.stages.Length; ++i)
+        {
+            int stageClear = sc.saveData.stageClear[i];
+            if (stageClear >= 6)
+                enabledBGR[i+1] = true;
+        }
+        //
+        for (int i = 0; i < checkBoxes.childCount; ++i)
         {
             Image img = checkBoxes.GetChild(i).GetComponent<Image>();
-            if (enabledBGRs[i] == false)
+            //
+            if (enabledBGR[i] == false)
             {
                 img.color = transparentColor;
                 img.transform.GetComponent<Button>().interactable = false;
@@ -153,6 +128,19 @@ public class StageWindowControl : MonoBehaviour
         bgPanel.gameObject.SetActive(false);
     }
     //
+    public void CheckBGR(int idx)
+    {
+        for (int i = 0; i < checkBoxes.childCount; ++i)
+        {
+            if (idx == i)
+                checkedBGR[i] = true;
+            else
+                checkedBGR[i] = false;
+            //
+            checkBoxes.GetChild(i).GetChild(0).gameObject.SetActive(checkedBGR[i]);
+        }
+    }
+    //
     public void BTN_CheckBGR()
     {
         // Get current Obj idx
@@ -162,32 +150,37 @@ public class StageWindowControl : MonoBehaviour
         for (int i = 0; i < checkBoxes.childCount; ++i)
         {
             if(idx == i)
-                checkedBGRs[idx] = !checkedBGRs[idx];
+            {
+                checkedBGR[idx] = !checkedBGR[idx];
+                //
+                if (checkedBGR[idx] == false)
+                    SceneControl.instance.currentBGR = -1;
+                else
+                    SceneControl.instance.currentBGR = idx;
+            }
             else
-                checkedBGRs[i] = false;
+                checkedBGR[i] = false;
             //
-            checkBoxes.GetChild(i).GetChild(0).gameObject.SetActive(checkedBGRs[i]);
+            checkBoxes.GetChild(i).GetChild(0).gameObject.SetActive(checkedBGR[i]);
         }
-        //
         // Reset for Highlight self
         EventSystem.current.SetSelectedGameObject(null);
+        // Save Current BGR Select
     }
-}
-// ================= Custom Editor ================= //
-[CustomEditor(typeof(StageWindowControl))]
-public class ActivateButton : Editor
-{
-    public override void OnInspectorGUI()
+    // ================= Custom Editor ================= //
+#if UNITY_EDITOR
+    [CustomEditor(typeof(StageWindowControl))]
+    public class ActivateButton : Editor
     {
-        base.OnInspectorGUI();
-        //
-        StageWindowControl swc = (StageWindowControl)target;
-        //
-        if (GUILayout.Button("CheckBGRState"))
-            swc.CheckBGREnabled();
-        if (GUILayout.Button("Save"))
-            swc.Save();
-        if (GUILayout.Button("Load"))
-            swc.Load();
+        public override void OnInspectorGUI()
+        {
+            base.OnInspectorGUI();
+            //
+            StageWindowControl swc = (StageWindowControl)target;
+            //
+            if (GUILayout.Button("CheckBGRState"))
+                swc.CheckBGREnabled();
+        }
     }
-} 
+#endif
+}

@@ -294,6 +294,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Panel_Stage_NORMAL
       objectReference: {fileID: 0}
+    - target: {fileID: 480628469578052467, guid: 050c82de8359abe4b980fcf8039882b4, type: 3}
+      propertyPath: m_TagString
+      value: Stage
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 050c82de8359abe4b980fcf8039882b4, type: 3}
 --- !u!224 &111196596 stripped
@@ -381,7 +385,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &711875803 stripped
 RectTransform:
@@ -495,7 +499,7 @@ RectTransform:
   - {fileID: 365265947}
   - {fileID: 730473036}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -518,15 +522,106 @@ MonoBehaviour:
   - {fileID: 111196596}
   - {fileID: 1929967294}
   - {fileID: 365265947}
+  currentPanelIdx: 0
   leftArrow: {fileID: 265622926}
   rightArrow: {fileID: 1249690197}
-  currentDifficulty: 0
-  difficultyTweenTime: 0.5
+  panelTweenTime: 1
+--- !u!114 &1136871871 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3905884509294469082, guid: 0e4f81b6a6732534c9922b118f561238, type: 3}
+  m_PrefabInstance: {fileID: 3905884509934764804}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec287d93db5d446408ee07aacf63f833, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1170674611 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 480628469578052467, guid: 050c82de8359abe4b980fcf8039882b4, type: 3}
   m_PrefabInstance: {fileID: 1929967293}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1204634288
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1204634290}
+  - component: {fileID: 1204634289}
+  m_Layer: 0
+  m_Name: SceneControl
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1204634289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1204634288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fb58dbc1680a3c4abd5c36820b4ac19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swc: {fileID: 1136871871}
+  bm: {fileID: 994700143}
+  stages:
+  - {fileID: 987940576}
+  - {fileID: 1170674611}
+  - {fileID: 2006335913}
+  stageData:
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 0
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 0}
+    isExpanded: 0
+    _keyValues: []
+    _keys: []
+    _values: []
+  saveData:
+    id: SaveData
+    stageClear: 000000000000000000000000
+  currentDifficulty: 0
+  currentBGR: 0
+--- !u!4 &1204634290
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1204634288}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 90}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1249690197 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1932518721486398161, guid: 90b0ad4e248d67f4385b258ba3921ae9, type: 3}
@@ -745,7 +840,7 @@ RectTransform:
   m_Children:
   - {fileID: 98582777}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -863,9 +958,17 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 480628469419384947, guid: 050c82de8359abe4b980fcf8039882b4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 480628469578052467, guid: 050c82de8359abe4b980fcf8039882b4, type: 3}
       propertyPath: m_Name
       value: HARD
+      objectReference: {fileID: 0}
+    - target: {fileID: 480628469578052467, guid: 050c82de8359abe4b980fcf8039882b4, type: 3}
+      propertyPath: m_TagString
+      value: Stage
       objectReference: {fileID: 0}
     - target: {fileID: 480628469578052469, guid: 050c82de8359abe4b980fcf8039882b4, type: 3}
       propertyPath: m_Enabled
@@ -991,9 +1094,25 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 480628468548568392, guid: 050c82de8359abe4b980fcf8039882b4, type: 3}
+      propertyPath: m_text
+      value: Impossible
+      objectReference: {fileID: 0}
+    - target: {fileID: 480628468566492683, guid: 050c82de8359abe4b980fcf8039882b4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 480628469419384947, guid: 050c82de8359abe4b980fcf8039882b4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 480628469578052467, guid: 050c82de8359abe4b980fcf8039882b4, type: 3}
       propertyPath: m_Name
       value: IMPOSSIBLE
+      objectReference: {fileID: 0}
+    - target: {fileID: 480628469578052467, guid: 050c82de8359abe4b980fcf8039882b4, type: 3}
+      propertyPath: m_TagString
+      value: Stage
       objectReference: {fileID: 0}
     - target: {fileID: 480628469578052469, guid: 050c82de8359abe4b980fcf8039882b4, type: 3}
       propertyPath: m_Enabled
@@ -1205,6 +1324,22 @@ PrefabInstance:
       propertyPath: stages.Array.data[2]
       value: 
       objectReference: {fileID: 2006335913}
+    - target: {fileID: 3905884509294469082, guid: 0e4f81b6a6732534c9922b118f561238, type: 3}
+      propertyPath: checkedBGR.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3905884509294469082, guid: 0e4f81b6a6732534c9922b118f561238, type: 3}
+      propertyPath: enabledBGR.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3905884509294469082, guid: 0e4f81b6a6732534c9922b118f561238, type: 3}
+      propertyPath: enabledBGR.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3905884509294469082, guid: 0e4f81b6a6732534c9922b118f561238, type: 3}
+      propertyPath: saveData.stageClear.Array.data[0]
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3905884509294469086, guid: 0e4f81b6a6732534c9922b118f561238, type: 3}
       propertyPath: m_Name
       value: StageWindow
