@@ -62,7 +62,7 @@ public class ButtonManager : MonoBehaviour
         {
             float targetPos = (i++) * cScreenWidth;
             if (tween == true)
-                panel.DOAnchorPosX(targetPos, panelTweenTime);
+                panel.DOAnchorPosX(targetPos, panelTweenTime).SetUpdate(true);
             else
             {
                 Vector2 temp = panel.anchoredPosition;
@@ -74,24 +74,24 @@ public class ButtonManager : MonoBehaviour
         SetArrowInteractable();
     }
     //
-    public void BTN_SetDifficulty_Left()
+    public void BTN_Arrow_Left()
     {
         --currentPanelIdx;
         //
         if (SceneManager.GetActiveScene().buildIndex == 2)
             SceneControl.instance.currentDifficulty = (Difficulty)currentPanelIdx;
         //
-        MovePanel();
+        MovePanel(true);
     }
     //
-    public void BTN_SetDifficulty_Right()
+    public void BTN_Arrow_Right()
     {
         ++currentPanelIdx;
         //
         if (SceneManager.GetActiveScene().buildIndex == 2)
             SceneControl.instance.currentDifficulty = (Difficulty)currentPanelIdx;
         //
-        MovePanel();
+        MovePanel(true);
     }
     //
     public void BTN_BackToFirstMenuScene()
@@ -104,18 +104,14 @@ public class ButtonManager : MonoBehaviour
     {
         DOTween.KillAll();
         //
-        Camera.main.gameObject.SetActive(false);
-        //
         int idx = SceneManager.GetActiveScene().buildIndex;
         SceneManager.UnloadSceneAsync(idx);
         //
         GameObject[] roots = SceneManager.GetSceneAt(0).GetRootGameObjects();
-        Camera cm; Canvas cv;
+        Canvas cv;
         foreach (GameObject obj in roots)
         {
-            if (obj.TryGetComponent<Camera>(out cm) == true)
-                obj.SetActive(true);
-            else if (obj.TryGetComponent<Canvas>(out cv) == true)
+            if (obj.TryGetComponent<Canvas>(out cv) == true)
                 obj.GetComponent<Canvas>().enabled = true;
         }
     }
@@ -127,53 +123,19 @@ public class ButtonManager : MonoBehaviour
     //
     public void BTN_Infor()
     {
-        StartCoroutine(Infor());
-    }
-    private IEnumerator Infor()
-    {
-        Camera.main.gameObject.SetActive(false);
-        GameObject.Find("Canvas").GetComponent<Canvas>().enabled = false;
-        //
-        AsyncOperation op = SceneManager.LoadSceneAsync("3_InforScene", LoadSceneMode.Additive);
-        op.allowSceneActivation = false;
-        while(op.isDone == false)
-        {
-            yield return null;
-            if(op.progress >= 0.9f)
-            {
-                if(op.isDone == false)
-                {
-                    op.allowSceneActivation = true;
-                }
-                else
-                {
-                    Scene s = SceneManager.GetSceneAt(1);
-                    SceneManager.SetActiveScene(s);
-                }
-            }
-        }
+        SceneControl.instance.StartInforScene();
     }
     //
     public void BTN_Option()
     {
-        GameObject optionWindow = GameObject.FindGameObjectWithTag("OptionWindow");
-        optionWindow.transform.GetChild(0).gameObject.SetActive(true);
-    }
-    //
-    public void BTN_Credit()
-    {
-        Debug.Log("Credit");
+        SceneControl.instance.OpenOption(true);
+        //GameObject optionWindow = GameObject.FindGameObjectWithTag("OptionWindow");
+        //optionWindow.transform.GetChild(0).gameObject.SetActive(true);
     }
     //
     public void BTN_Exit()
     { // Button Event
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#elif UNITY_WEBPLAYER
-        Application.OpenURL("http://google.com");
-#else
-        Application.Quit(); //어플리케이션 종료
-#endif
+        SceneControl.instance.ExitGame();
     }
     //=========================================//
 }

@@ -97,19 +97,16 @@ public class Map : MonoBehaviour
     {
         instance = this;
     }
-    ///////////////////////////////////////
     private void Start()
     {
-        SetStageData();
-        //CreateStage("IMPOSSIBLE", 6);
-        //CreateStage("HARD", 6);
-        CreateStage("HARD", 0);
+        SetMap();
     }
+    //
     private void Update()
     {
         DebugMap();
     }
-    //
+    ///////////////////////////////////////
     public void DebugMap()
     {
         if (Input.GetKeyDown(KeyCode.F1))
@@ -130,9 +127,15 @@ public class Map : MonoBehaviour
         }
     }
     //=============================================//
-    public void SetStageData()
+    public void SetMap()
     {
-        stageData = MyUtility.ReadStageData();
+        stageData = SceneControl.instance.stageData;
+        //
+        Difficulty difficulty = SceneControl.instance.currentDifficulty;
+        int stage = SceneControl.instance.currentStage;
+        //
+        CreateStage(MyUtility.DiffToStr(difficulty), stage);
+        // CreateStage(NORMAL, 1);
     }
     //=============================================//
     // For Debug
@@ -200,7 +203,7 @@ public class Map : MonoBehaviour
         concretePrefab = Resources.Load<GameObject>("Prefabs/Tiles/Concrete");
     }
     ///////////////////////////////////////
-    private void InfiniteMode(int lv)
+    private void IsInfiniteMode(int lv)
     {
         if (lv == 0)
             isInfinite = true;
@@ -215,7 +218,7 @@ public class Map : MonoBehaviour
         //
         MineController.instance.SetDifficulty(diff);
         // Infinite Mode
-        InfiniteMode(lv);
+        IsInfiniteMode(lv);
         //
         GameManager.instance.elecShooter.superViser.SetUnit(sd.unit);
         //GameManager.instance.elecShooter.superViser.SetUnit(3);

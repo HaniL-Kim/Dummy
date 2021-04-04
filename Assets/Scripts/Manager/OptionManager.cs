@@ -10,6 +10,8 @@ public enum ScreenMode { NONE, FS, BLFS }
 public class OptionManager : MonoBehaviour
 {
     // =================== Children =================== //
+    public GameObject option;
+    //
     public List<CheckBoxControl> resolutionCB = new List<CheckBoxControl>();
     public List<CheckBoxControl> screenModeCB = new List<CheckBoxControl>();
     //
@@ -20,13 +22,24 @@ public class OptionManager : MonoBehaviour
     // =================== Variable =================== //
     public int checkedRS = 0, checkedSM = 0;
     // =================== Func - Default =================== //
+    private void Awake()
+    {
+        option = transform.GetChild(0).gameObject;
+        option.SetActive(true);
+    }
+    //
     private void Start()
     {
         SetOptionState();
         //
-        gameObject.SetActive(false);
+        option.SetActive(false);
     }
     // =================== Func =================== //
+    public void ResetOption()
+    {
+
+    }
+    //
     private void SetScreenOption()
     {
         // Set Screen Data
@@ -68,7 +81,7 @@ public class OptionManager : MonoBehaviour
         SoundManager.instance.SetSliderValue();
         SceneControl.instance.SetScreen();
         //
-        gameObject.SetActive(false);
+        option.SetActive(false);
     }
     //
     public void ExitGame()
@@ -115,7 +128,7 @@ public class OptionManager : MonoBehaviour
         if ((checkedRS != (int)curResolution) || (checkedSM != (int)curScreenMode))
             assureWindow.SetActive(true);
         else
-            gameObject.SetActive(false);
+            option.SetActive(false);
     }
     //
     public void SetScreenByChecked()

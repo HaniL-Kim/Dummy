@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
+using DG.Tweening;
 //
 using MyUtilityNS;
 //
@@ -46,6 +47,8 @@ public class StageWindowControl : MonoBehaviour
     // ================= Func ================= //
     private void SetStageData(string diff, int stageNum)
     {
+        SceneControl.instance.currentStage = stageNum;
+        //
         string stageNameStr = stageNum == 0 ? "Infinite" : stageNum.ToString();
         stageName.text = stageNameStr + " Stage";
         //
@@ -92,6 +95,7 @@ public class StageWindowControl : MonoBehaviour
     public void Activate(string diff, int stageNum)
     {
         bgPanel.SetActive(true);
+        //
         SetStageData(diff, stageNum);
     }
     //
@@ -123,6 +127,17 @@ public class StageWindowControl : MonoBehaviour
         }
     }
     // ================= Btn Event ================= //
+    public void BTN_Play()
+    {
+        // Transition Sequence
+        SceneControl.instance.StartSceneTransition("MainScene");
+        //Sequence ActivateSequence = DOTween.Sequence()
+        //.AppendCallback(() => { TransitionControl.instance.Door_Close(); })
+        //.AppendInterval(TransitionControl.instance.tweenTime)
+        //.AppendCallback(() => { SceneControl.instance.StartMainScene(); })
+        //;
+    }
+    //
     public void BTN_Close()
     {
         bgPanel.gameObject.SetActive(false);

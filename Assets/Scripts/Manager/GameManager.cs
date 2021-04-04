@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     //====================================//
     public static GameManager instance;
     //====================================//
+    public bool gameOver = false;
     public bool pause = false;
     //====================================//
     public Dummy dummy;
@@ -116,11 +117,10 @@ public class GameManager : MonoBehaviour
     {
         elecShooter.isElevate = false;
         //
-        StartCoroutine(LoadScene("MainScene"));
-        //SceneManager.LoadScene(0); // "MainScene"
+        StartCoroutine(RetryMainScene("MainScene"));
     }
     //
-    IEnumerator LoadScene(string sceneName)
+    private IEnumerator RetryMainScene(string sceneName)
     {
         AsyncOperation asyncOper = SceneManager.LoadSceneAsync(sceneName);
         asyncOper.allowSceneActivation = false;

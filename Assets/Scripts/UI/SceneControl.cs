@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+//
+using DG.Tweening;
 // namespace //
 using MyUtilityNS;
 //
@@ -21,7 +23,14 @@ public class SceneControl : MonoBehaviour
     public GameObject[] stages;
     // ================= UI State ================= //
     public Difficulty currentDifficulty = Difficulty.NORMAL;
+    public int currentStage = 1;
+    //
     public int currentBGR;
+    // ================= UI ================= //
+    public Canvas canvas;
+    public Camera cam;
+    public InGameMenuControl IGMControl;
+    public GameObject option;
     // ================= Read from csv & json ================= //
     public DicStageData stageData;
     public SaveData saveData;
@@ -33,15 +42,96 @@ public class SceneControl : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(this.gameObject);
             //
-            saveData = new SaveData();
-            Load();
-            //
-            SceneManager.activeSceneChanged += OnSceneChange;
+            Init();
         }
         else
             Destroy(this.gameObject);
     }
     //==================================//
+    private void Init()
+    {
+        //canvas = transform.GetChild(0).GetComponent<Canvas>();
+        canvas.worldCamera = cam;
+        //
+        saveData = new SaveData();
+        Load();
+        //
+        SceneManager.activeSceneChanged += OnSceneChange;
+    }
+    //==================================//
+    public void StartInforScene()
+    {
+        StartCoroutine(InforCoroutine());
+    }
+    //
+    public IEnumerator InforCoroutine()
+    {
+        GameObject.Find("Canvas").GetComponent<Canvas>().enabled = false;
+        //
+        AsyncOperation op = SceneManager.LoadSceneAsync("3_InforScene", LoadSceneMode.Additive);
+        op.allowSceneActivation = false;
+        while(op.isDone == false)
+        {
+            yield return null;
+            if(op.progress >= 0.9f)
+            {
+                //op.allowSceneActivation = true;
+                //
+                if (op.isDone == false)
+                {
+                    op.allowSceneActivation = true;
+                }
+                else
+                {
+                    Scene s = SceneManager.GetSceneAt(1);
+                    SceneManager.SetActiveScene(s);
+                }
+            }
+        }
+    }
+    //
+    public void StartSceneTransition(string sceneName)
+    {
+        // Transition Sequence
+        Sequence ActivateSequence = DOTween.Sequence()
+        .AppendCallback(() => { TransitionControl.instance.Door_Close(); })
+        .AppendInterval(TransitionControl.instance.tweenTime)
+        .AppendCallback(() => { StartSceneLoadingWithTransition(sceneName); })
+        .SetUpdate(true);
+        ;
+    }
+    //
+    public void StartSceneLoadingWithTransition(string sceneName)
+    {
+        StartCoroutine(LoadSceneAsyncWithTransitionCoroutine(sceneName));
+    }
+    //
+    //public void StartMainScene()
+    //{
+    //    StartCoroutine(LoadSceneAsyncWithTransitionCoroutine("MainScene"));
+    //}
+    //
+    public IEnumerator LoadSceneAsyncWithTransitionCoroutine(string sceneName)
+    {
+        Debug.Log("Load " + sceneName + " begin");
+        //
+        AsyncOperation op = SceneManager.LoadSceneAsync(sceneName);
+        op.allowSceneActivation = false;
+        while(op.isDone == false)
+        {
+            yield return null;
+            if(op.progress >= 0.9f)
+            {
+                op.allowSceneActivation = true;
+                //
+                if(op.isDone == true)
+                    TransitionControl.instance.Door_Open(sceneName);
+            }
+        }
+        //
+        Debug.Log("Load " + sceneName + " complete");
+    }
+    //
     public void SetScreen(int res = -1, int mod = -1)
     {
         // Default State
@@ -89,9 +179,32 @@ public class SceneControl : MonoBehaviour
         }
     }
     //
+    public void SetIGM(bool b)
+    {
+        IGMControl.Set(b);
+        //
+        cam.enabled = b;
+    }
+    //
+    public bool IGMEnabled()
+    {
+        return IGMControl.inGameMenu.activeSelf;
+    }
+    //
+    public void UICamSet(bool b)
+    {
+        cam.enabled = b;
+        cam.GetComponent<AudioListener>().enabled = b;
+    }
+    //
     private void OnSceneChange(Scene current, Scene next)
     {
-        //if (next.buildIndex == 2)
+        foreach (var canvas in FindObjectsOfType<Canvas>())
+        {
+            canvas.worldCamera = cam;
+        }
+        
+        //
         if (next.name == "2_StageSelectScene")
         {
             SetStageBtns(false);
@@ -99,6 +212,10 @@ public class SceneControl : MonoBehaviour
             swc = FindObjectOfType<StageWindowControl>(true);
             swc.CheckBGREnabled();
             swc.CheckBGR(currentBGR);
+        }
+        else if (next.name == "MainScene")
+        {
+            // cam.enabled = false;
         }
         else
         {
@@ -124,8 +241,8 @@ public class SceneControl : MonoBehaviour
             bm = FindObjectOfType<ButtonManager>(true);
             bm.SetPanel(currentDifficulty);
             //
-            for (int i = 0; i < 3; ++i)
-                stages[i] = bm.stagePanels[i].transform.GetChild(1).gameObject;
+            //for (int i = 0; i < 3; ++i)
+            //    stages[i] = bm.stagePanels[i].transform.GetChild(1).gameObject;
         }
         //
         for (int i = 0; i < stages.Length; ++i)
@@ -165,6 +282,11 @@ public class SceneControl : MonoBehaviour
     {
         MyUtility.SaveDataToJson(saveData);
         Debug.Log("Save Complete");
+    }
+    //
+    public void OpenOption(bool b)
+    {
+        option.SetActive(b);
     }
     //==================================//
     public void ExitGame()

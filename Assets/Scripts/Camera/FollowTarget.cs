@@ -5,6 +5,8 @@ using UnityEngine;
 public class FollowTarget : MonoBehaviour
 {
     //==========================================//
+    public GameObject UICam;
+    //==========================================//
     public Transform target; // Player
     //
     public Transform camBorder_Up;
@@ -29,6 +31,8 @@ public class FollowTarget : MonoBehaviour
         halfSize = new Vector2(halfCamWidth, halfCamHeight);
         //
         blockCullDist = 3 * Map.FloorHeight;
+        //
+        UICam = GameObject.FindGameObjectWithTag("UICamera");
     }
     //==========================================//
     void Update()
@@ -66,6 +70,7 @@ public class FollowTarget : MonoBehaviour
             targetPos.z = tf.position.z;
             //
             tf.position = targetPos;
+            UICam.transform.position = targetPos;
         }
     }
     //
@@ -94,6 +99,7 @@ public class FollowTarget : MonoBehaviour
             targetPos.y = maxPos.y;
         //
         tf.position = targetPos;
+        UICam.transform.position = targetPos;
     }
     //============================================//
     private void BlockCulling()

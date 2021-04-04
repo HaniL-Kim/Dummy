@@ -83,6 +83,28 @@ public class SaveData
 //================================================//
 public static class MyUtility
 {
+    public static string DiffToStr(Difficulty diff)
+    {
+        string result = "";
+        //
+        switch (diff)
+        {
+            case Difficulty.NORMAL:
+                result = "NORMAL";
+                break;
+            case Difficulty.HARD:
+                result = "HARD";
+                break;
+            case Difficulty.IMPOSSIBLE:
+                result = "IMPOSSIBLE";
+                break;
+            default:
+                break;
+        }
+        //
+        return result;
+    }
+    //
     public static int DiffToInt(string s)
     {
         int result = 0;

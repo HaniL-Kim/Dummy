@@ -16,6 +16,7 @@ TagManager:
   - FrameScreen
   - OptionWindow
   - Stage
+  - UICamera
   layers:
   - Default
   - TransparentFX

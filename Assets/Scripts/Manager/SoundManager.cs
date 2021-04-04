@@ -50,6 +50,7 @@ public class SoundManager : MonoBehaviour
         {
             instance = this;
             CreateAudio();
+            //DontDestroyOnLoad(this.gameObject);
         }
         else
         {

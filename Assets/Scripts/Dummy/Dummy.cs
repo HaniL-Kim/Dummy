@@ -565,6 +565,7 @@ public class Dummy : MonoBehaviour
         // Dead Sequance
         Debug.Log("Player Dead By [" + tag + "]");
         isDead = true;
+        GameManager.instance.gameOver = true;
         //
         gameObject.SetActive(false);
         //

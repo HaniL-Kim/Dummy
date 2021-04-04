@@ -41,6 +41,11 @@ public class Thunder : MonoBehaviour
     //====================================//
     private void Awake()
     {
+        if(GameManager.instance.gameOver == true)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
         tf = GetComponent<Transform>();
         //
         tb = tf.GetComponentInChildren<ThunderBody>();
@@ -56,6 +61,12 @@ public class Thunder : MonoBehaviour
     //
     private void Start()
     {
+        if(GameManager.instance.gameOver == true)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+        //
         player = GameObject.FindGameObjectWithTag("Player").transform;
         //
         ec = GameObject.FindGameObjectWithTag("ElecShooter")

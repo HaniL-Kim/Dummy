@@ -1014,7 +1014,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1032,10 +1032,10 @@ Camera:
   field of view: 60
   orthographic: 1
   orthographic size: 200
-  m_Depth: -1
+  m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 7959
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -2095,11 +2095,13 @@ MonoBehaviour:
     clip: {fileID: 0}
   - key: 2
     clip: {fileID: 0}
-  bgmVolume: 1
-  fxVolume: 1
+  bgrVolume: 1
+  effVolume: 1
   audioPoolCount: 30
   soundDistanceMin: 5
   soundDistanceMax: 10
+  bgrSlider: {fileID: 0}
+  effSlider: {fileID: 0}
 --- !u!4 &1497010041
 Transform:
   m_ObjectHideFlags: 0
@@ -2323,6 +2325,7 @@ MonoBehaviour:
   shieldUI: {fileID: 451441571}
   pressToRetry: {fileID: 1580632086}
   exitPannel: {fileID: 455178945}
+  option: {fileID: 0}
 --- !u!1 &1580632084
 GameObject:
   m_ObjectHideFlags: 0
@@ -3027,6 +3030,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a7667b592b0bbf45bde61db125c0aa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameOver: 0
   pause: 0
   dummy: {fileID: 13255554}
   elecShooter: {fileID: 654554441}

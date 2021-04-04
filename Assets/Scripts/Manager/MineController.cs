@@ -104,7 +104,7 @@ public class MineController : MonoBehaviour
     //
     private void CreateGhosts()
     {
-        ghostPrefab = Resources.Load<GameObject>("Prefabs/Ghost");
+        ghostPrefab = Resources.Load<GameObject>("Prefabs/Character/Ghost");
         //
         GameObject ghostHolder = new GameObject("GhostHolder");
         ghostHolder.transform.SetParent(transform);

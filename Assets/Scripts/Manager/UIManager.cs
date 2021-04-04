@@ -21,6 +21,8 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI pressToRetry;
     // Exit
     public Image exitPannel;
+    //
+    public GameObject option;
     //============================//
     private void Awake()
     {
@@ -29,6 +31,8 @@ public class UIManager : MonoBehaviour
         UpdateRSCText();
         UpdateAirJumpText();
         UpdateShieldText();
+        //
+        //SetOption();
     }
     //============================//
     private void Update()
@@ -36,6 +40,11 @@ public class UIManager : MonoBehaviour
         PauseControl();
     }
     //============================//
+    //private void SetOption()
+    //{
+    //    option = GameObject.FindGameObjectWithTag("OptionWindow");
+    //}
+    //
     public void ExitGame()
     { // Button Event
 #if UNITY_EDITOR
@@ -51,12 +60,16 @@ public class UIManager : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Escape))
         {
-            bool isActive = exitPannel.gameObject.activeSelf;
+            bool isActive = SceneControl.instance.IGMEnabled();
             //
-            Time.timeScale = isActive ? 1.0f : 0.0f;
-            GameManager.instance.pause = !isActive;
-            exitPannel.gameObject.SetActive(!isActive);
+            SceneControl.instance.SetIGM(!isActive);
         }
+    }
+    //
+    public void SetPause(bool b)
+    {
+        Time.timeScale = b ? 0.0f : 1.0f;
+        GameManager.instance.pause = b;
     }
     //============================//
     public bool UseRSC(int cost)
