@@ -74,7 +74,7 @@ public class Map : MonoBehaviour
     //=============================================//
     public static float FloorHeight = 47.0f;
     public static int FloorCount = 10;
-    public static int TileCount = 6;
+    public const int TileCount = 6;
     public static float BlockHeight = FloorHeight * (float)FloorCount;
     public static float TileWidth = 64.0f;
     //=============================================//
@@ -82,9 +82,15 @@ public class Map : MonoBehaviour
     //=============================================//
     public bool isInfinite = false;
     //public StringInt mineCounts;
-    //=============================================//
+    // =================== Prefabs =================== //
     public GameObject tilePrefab;
     public GameObject concretePrefab;
+    public GameObject column_Left;
+    public GameObject column_Right;
+    public GameObject column_Broken;
+    //
+    public GameObject firstFootBoardFloor;
+    public GameObject lastFootBoardFloor;
     //
     public List<Block> blocks = new List<Block>();
     //
@@ -135,7 +141,7 @@ public class Map : MonoBehaviour
         int stage = SceneControl.instance.currentStage;
         //
         CreateStage(MyUtility.DiffToStr(difficulty), stage);
-        // CreateStage(NORMAL, 1);
+        //CreateStage("NORMAL", 0); // Debug
     }
     //=============================================//
     // For Debug
@@ -201,6 +207,13 @@ public class Map : MonoBehaviour
     {
         tilePrefab = Resources.Load<GameObject>("Prefabs/Tiles/Tile");
         concretePrefab = Resources.Load<GameObject>("Prefabs/Tiles/Concrete");
+        //
+        column_Left = Resources.Load<GameObject>("Prefabs/Tiles/Column_Left");
+        column_Right = Resources.Load<GameObject>("Prefabs/Tiles/Column_Right");
+        column_Broken = Resources.Load<GameObject>("Prefabs/Tiles/Column_Broken");
+        //
+        firstFootBoardFloor = Resources.Load<GameObject>("Prefabs/Blocks/FirstFootBoardFloor");
+        lastFootBoardFloor = Resources.Load<GameObject>("Prefabs/Blocks/LastFootBoardFloor");
     }
     ///////////////////////////////////////
     private void IsInfiniteMode(int lv)
@@ -209,6 +222,26 @@ public class Map : MonoBehaviour
             isInfinite = true;
     }
     ///////////////////////////////////////
+    public void CreateFootBoardFloor(string type, float posY, Transform tf)
+    {
+        GameObject prefab = null;
+        switch (type)
+        {
+            case "FIRST":
+                prefab = firstFootBoardFloor;
+                break;
+            case "LAST":
+                prefab = lastFootBoardFloor;
+                break;
+            default:
+                break;
+        }
+        //
+        GameObject obj = Instantiate(prefab, tf);
+        //
+        obj.transform.position = new Vector3(-414.0f, posY, 0);
+    }
+    //
     private void CreateStage(string diff, int lv)
     {
         LoadTilePrefabs();
@@ -221,12 +254,13 @@ public class Map : MonoBehaviour
         IsInfiniteMode(lv);
         //
         GameManager.instance.elecShooter.superViser.SetUnit(sd.unit);
-        //GameManager.instance.elecShooter.superViser.SetUnit(3);
         //
         float blockPosY = 0.0f;
-        //
+        // Ready Block
         int readyBlockfloorCount = 2;
-            CreateBlock("ReadyBlock", readyBlockfloorCount, blockPosY);
+        CreateBlock("ReadyBlock", readyBlockfloorCount, blockPosY);
+        CreateFootBoardFloor("FIRST", blockPosY - 52.5f, blocks[0].block.transform);
+
         blockPosY += Map.FloorHeight * 2.0f;
         //
         int blockfloorCount = 10;
@@ -248,7 +282,7 @@ public class Map : MonoBehaviour
     {
         // ready block
         for (int i = 0; i < 2; ++i)
-            SetArroundMineInfo(blocks[0].floors[i]);
+            SetArroundMineInfo(blocks[0].floors[i], TileCount+1); // +1 = No Inner Concrete
         // stage blocks
         for (int i = 1; i < blocks.Count; ++i)
             SetArroundMineInfo(blocks[i]);
@@ -282,6 +316,13 @@ public class Map : MonoBehaviour
                 else
                     CreateTile(x, y, tilePos, tilePrefab, _block);
             }
+            // Create Column at even Floor
+            {
+                if(y % 2 == 0)
+                {
+                    CreateColumn(_block.GetFloor(y).floor.transform);
+                }
+            }
         }
         //
         BlockControl bc = _block.block.AddComponent<BlockControl>();
@@ -290,6 +331,18 @@ public class Map : MonoBehaviour
         bc.tf_top = _block.GetFloor(floorCount - 1).floor.transform;
         //
         blocks.Add(_block);
+    }
+    ///////////////////////////////////////
+    void CreateColumn(Transform floor)
+    {
+        GameObject left = Instantiate(column_Left, floor.transform);
+        GameObject right = Instantiate(column_Right, floor.transform);
+        //
+        Vector3 leftPos = new Vector3(-66.5f, 28.0f, -2.0f);
+        Vector3 rightPos = new Vector3(610.5f, 28.0f, -2.0f);
+        //
+        left.transform.localPosition = leftPos;
+        right.transform.localPosition = rightPos;
     }
     ///////////////////////////////////////
     void CreateTile(int xOrder, int floorIdx, Vector3 pos, GameObject prefab, Block _block)
@@ -439,9 +492,9 @@ public class Map : MonoBehaviour
         }
     }
     ///////////////////////////////////////
-    public void SetArroundMineInfo(Floor floor)
+    public void SetArroundMineInfo(Floor floor, int tileCount = TileCount)
     {
-        for (int x = 0; x < TileCount; ++x)
+        for (int x = 0; x < tileCount; ++x)
         {
             Inner inner = floor.tiles[x].GetComponent<Tile>().inner;
             //if (inner.isDanger == true)
@@ -454,7 +507,7 @@ public class Map : MonoBehaviour
     {
         for (int y = 0; y < FloorCount; ++y)
         {
-            for (int x = 0; x < TileCount; ++x)
+            for (int x = 0; x < TileCount; ++x) // -1 : Inside Concrete
             {
                 Inner inner = block.GetFloor(y).tiles[x].GetComponent<Tile>().inner;
                 //if (inner.isDanger == true)

@@ -213,10 +213,10 @@ public class SceneControl : MonoBehaviour
             swc.CheckBGREnabled();
             swc.CheckBGR(currentBGR);
         }
-        else if (next.name == "MainScene")
-        {
-            // cam.enabled = false;
-        }
+        //else if (next.name == "MainScene")
+        //{
+        //    // cam.enabled = false;
+        //}
         else
         {
             bm = null;

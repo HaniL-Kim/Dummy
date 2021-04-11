@@ -43,12 +43,13 @@ public class Inner : MonoBehaviour
             sr.sprite = null;
             //
             isDanger = false;
+            anim.SetBool(hashInnerIsDanger, isDanger);
+            //
             mineType = MineTypes.NONE;
             dangerCount = 0;
             // arround
             arroundInners.Clear();
             // anim
-            anim.SetBool(hashInnerIsDanger, false);
             anim.SetBool(hashFlipInner, false);
         }
         // Thunder

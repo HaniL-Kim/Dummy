@@ -6,22 +6,22 @@ using TMPro;
 public class SuperVisor : MonoBehaviour
 {
     //==================================//
-    public const float floorHeight = 47.0f;
+    public const float cfloorHeight = 47.0f;
     //==================================//
     public ElecShooterController ec;
     //
     public List<float> speeds = new List<float>();
     //
     public int lv = 0;
-    //public float speed;
     public int unit;
     public int countOfFloorClimb;
     public float moveDist = 0;
+    //
+    public int currentFloor = 1;
+    private float floorDist = 0;
     //==================================//
-    public TextMeshPro lvText;
-    public TextMeshPro speedText;
-    public TextMeshPro unitText;
     public TextMeshPro countDownText;
+    public TextMeshPro lvText;
     //==================================//
     public Vector3 startPos;
     //==================================//
@@ -35,16 +35,21 @@ public class SuperVisor : MonoBehaviour
     //==================================//
     private void Update()
     {
+        CurrentFloor();
         CountDown();
         SetUIText();
     }
     //==================================//
+    public void CurrentFloor()
+    {
+        currentFloor = (int)(floorDist / cfloorHeight) + 1;
+    }
+    //
     public void SetUnit(int value)
     {
         unit = value;
-        unitText.text = unit.ToString();
     }
-    //==================================//
+    //
     public void SetSpeed(int lv)
     {
         ec.elevateSpeed = speeds[lv];
@@ -72,11 +77,12 @@ public class SuperVisor : MonoBehaviour
     public void AddDist(float value)
     {
         moveDist += value;
+        floorDist += value;
     }
     //
     private void CountDown()
     {
-        countOfFloorClimb = (int)(moveDist / floorHeight);
+        countOfFloorClimb = (int)(moveDist / cfloorHeight);
         //if ((countOfFloorClimb % unit) == 0 && (countOfFloorClimb / unit) != lv)
         if (countOfFloorClimb == unit && lv < speeds.Count)
         {
@@ -88,9 +94,7 @@ public class SuperVisor : MonoBehaviour
     public void SetUIText()
     {
         lvText.text = lv.ToString();
-        speedText.text = ec.elevateSpeed.ToString();
-        unitText.text = unit.ToString();
-        countDownText.text = countOfFloorClimb.ToString();
+        countDownText.text = (unit - countOfFloorClimb).ToString();
     }
     //==================================//
 }

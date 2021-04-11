@@ -5,6 +5,8 @@ using UnityEngine;
 public class Dummy : MonoBehaviour
 {
     //===============================//
+    public bool isInvincible = false;
+    //===============================//
     public bool isDead = false;
     private List<string> deadTags = new List<string>()
         { "Explosion", "Thunder", "Laser" };
@@ -127,6 +129,8 @@ public class Dummy : MonoBehaviour
         Move();
         //
         Idle();
+        //
+        Debug_Invincible();
     } // End Update
     //private void FixedUpdate()
     //{
@@ -138,6 +142,14 @@ public class Dummy : MonoBehaviour
         StuckInConcrete();
     }
     //=========================================//
+    private void Debug_Invincible()
+    {
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            isInvincible = !isInvincible;
+            Debug.Log("Invincible : " + isInvincible);
+        }
+    }
     /*
     private void OnDrawGizmos()
     {
@@ -542,7 +554,7 @@ public class Dummy : MonoBehaviour
     //
     public void Dead(string tag)
     {
-        if (isDead)
+        if (isDead || isInvincible)
             return;
         //
         switch (shieldState)
