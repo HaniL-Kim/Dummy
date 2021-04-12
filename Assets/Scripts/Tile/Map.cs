@@ -208,9 +208,9 @@ public class Map : MonoBehaviour
         tilePrefab = Resources.Load<GameObject>("Prefabs/Tiles/Tile");
         concretePrefab = Resources.Load<GameObject>("Prefabs/Tiles/Concrete");
         //
-        column_Left = Resources.Load<GameObject>("Prefabs/Tiles/Column_Left");
-        column_Right = Resources.Load<GameObject>("Prefabs/Tiles/Column_Right");
-        column_Broken = Resources.Load<GameObject>("Prefabs/Tiles/Column_Broken");
+        column_Left = Resources.Load<GameObject>("Prefabs/Tiles/Columns/Column_Left");
+        column_Right = Resources.Load<GameObject>("Prefabs/Tiles/Columns/Column_Right");
+        column_Broken = Resources.Load<GameObject>("Prefabs/Tiles/Columns/Column_Broken");
         //
         firstFootBoardFloor = Resources.Load<GameObject>("Prefabs/Blocks/FirstFootBoardFloor");
         lastFootBoardFloor = Resources.Load<GameObject>("Prefabs/Blocks/LastFootBoardFloor");
@@ -259,6 +259,7 @@ public class Map : MonoBehaviour
         // Ready Block
         int readyBlockfloorCount = 2;
         CreateBlock("ReadyBlock", readyBlockfloorCount, blockPosY);
+        // FirstFootBoard Floor
         CreateFootBoardFloor("FIRST", blockPosY - 52.5f, blocks[0].block.transform);
 
         blockPosY += Map.FloorHeight * 2.0f;
@@ -273,6 +274,9 @@ public class Map : MonoBehaviour
             SetMine(blocks[i + 1]);
             blockPosY += Map.FloorHeight * blockfloorCount;
         }
+        // LastFootBoard Floor
+        if(isInfinite == false)
+            CreateFootBoardFloor("LAST", blockPosY, blocks[sd.blocks].block.transform);
         //
         //SetMineInfo();
         Invoke("SetMineInfo", 0.1f);

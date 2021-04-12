@@ -130,7 +130,7 @@ public class Dummy : MonoBehaviour
         //
         Idle();
         //
-        Debug_Invincible();
+        DebugPlayer();
     } // End Update
     //private void FixedUpdate()
     //{
@@ -142,14 +142,18 @@ public class Dummy : MonoBehaviour
         StuckInConcrete();
     }
     //=========================================//
-    private void Debug_Invincible()
+    private void DebugPlayer()
     {
-        if (Input.GetKeyDown(KeyCode.F1))
+        if (Input.GetKeyDown(KeyCode.End))
+            GameManager.instance.ClearStage();
+        else if (Input.GetKeyDown(KeyCode.F5))
         {
             isInvincible = !isInvincible;
             Debug.Log("Invincible : " + isInvincible);
         }
+
     }
+    //
     /*
     private void OnDrawGizmos()
     {
@@ -293,6 +297,9 @@ public class Dummy : MonoBehaviour
     //=========================================//
     private void Control()
     {
+        if (GameManager.instance.pause)
+            return;
+        //
         Walk();     // 'WASD'
         Jump();     // /Space
         Crouch();   // 'S'
@@ -530,6 +537,16 @@ public class Dummy : MonoBehaviour
                 if (rb.velocity.y <= 0)
                     isJump = false;
             }
+            else if (curFootBoard[0].CompareTag("LastFootBoard"))
+            {
+                onFootBoard = true; // Can Down Jump
+                if (rb.velocity.y <= 0)
+                {
+                    isJump = false;
+                    // Start Clear Sequence
+                    GameManager.instance.ClearStage();
+                }
+            }
         }
         //
         anim.SetBool(isJumpHash, isJump);
@@ -578,6 +595,9 @@ public class Dummy : MonoBehaviour
         Debug.Log("Player Dead By [" + tag + "]");
         isDead = true;
         GameManager.instance.gameOver = true;
+        //
+        string record = GameManager.instance.elecShooter.superViser.currentFloor.ToString();
+        SceneControl.instance.saveData.bestRecord = record;
         //
         gameObject.SetActive(false);
         //

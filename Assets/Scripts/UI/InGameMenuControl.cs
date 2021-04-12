@@ -13,9 +13,9 @@ public class InGameMenuControl : MonoBehaviour
         inGameMenu = transform.GetChild(0).gameObject;
     }
     // ================ Func ================ //
-    public void Set(bool b)
+    public void SetIGMControl(bool b)
     {
-        UIManager.instance.SetPause(b);
+        GameManager.instance.Pause(b);
         //
         inGameMenu.SetActive(b);
         //
@@ -35,8 +35,7 @@ public class InGameMenuControl : MonoBehaviour
         Time.timeScale = 1.0f;
         SceneControl.instance.StartSceneTransition("2_StageSelectScene");
         SetAssure(false);
-        Set(false);
-        //
+        SetIGMControl(false);
     }
     //
     public void BTN_Assure_No()
@@ -46,7 +45,7 @@ public class InGameMenuControl : MonoBehaviour
     //
     public void BTN_CloseIGM()
     {
-        Set(false);
+        SetIGMControl(false);
     }
     //
     public void BTN_Infor()

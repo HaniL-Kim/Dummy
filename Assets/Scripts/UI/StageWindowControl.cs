@@ -25,7 +25,9 @@ public class StageWindowControl : MonoBehaviour
     public TextMeshProUGUI stageName;
     public TextMeshProUGUI clearFloor;
     public TextMeshProUGUI spdUpCD;
-    public TextMeshProUGUI isClear;
+    public TextMeshProUGUI clearTextValue;
+    public TextMeshProUGUI clearTextName;
+    //
     public TextMeshProUGUI kindOfMine;
     public TextMeshProUGUI description;
     // ================= Variables ================= //
@@ -49,8 +51,7 @@ public class StageWindowControl : MonoBehaviour
     {
         SceneControl.instance.currentStage = stageNum;
         //
-        string stageNameStr = stageNum == 0 ? "Infinite" : stageNum.ToString();
-        stageName.text = stageNameStr + " Stage";
+        stageName.text = stageNum == 0 ? "Infinite" : stageNum.ToString() + " Stage";
         //
         StageData sd = SceneControl.instance.stageData[diff][stageNum];
         //
@@ -59,17 +60,29 @@ public class StageWindowControl : MonoBehaviour
         int countKindOfMine = 0;
         //
         if (stageNum == 0)
-            clearFloor.text = "Infinite";
+            clearFloor.text = "-";
         else
             clearFloor.text = floorCount.ToString() + "F";
         //
         spdUpCD.text = unit.ToString();
-        // From Save Data
+        // Set Clear Text(Row-3)
         int clearStage = SceneControl.instance.saveData.stageClear[MyUtility.DiffToInt(diff)];
-        if (stageNum <= clearStage)
-            isClear.text = "YES";
+        string bestRecord = SceneControl.instance.saveData.bestRecord;
+        //
+        if (stageNum == 0)
+        {
+            clearTextName.text = "Best Record";
+            clearTextValue.text = bestRecord + "F";
+        }
         else
-            isClear.text = "NO";
+        {
+            clearTextName.text = "Clear";
+            //
+            if (stageNum <= clearStage)
+                clearTextValue.text = "YES";
+            else
+                clearTextValue.text = "NO";
+        }
         //
         int[] mineCountsOfBlock = { sd.pull, sd.push, sd.ghost, sd.thunder, sd.narrow, sd.crash };
 

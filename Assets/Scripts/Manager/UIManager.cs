@@ -66,11 +66,11 @@ public class UIManager : MonoBehaviour
         }
     }
     //
-    public void SetPause(bool b)
-    {
-        Time.timeScale = b ? 0.0f : 1.0f;
-        GameManager.instance.pause = b;
-    }
+    //public void SetPause(bool b)
+    //{
+    //    Time.timeScale = b ? 0.0f : 1.0f;
+    //    GameManager.instance.pause = b;
+    //}
     //============================//
     public bool UseRSC(int cost)
     {

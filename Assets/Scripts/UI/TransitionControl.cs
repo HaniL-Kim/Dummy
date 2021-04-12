@@ -59,6 +59,8 @@ public class TransitionControl : MonoBehaviour
     }
     public void ActivateTransition(bool b = true)
     {
+        SceneControl.instance.UICamSet(true);
+        //
         transition.SetActive(b);
         transition.GetComponent<Image>().enabled = b;
     }

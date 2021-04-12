@@ -106,10 +106,19 @@ public class SceneControl : MonoBehaviour
         StartCoroutine(LoadSceneAsyncWithTransitionCoroutine(sceneName));
     }
     //
-    //public void StartMainScene()
-    //{
-    //    StartCoroutine(LoadSceneAsyncWithTransitionCoroutine("MainScene"));
-    //}
+    public IEnumerator ClearSequence()
+    {
+        Debug.Log("Begin Clear Sequence");
+        Time.timeScale = 1.0f;
+        Sequence ClearSequence = DOTween.Sequence()
+            .AppendCallback(() => { StartSceneTransition("2_StageSelectScene"); })
+            .AppendInterval(2.0f)
+            .AppendCallback(() => { SaveClearData(); })
+            .SetUpdate(true);
+        // 
+        Debug.Log("End Clear Sequence");
+        yield return null;
+    }
     //
     public IEnumerator LoadSceneAsyncWithTransitionCoroutine(string sceneName)
     {
@@ -181,7 +190,7 @@ public class SceneControl : MonoBehaviour
     //
     public void SetIGM(bool b)
     {
-        IGMControl.Set(b);
+        IGMControl.SetIGMControl(b);
         //
         cam.enabled = b;
     }
@@ -232,9 +241,22 @@ public class SceneControl : MonoBehaviour
     //
     private void SetStageBtns(bool tween = true)
     {
-        stages = GameObject.FindGameObjectsWithTag("Stage");
-        if (stages == null)
-            ExitGame();
+        stages = new GameObject[3];
+        foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Stage"))
+        {
+            if (obj.name == "NORMAL")
+                stages[0] = obj;
+            else if (obj.name == "HARD")
+                stages[1] = obj;
+            else if (obj.name == "IMPOSSIBLE")
+                stages[2] = obj;
+        }
+        //
+        if (stages[0] == null || stages[1] == null || stages[2] == null)
+        {
+            Debug.LogError("Null : Set Stage Btns");
+            return;
+        }
         //
         if(bm == null)
         {
@@ -248,12 +270,12 @@ public class SceneControl : MonoBehaviour
         for (int i = 0; i < stages.Length; ++i)
         {
             // open 1 stage
-            stages[i].transform.GetChild(0).GetComponentInChildren<StageButton>().Activate(false);
+            stages[i].transform.GetChild(0).GetComponentInChildren<StageButton>().Activate(tween);
             //
             int clearStageMax = saveData.stageClear[i];
             for (int j = 0; j < clearStageMax; ++j)
             {
-                stages[i].transform.GetChild(j + 1).GetComponentInChildren<StageButton>().Activate(false);
+                stages[i].transform.GetChild(j + 1).GetComponentInChildren<StageButton>().Activate(tween);
             }
 
         }
@@ -269,6 +291,26 @@ public class SceneControl : MonoBehaviour
         //
         Debug.Log("Load Complete");
     }
+    //
+    public void SaveClearData()
+    {
+        int diff = (int)currentDifficulty, stage = currentStage;
+        // Activate StageBtns
+        if(stage != 0)
+        {
+            stages[diff].transform.GetChild(stage).
+                GetComponentInChildren<StageButton>().Activate(true);
+            //
+            saveData.stageClear[(int)currentDifficulty] = currentStage;
+            Save();
+        }
+        else // Infinite Stage Clear
+        {
+            // Save Record(Floor & Speed)
+            // Set Record To StageWindow
+        }
+    }
+    //
     public void SaveOption(int res, int mod, double bgVol, double effVol)
     {
         saveData.resolution = res;

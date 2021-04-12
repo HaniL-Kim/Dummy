@@ -67,6 +67,27 @@ public class GameManager : MonoBehaviour
         return hit;
     }
     //====================================//
+    public void Pause(bool b)
+    {
+        Time.timeScale = b ? 0.0f : 1.0f;
+        pause = b;
+    }
+    //
+    public void ClearStage()
+    {
+        Debug.Log("Begin ClearSTage");
+        // Pause(true);
+        /* Pause
+        0. Stop Dummy Control
+        0. Stop ElectShooter
+        0. Stop All Mine(Ghost, Thunder)
+        */
+        // Scene Transition
+        StartCoroutine(SceneControl.instance.ClearSequence());
+        
+        Debug.Log("End ClearStage");
+    }
+    //====================================//
     private void LetElecShooterMove()
     {
         if (dummy.isDead == false)

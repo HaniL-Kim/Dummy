@@ -45,6 +45,8 @@ public class SaveData
     //
     public int resolution;
     public int screenMode;
+    //
+    public string bestRecord;
     //=========== ctor ===========//
     // (Default)
     public SaveData()
@@ -61,6 +63,8 @@ public class SaveData
         //
         resolution = 0;
         screenMode = 0;
+        //
+        bestRecord = "0";
     }
     // from Jason
     public SaveData(JsonData jd)
@@ -78,6 +82,8 @@ public class SaveData
         //
         resolution = int.Parse(jd["resolution"].ToString());
         screenMode = int.Parse(jd["screenMode"].ToString());
+        //
+        bestRecord = jd["bestRecord"].ToString();
     }
 }
 //================================================//

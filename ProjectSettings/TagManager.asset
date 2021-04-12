@@ -17,6 +17,7 @@ TagManager:
   - OptionWindow
   - Stage
   - UICamera
+  - LastFootBoard
   layers:
   - Default
   - TransparentFX

@@ -59,6 +59,11 @@ public class ElecShooterController : MonoBehaviour
     //==========================================//
     private void Test()
     {
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+            ++elevateSpeed;
+        else if (Input.GetKeyDown(KeyCode.DownArrow))
+            --elevateSpeed;
+        /*
         if (Input.GetKeyDown(KeyCode.Alpha0))
             SetLevelCoroutine(0);
         else if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -74,6 +79,7 @@ public class ElecShooterController : MonoBehaviour
         //
         if (Input.GetKeyDown(KeyCode.Minus))
             ResetHeightAll();
+        */
     }
     //==========================================//
     public void ResetHeightAll()
