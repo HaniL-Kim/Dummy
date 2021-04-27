@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
+    public enum ItemType { RESOURCE, AJPACK, SHIELD, SLOW, COUNT }
     //===============================================//
-    public enum ItemType { RESOURCE, AJPACK, SHIELD, SLOW }
     [SerializeField]
     private ItemType type;
     //===============================================//
@@ -61,7 +61,8 @@ public class Item : MonoBehaviour
     }
     //
     public void ResetItem()
-    {
+    { // Anim Frame Event : Item_Obtain : End frame
+        SetDisplayNumber();
         // 초기화
         SetItem(ItemType.RESOURCE);
         //
@@ -70,6 +71,11 @@ public class Item : MonoBehaviour
         transform.SetParent(ItemManager.instance.itemHolder);
         //
         gameObject.SetActive(false);
+    }
+    //
+    public void SetDisplayNumber()
+    {
+        transform.parent.GetComponent<Display>().SetDisplayNumber();
     }
     //===============================================//
     private void OnTriggerEnter2D(Collider2D collision)

@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     //====================================//
     public static GameManager instance;
     //====================================//
+    public bool stageClear = false;
     public bool gameOver = false;
     public bool pause = false;
     //====================================//
@@ -52,6 +53,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         EffectManager.instance.CreateEffect();
+        SoundManager.instance.RePlayBGR();
     }
     //====================================//
     private void Update()
@@ -75,7 +77,13 @@ public class GameManager : MonoBehaviour
     //
     public void ClearStage()
     {
-        Debug.Log("Begin ClearSTage");
+        if (stageClear == true)
+            return;
+        //
+        stageClear = true;
+        //
+        SoundManager.instance.StopBGR();
+        //Debug.Log("Begin ClearSTage");
         // Pause(true);
         /* Pause
         0. Stop Dummy Control
@@ -85,7 +93,7 @@ public class GameManager : MonoBehaviour
         // Scene Transition
         StartCoroutine(SceneControl.instance.ClearSequence());
         
-        Debug.Log("End ClearStage");
+        //Debug.Log("End ClearStage");
     }
     //====================================//
     private void LetElecShooterMove()

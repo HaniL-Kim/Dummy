@@ -81,8 +81,8 @@ public class TransitionControl : MonoBehaviour
         if(sceneName == "MainScene")
         {
             CamSet = () => { SceneControl.instance.UICamSet(false); };
-
             Sequence open = DOTween.Sequence()
+                .AppendInterval(1.0f)
                 .Append(up.DOAnchorPosY(upOpen.y, tweenTime).SetEase(Ease.InOutCubic))
                 .Join(left.DOAnchorPosX(leftOpen.x, tweenTime).SetEase(Ease.InOutCubic))
                 .Join(right.DOAnchorPosX(rightOpen.x, tweenTime).SetEase(Ease.InOutCubic))

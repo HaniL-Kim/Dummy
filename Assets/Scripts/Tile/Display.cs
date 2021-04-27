@@ -32,6 +32,12 @@ public class Display : MonoBehaviour
     }
     //==================================//
     // Anim Frame Event
+    public void SetDisplayNumber()
+    { // ShowItem : end frame
+        anim.enabled = false;
+        SetNumber(inner.dangerCount);
+    }
+    // Anim Frame Event
     public void SetItem()
     { // ShowItem : 0 frame
         ItemManager.instance.ShowItem(transform);
@@ -72,17 +78,16 @@ public class Display : MonoBehaviour
         switch ((MineTypes)type)
         {
             case MineTypes.NONE:
+                break;
             case MineTypes.PULL:
             case MineTypes.PUSH:
-            case MineTypes.GHOST:
-            case MineTypes.NARROWING:
-            case MineTypes.CRASH:
                 playCount = 5;
                 break;
+            case MineTypes.GHOST:
             case MineTypes.THUNDER:
-                playCount = 3;
-                break;
-            default:
+            case MineTypes.NARROWING:
+            case MineTypes.CRASH:
+                playCount = 4;
                 break;
         }
         anim.SetInteger(hashPlayCount, playCount);

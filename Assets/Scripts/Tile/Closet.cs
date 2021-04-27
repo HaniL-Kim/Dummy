@@ -19,6 +19,8 @@ public class Closet : MonoBehaviour
     //
     private float shake_decay, shake_intensity, shake_time;
     private const float cDecay = 0.002f, cIntensity = 0.3f, cTime = 0.33f;
+    //
+    public bool isFliped = false;
     //=============================================//
     private void Awake()
     {
@@ -32,6 +34,8 @@ public class Closet : MonoBehaviour
     //=============================================//
     public void ResetCloset()
     {
+        isFliped = false;
+        //
         isShake = false;
         shake_decay = cDecay;
         shake_intensity = cIntensity;
@@ -60,6 +64,7 @@ public class Closet : MonoBehaviour
     //
     public void Flip()
     { // Trigger Enter Event
+        isFliped = true;
         anim.SetBool(hashFlip, true);
     }
     //
@@ -109,6 +114,21 @@ public class Closet : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player") == true)
-            Flip();
+        {
+            if(collision.GetComponent<Dummy>().isInteractable == true)
+                Flip();
+        }
     } // End OnTriggerEnter2D
+    //
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (isFliped == true)
+            return;
+        //
+        if (collision.CompareTag("Player") == true)
+        {
+            if(collision.GetComponent<Dummy>().isInteractable == true)
+                Flip();
+        }
+    } // End OnTriggerStay2D
 }

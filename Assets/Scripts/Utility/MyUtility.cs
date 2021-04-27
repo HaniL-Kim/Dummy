@@ -34,11 +34,32 @@ namespace MyUtilityNS
 }
 //================================================//
 [Serializable]
+public class IntArr
+{
+    public int[] intArr;
+    public IntArr()
+    {
+        intArr = new int[7] { 0, 0, 0, 0, 0, 0, 0 };
+    }
+    public IntArr(int[] _intArr)
+    {
+        intArr = _intArr;
+    }
+    // [] 연산자 override
+    public int this[int i]
+    {
+        get => intArr[i];
+        set => intArr[i] = value;
+    }
+}
+//
+[Serializable]
 public class SaveData
 {
     //=========== Variables ===========//
     public string id;
-    public List<int> stageClear;
+    //
+    public IntArr[] stageBtnState;
     //
     public double bgrVolume;
     public double effVolume;
@@ -53,10 +74,10 @@ public class SaveData
     {
         id = "SaveData";
         //
-        stageClear = new List<int>();
-        stageClear.Add(0); // NORMAL
-        stageClear.Add(0); // HARD
-        stageClear.Add(0); // IMPOSSIBLE
+        stageBtnState = new IntArr[2] { new IntArr(), new IntArr() };
+        //stageClear.Add(0); // NORMAL
+        //stageClear.Add(0); // HARD
+        //stageClear.Add(0); // IMPOSSIBLE
         //
         bgrVolume = 0.5;
         effVolume = 0.5;
@@ -71,10 +92,13 @@ public class SaveData
     {
         id = jd["id"].ToString();
         //
-        stageClear = new List<int>();
-        for(int i = 0; i < jd["stageClear"].Count; ++i)
+        //stageClear = new List<int>();
+        stageBtnState = new IntArr[2] { new IntArr(), new IntArr() };
+        for(int i = 0; i < 2; ++i)
         {
-            stageClear.Add(int.Parse(jd["stageClear"][i].ToString()));
+            for (int j = 0; j < 7; ++j)
+                stageBtnState[i].intArr[j]
+                    = int.Parse(jd["stageBtnState"][i]["intArr"][j].ToString());
         }
         //
         bgrVolume = double.Parse(jd["bgrVolume"].ToString());
@@ -89,6 +113,35 @@ public class SaveData
 //================================================//
 public static class MyUtility
 {
+    public static int GetValueFromRates(StringFloat itemRates)
+    {
+        int result = 0;
+        //
+        int count = itemRates.Count;
+        List<float> rates = new List<float>(count);
+        foreach (var data in itemRates)
+        {
+            rates.Add(data.Value);
+        }
+        //
+        float value = UnityEngine.Random.value;
+        for(int i = 0; i < count; ++i)
+        {
+            float sum = 0;
+            for (int j = 0; j <= i; ++j)
+                sum += rates[j];
+            //
+            if (value < sum)
+            {
+                result = i;
+                break;
+            }
+        }
+
+        // Debug.LogFormat("GetValueFromRates : {0}", result);
+        return result;
+    }
+    //
     public static string DiffToStr(Difficulty diff)
     {
         string result = "";

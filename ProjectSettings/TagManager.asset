@@ -32,8 +32,8 @@ TagManager:
   - Inner
   - Closet
   - Ghost
-  - 
-  - 
+  - Destructable
+  - Dummy
   - 
   - 
   - 
@@ -61,6 +61,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Dummy_Destroy
+    uniqueID: 1764592333
+    locked: 0
   - name: Thunder
     uniqueID: 351593403
+    locked: 0
+  - name: UI
+    uniqueID: 4243327929
     locked: 0

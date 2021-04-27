@@ -116,6 +116,7 @@ public class MineController : MonoBehaviour
         {
             GameObject g = Instantiate<GameObject>(ghostPrefab);
             g.transform.SetParent(ghostHolder.transform);
+            g.transform.name = "Ghost_" + i.ToString();
             g.SetActive(false);
             //
             ghosts.Add(g);
@@ -195,7 +196,7 @@ public class MineController : MonoBehaviour
             case MineTypes.NONE: break;
             case MineTypes.PULL:
                 {
-                    if (difficulty == Difficulty.HARD || difficulty == Difficulty.IMPOSSIBLE)
+                    if (difficulty == Difficulty.HARD)// || difficulty == Difficulty.IMPOSSIBLE)
                         inner.FlipSides();
                     //
                     EffectManager.instance.Play("Pull", inner.transform);
@@ -203,7 +204,7 @@ public class MineController : MonoBehaviour
                 break;
             case MineTypes.PUSH:
                 {
-                    if (difficulty == Difficulty.HARD || difficulty == Difficulty.IMPOSSIBLE)
+                    if (difficulty == Difficulty.HARD)// || difficulty == Difficulty.IMPOSSIBLE)
                         inner.FlipArround(false);
                     //
                     EffectManager.instance.Play("Push", inner.transform);
@@ -214,7 +215,7 @@ public class MineController : MonoBehaviour
             case MineTypes.NARROWING: break;
             case MineTypes.CRASH:
                 {
-                    if (difficulty == Difficulty.HARD || difficulty == Difficulty.IMPOSSIBLE)
+                    if (difficulty == Difficulty.HARD)// || difficulty == Difficulty.IMPOSSIBLE)
                     {
                         Floor floor = inner.GetComponent<Inner>().GetFloor();
                         foreach (GameObject item in floor.tiles)

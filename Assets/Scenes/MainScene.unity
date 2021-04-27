@@ -1014,7 +1014,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 0}
+  m_BackGroundColor: {r: 0.08235294, g: 0.08627451, b: 0.10980392, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1031,11 +1031,11 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 228
+  orthographic size: 210
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 7959
+    m_Bits: 32535
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -1074,7 +1074,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UICam: {fileID: 0}
-  target: {fileID: 670196563}
+  target: {fileID: 5631406483277316273}
   camBorder_Up: {fileID: 5631406483277316272}
   camBorder_Down: {fileID: 5631406483277316271}
   minPos: {x: 0, y: 0}
@@ -1131,11 +1131,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a4d6d1290ad03d4ca40027c6a110694, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &670196563 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4001196142467376829, guid: cbbe5138368542140a99ce2e21ccef9b, type: 3}
-  m_PrefabInstance: {fileID: 4001196143164875754}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &785172717
 GameObject:
   m_ObjectHideFlags: 0
@@ -2168,6 +2163,7 @@ MonoBehaviour:
   column_Right: {fileID: 0}
   column_Broken: {fileID: 0}
   firstFootBoardFloor: {fileID: 0}
+  lastFootBoardFloor: {fileID: 0}
   blocks: []
   blockStartPos: -272
   stageData:
@@ -3035,6 +3031,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a7667b592b0bbf45bde61db125c0aa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageClear: 0
   gameOver: 0
   pause: 0
   dummy: {fileID: 13255554}
@@ -3166,11 +3163,10 @@ MonoBehaviour:
     - Shield
     - Slow
     _values:
-    - 0.25
-    - 0.25
-    - 0.25
-    - 0.25
-  order: 0
+    - 0.2
+    - 0.4
+    - 0.4
+    - 0
   itemHolder: {fileID: 0}
   itemPrefab: {fileID: 2066505382597255817, guid: c2d7de9ad88b15b4e927255b9db496d6, type: 3}
   jumpPackHolder: {fileID: 0}
@@ -3185,6 +3181,10 @@ PrefabInstance:
     - target: {fileID: 4001196142467376825, guid: cbbe5138368542140a99ce2e21ccef9b, type: 3}
       propertyPath: m_Name
       value: Dummy
+      objectReference: {fileID: 0}
+    - target: {fileID: 4001196142467376825, guid: cbbe5138368542140a99ce2e21ccef9b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4001196142467376829, guid: cbbe5138368542140a99ce2e21ccef9b, type: 3}
       propertyPath: m_RootOrder
@@ -3733,5 +3733,10 @@ Transform:
 --- !u!4 &5631406483277316272 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6339304380295603265, guid: e9b9b360b1e1ef841ba61aaf447b81c7, type: 3}
+  m_PrefabInstance: {fileID: 5631406483277316270}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5631406483277316273 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 611641619645642158, guid: e9b9b360b1e1ef841ba61aaf447b81c7, type: 3}
   m_PrefabInstance: {fileID: 5631406483277316270}
   m_PrefabAsset: {fileID: 0}

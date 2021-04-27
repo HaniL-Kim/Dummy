@@ -7,6 +7,8 @@ public class Inner : MonoBehaviour
     //=============================================//
     public Closet closet;
     //=============================================//
+    public bool isFliped = false;
+    //=============================================//
     public bool isDanger = false;
     public MineTypes mineType = MineTypes.NONE;
     //=============================================//
@@ -105,12 +107,35 @@ public class Inner : MonoBehaviour
         }
     }
     //
+    public void CheckComplete()
+    {
+        bool isComplete = true;
+        for (int i = 0; i < arroundInners.Count; ++i)
+        {
+            if (arroundInners[i].isDanger == true)
+                if (arroundInners[i].isFliped == false)
+                    isComplete =  false;
+        }
+        //
+        if(isComplete)
+            FlipArround();
+    }
+    //
     public void Flip()
     {
+        isFliped = true;
         anim.SetBool(hashFlipInner, true);
         //
-        if (dangerCount == 0 && isDanger == false)
-            FlipArround();
+        if (isDanger == true)
+        { // Danger
+            for (int i = 0; i < arroundInners.Count; ++i)
+                arroundInners[i].CheckComplete();
+        }
+        else
+        { // Safe
+            if (dangerCount == 0)
+                FlipArround();
+        }
     }
     //
     public void EndFlip()

@@ -5,7 +5,9 @@ using UnityEngine;
 public class PullNPushEffect : SpriteEffect
 {
     //===============================================//
-    public int playCount = 5;
+    public int alertCount = 5;
+    [SerializeField]
+    private int curPlayCount;
     public float pullSpeed = 50.0f;
     public float pushSpeed = 50.0f;
     //
@@ -13,12 +15,18 @@ public class PullNPushEffect : SpriteEffect
     //
     public List<GameObject> effects = new List<GameObject>();
     //===============================================//
+    private new void Awake()
+    {
+        base.Awake();
+        curPlayCount = alertCount;
+    }
+    //===============================================//
     private void CheckPlayCount()
     {
-        --playCount;
-        if (playCount == 0)
+        --curPlayCount;
+        if (curPlayCount == 0)
         {
-            playCount = 5;
+            curPlayCount = alertCount;
             //
             foreach (GameObject effect in effects)
                 effect.SetActive(false);

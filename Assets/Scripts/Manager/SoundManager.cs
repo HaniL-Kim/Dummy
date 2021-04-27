@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.Audio;
 
 //==================// //==================//
 public enum SoundKey
@@ -23,6 +24,7 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager instance;
     //==============================================//
+    public AudioMixer mixer;
     public ClipInfo[] clipInfos;
     //
     [Header("BGM Option")]
@@ -57,6 +59,15 @@ public class SoundManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    private void Update()
+    {
+        if(bgAuido.isPlaying == true)
+        {
+            float val = 1.0f / bgAuido.pitch;
+            mixer.SetFloat("pitchShifter_pitchValue", val);
+        }
+    }
+    //
     // ====================== Event : Slider ====================== //
     public void SetSliders()
     {
@@ -137,6 +148,7 @@ public class SoundManager : MonoBehaviour
         bgAuido.loop = true;
         bgAuido.playOnAwake = false;
         bgAuido.volume = bgrVolume;
+        bgAuido.outputAudioMixerGroup = mixer.FindMatchingGroups("BGR")[0];
     }
     //
     private void CreateFXAudio()
@@ -156,6 +168,23 @@ public class SoundManager : MonoBehaviour
 
             obj.SetActive(false);
         }
+    }
+    //
+    public void ResetBGRPitch()
+    {
+        bgAuido.pitch = 1.0f;
+    }
+    //
+    public void SetBGRPitch(int lv)
+    {
+        float value = 1.0f + (float)lv * 0.2f;
+        bgAuido.pitch = value;
+    }
+    //
+    public void RePlayBGR()
+    {
+        StopBGR();
+        PlayBGR(SoundKey.BGR);
     }
     //
     public void StopBGR()

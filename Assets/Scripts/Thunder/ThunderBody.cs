@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class ThunderBody : MonoBehaviour
 {
@@ -8,30 +9,22 @@ public class ThunderBody : MonoBehaviour
     public Thunder thunder;
     //=====================================//
     // components
-    private Transform tf;
-    private SpriteRenderer sr;
-    private Animator anim;
+    public Transform tf;
+    public SpriteRenderer sr;
+    //public Animator anim;
     public BoxCollider2D col;
+    //=====================================//
+    public Sprite sprite_Normal;
+    public Sprite sprite_Exp;
     //=====================================//
     private readonly int hashBodyExplode =
         Animator.StringToHash("ThunderExplode");
     //=====================================//
     Vector3 temp = Vector3.zero;
-    //====================================//
-    private void Awake()
-    {
-        thunder = transform.GetComponentInParent<Thunder>();
-        //
-        tf = GetComponent<Transform>();
-        sr = GetComponent<SpriteRenderer>();
-        anim = GetComponent<Animator>();
-        col = GetComponent<BoxCollider2D>();
-    }
     //=====================================//
-    public void Reset()
+    public void ResetThunderBody()
     {
-        if (thunder == null)
-            return;
+        Debug.Log("ResetThunderBody");
         //
         Vector2 temp = Vector2.zero;
         //
@@ -50,10 +43,38 @@ public class ThunderBody : MonoBehaviour
         thunder.ResetThunder();
     }
     //
-    public void Explode()
+    public void ResetThunderBody(int id_color, Color c)
     {
+        transform.localPosition = Vector3.zero;
+        sr.sprite = sprite_Normal;
+        sr.color = Color.white;
+        sr.material.SetColor(id_color, c);
+    }
+    //
+    public void ColorTween(int id_color, Color c, float t)
+    {
+        sr.material.DOColor(c, id_color, t);
+            //.SetId(transform.name + "_TweenMatColor");
+    }
+    //
+    public void SetMat(int id_color, Color c, int id_thickness, float tk)
+    {
+        sr.material.SetColor(id_color, c);
+        sr.material.SetFloat(id_thickness, tk);
+    }
+    //
+    public void Explode(int id_color, Color expColor, Color disColor, float t)
+    {
+        sr.sprite = sprite_Exp;
+        sr.material.SetColor(id_color, expColor);
         col.enabled = true;
-        anim.SetTrigger(hashBodyExplode);
+        //
+        Tween tween_fade = sr.DOColor(disColor, t);
+        Sequence exp = DOTween.Sequence()
+        .Append(tween_fade)
+        .AppendCallback(ResetThunderBody);
+        
+        // anim.SetTrigger(hashBodyExplode);
     }
     //
     public void SetBody()
@@ -61,14 +82,14 @@ public class ThunderBody : MonoBehaviour
         // pos
         {
             temp = Vector3.zero;
-            temp.y = (thunder.head_U.localPosition.y
-                + thunder.head_D.localPosition.y) * 0.5f;
+            temp.y = (thunder.th_U.GetLocalPosY() + thunder.th_D.GetLocalPosY()) * 0.5f;
+            //temp.y = (thunder.th_U.tf.localPosition.y + thunder.head_D.localPosition.y) * 0.5f;
             tf.localPosition = temp;
         }
         // size
         {
-            float deltaY = thunder.head_U.position.y
-                - thunder.head_D.position.y;
+            float deltaY = thunder.th_U.GetPosY() - thunder.th_D.GetPosY();
+            // float deltaY = thunder.head_U.position.y - thunder.head_D.position.y;
             temp = sr.size;
             temp.y = deltaY;
             //

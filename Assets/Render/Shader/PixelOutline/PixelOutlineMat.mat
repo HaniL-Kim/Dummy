@@ -27,7 +27,7 @@ Material:
     - CORNERS: 0
     - _OutlineThickness: 0
     m_Colors:
-    - _OutlineColor_Inner: {r: 3.4415908, g: 3.4415908, b: 1.7838612, a: 1}
+    - _OutlineColor_Inner: {r: 1, g: 1, b: 1, a: 1}
     - _OutlineColor_Outer: {r: 0, g: 0, b: 1.403141, a: 0.5803922}
   m_BuildTextureStacks: []
 --- !u!114 &7911079559818604812

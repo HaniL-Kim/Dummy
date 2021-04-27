@@ -1948,8 +1948,8 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: 0
-  m_SortingOrder: 3
+  m_SortingLayerID: -51639367
+  m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &4988741604665431
 MonoBehaviour:
@@ -9136,10 +9136,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   swc: {fileID: 0}
   bm: {fileID: 0}
-  stages:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   currentDifficulty: 0
   currentStage: 1
   currentBGR: 0
@@ -9175,7 +9171,9 @@ MonoBehaviour:
     _values: []
   saveData:
     id: SaveData
-    stageClear: 000000000000000000000000
+    stageBtnState:
+    - intArr: 00000000000000000000000000000000000000000000000000000000
+    - intArr: 00000000000000000000000000000000000000000000000000000000
     bgrVolume: 0.5
     effVolume: 0.5
     resolution: 0

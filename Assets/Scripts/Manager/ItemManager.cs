@@ -14,9 +14,9 @@ public class ItemManager : MonoBehaviour
     public const int cItemCount = 100;
     //=====================================//
     public StringFloat itemRates = new StringFloat();
-    private List<int> listItemOrder = new List<int>();
-    [SerializeField]
-    private int order = 0;
+    //private List<int> listItemOrder = new List<int>();
+    //[SerializeField]
+    //private int order = 0;
     //=====================================//
     public Transform itemHolder;
     public GameObject itemPrefab;
@@ -36,7 +36,7 @@ public class ItemManager : MonoBehaviour
     {
         CreateItem();
         //
-        CreateItemOrder();
+        // CreateItemOrder();
         //
         CreateJumpPack();
     }
@@ -66,7 +66,7 @@ public class ItemManager : MonoBehaviour
             listItems.Add(item);
         }
     }
-    //
+    /*
     private void CreateItemOrder()
     {
         int itemCount = 0, itemNum = 0;
@@ -81,6 +81,7 @@ public class ItemManager : MonoBehaviour
         //
         MyUtility.ShuffleList(listItemOrder);
     }
+    */
     //=====================================//
     public AirJumpPack GetJumpPack()
     {
@@ -104,13 +105,31 @@ public class ItemManager : MonoBehaviour
         return null;
     }
     //
+    public void SetItemRate(int speedLV)
+    {
+        // itemRates["Resource"] = 0.2f; // 20%
+        float slowRate = (float)speedLV * 0.06f; // lv / 6%
+        itemRates["Slow"] = slowRate;
+        float otherRate = (1.0f - itemRates["Resource"] - slowRate) * 0.5f;
+        itemRates["AJPack"] = otherRate;
+        itemRates["Shield"] = otherRate;
+        //
+        Debug.LogFormat("Set ItemRate of LV{0}", speedLV);
+        //string temp = "";
+        //foreach (var data in itemRates)
+        //    temp += data.Key + "[" + data.Value.ToString() + "]" + "\n";
+        //Debug.Log(temp);
+    }
+    //
     public void ShowItem(Transform tf)
     {
         GameObject item = GetItem();
         if (MyUtility.IsNull(item, "Item") == true)
             return;
         //
-        Item.ItemType type = (Item.ItemType)listItemOrder[order];
+        int itemKey = MyUtility.GetValueFromRates(itemRates);
+        Item.ItemType type = (Item.ItemType)itemKey;
+        // Item.ItemType type = (Item.ItemType)listItemOrder[order];
         //
         item.SetActive(true);
         item.GetComponent<Item>().SetItem(type);
@@ -118,12 +137,12 @@ public class ItemManager : MonoBehaviour
         item.transform.SetParent(tf);
         item.transform.localPosition = Vector3.zero;
         //
-        order++;
-        if (order == cItemOrderCount)
-        {
-            order = 0;
-            MyUtility.ShuffleList(listItemOrder);
-        }
+        //order++;
+        //if (order == cItemOrderCount)
+        //{
+        //    order = 0;
+        //    MyUtility.ShuffleList(listItemOrder);
+        //}
     }
     //=====================================//
 }

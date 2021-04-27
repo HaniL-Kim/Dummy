@@ -20,7 +20,7 @@ public class SceneControl : MonoBehaviour
     public StageWindowControl swc;
     public ButtonManager bm;
     // ================= StageBtn panels ================= //
-    public GameObject[] stages;
+    //public GameObject[] stages;
     // ================= UI State ================= //
     public Difficulty currentDifficulty = Difficulty.NORMAL;
     public int currentStage = 1;
@@ -109,20 +109,24 @@ public class SceneControl : MonoBehaviour
     public IEnumerator ClearSequence()
     {
         Debug.Log("Begin Clear Sequence");
-        Time.timeScale = 1.0f;
+        Time.timeScale = 0.0f;
+        //
+        SaveClearData();
+        //
         Sequence ClearSequence = DOTween.Sequence()
             .AppendCallback(() => { StartSceneTransition("2_StageSelectScene"); })
             .AppendInterval(2.0f)
-            .AppendCallback(() => { SaveClearData(); })
+            .AppendCallback(() => { SetStageBtns(true); })
             .SetUpdate(true);
         // 
+        Time.timeScale = 1.0f;
         Debug.Log("End Clear Sequence");
         yield return null;
     }
     //
     public IEnumerator LoadSceneAsyncWithTransitionCoroutine(string sceneName)
     {
-        Debug.Log("Load " + sceneName + " begin");
+        //Debug.Log("Load " + sceneName + " begin");
         //
         AsyncOperation op = SceneManager.LoadSceneAsync(sceneName);
         op.allowSceneActivation = false;
@@ -133,12 +137,12 @@ public class SceneControl : MonoBehaviour
             {
                 op.allowSceneActivation = true;
                 //
-                if(op.isDone == true)
+                if (op.isDone == true)
                     TransitionControl.instance.Door_Open(sceneName);
             }
         }
         //
-        Debug.Log("Load " + sceneName + " complete");
+        //Debug.Log("Load " + sceneName + " complete");
     }
     //
     public void SetScreen(int res = -1, int mod = -1)
@@ -230,7 +234,7 @@ public class SceneControl : MonoBehaviour
         {
             bm = null;
             swc = null;
-            stages = null;
+            //stages = null;
         }
     }
     //
@@ -241,45 +245,60 @@ public class SceneControl : MonoBehaviour
     //
     private void SetStageBtns(bool tween = true)
     {
-        stages = new GameObject[3];
-        foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Stage"))
-        {
-            if (obj.name == "NORMAL")
-                stages[0] = obj;
-            else if (obj.name == "HARD")
-                stages[1] = obj;
-            else if (obj.name == "IMPOSSIBLE")
-                stages[2] = obj;
-        }
-        //
-        if (stages[0] == null || stages[1] == null || stages[2] == null)
-        {
-            Debug.LogError("Null : Set Stage Btns");
-            return;
-        }
-        //
         if(bm == null)
         {
             bm = FindObjectOfType<ButtonManager>(true);
             bm.SetPanel(currentDifficulty);
-            //
-            //for (int i = 0; i < 3; ++i)
-            //    stages[i] = bm.stagePanels[i].transform.GetChild(1).gameObject;
         }
         //
-        for (int i = 0; i < stages.Length; ++i)
-        {
-            // open 1 stage
-            stages[i].transform.GetChild(0).GetComponentInChildren<StageButton>().Activate(tween);
-            //
-            int clearStageMax = saveData.stageClear[i];
-            for (int j = 0; j < clearStageMax; ++j)
+        { // 0 : lock, 1 : unlock, 2 : clear
+            for(int i = 0; i < bm.stagePanels.Count; ++i)
             {
-                stages[i].transform.GetChild(j + 1).GetComponentInChildren<StageButton>().Activate(tween);
+                // Child[0] : Panel_DifficultyText, Child[1] : STAGE
+                Transform stage = bm.stagePanels[i].GetChild(1);
+                // Activate first stage
+                StageButton first = stage.GetChild(1).GetComponentInChildren<StageButton>();
+                first.Activate(false);
+                // stageBtn children order : 0(inf), 1(first), 2 ~ 6
+                for (int j = 2; j < stage.childCount; ++j)
+                {
+                    int btnState = saveData.stageBtnState[i][j];
+                    StageButton sb = stage.GetChild(j).GetComponentInChildren<StageButton>();
+                    if(tween == false)
+                    { // call by SceneChange
+                        switch (btnState)
+                        {
+                            case 0: // locked
+                            case 1: // unlock Effect
+                                break;
+                            case 2: // unlocked
+                            case 3: // clear
+                                sb.Activate(false);
+                                break;
+                        }
+                    }
+                    else
+                    { // call by Clear Sequence
+                        switch (btnState)
+                        {
+                            case 0: // locked
+                                break;
+                            case 1: // unlock Effect
+                                sb.Activate(true);
+                                saveData.stageBtnState[i][j] = 2;
+                                Save();
+                                break;
+                            case 2: // unlocked
+                            case 3: // clear
+                                break;
+                        }
+
+                    }
+                }
+
             }
 
         }
-
     }
     //
     public void Load()
@@ -294,21 +313,21 @@ public class SceneControl : MonoBehaviour
     //
     public void SaveClearData()
     {
-        int diff = (int)currentDifficulty, stage = currentStage;
-        // Activate StageBtns
-        if(stage != 0)
+        //int diff = (int)currentDifficulty, stage = currentStage;
+        // saveData.stageClear[(int)currentDifficulty] = currentStage;
+        for (int i = (int)currentDifficulty; i >= 0; --i)
         {
+            saveData.stageBtnState[i][currentStage] = 3;
+            int nextStageState = saveData.stageBtnState[i][currentStage + 1];
+            if(nextStageState == 0)
+                saveData.stageBtnState[i][currentStage + 1] = 1;
+        }
+        //
+        Save();
+        /* Activate StageBtns
             stages[diff].transform.GetChild(stage).
                 GetComponentInChildren<StageButton>().Activate(true);
-            //
-            saveData.stageClear[(int)currentDifficulty] = currentStage;
-            Save();
-        }
-        else // Infinite Stage Clear
-        {
-            // Save Record(Floor & Speed)
-            // Set Record To StageWindow
-        }
+        */
     }
     //
     public void SaveOption(int res, int mod, double bgVol, double effVol)

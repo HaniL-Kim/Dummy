@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class Dummy : MonoBehaviour
 {
+    private int dummyLayer;
     //===============================//
     public bool isInvincible = false;
+    public bool isInteractable = false;
     //===============================//
+    public GameObject dummyDestroy;
     public bool isDead = false;
     private List<string> deadTags = new List<string>()
         { "Explosion", "Thunder", "Laser" };
@@ -76,8 +79,9 @@ public class Dummy : MonoBehaviour
     //=========================================//
     // Scan : HoldTile
     private Transform tileHolding;
-    public int scanCost = 3;
-    public int flagCost = 30;
+    public int scanCost; // 1
+    public int flagCost; // 15
+    public int beginRSC; // 30
     //=========================================//
     // anim Hash
     private readonly int isJumpHash = Animator.StringToHash("isJump");
@@ -92,6 +96,12 @@ public class Dummy : MonoBehaviour
     //private readonly int hashOutlineColorInner = Shader.PropertyToID("_OutlineColor_Inner");
     //private readonly int hashOutlineTK = Shader.PropertyToID("_OutlineThickness");
     //=========================================//
+    private void Awake()
+    {
+        dummyLayer = (1 << LayerMask.NameToLayer("Dummy"));
+        //exceptPlayerLayer = ~exceptPlayerLayer;
+    }
+    //
     private void Start()
     {
         tf = GetComponent<Transform>();
@@ -113,6 +123,8 @@ public class Dummy : MonoBehaviour
         //
         shieldEffect = tf.GetChild(2).GetComponent<ShieldEffect>();
         shieldEffect.dummy = this;
+        //
+        UIManager.instance.AddRSC(beginRSC);
     }
     //=========================================//
     private void Update()
@@ -151,6 +163,10 @@ public class Dummy : MonoBehaviour
             isInvincible = !isInvincible;
             Debug.Log("Invincible : " + isInvincible);
         }
+        else if (Input.GetKeyDown(KeyCode.Keypad4))
+        {
+            Dead("Test");
+        }
 
     }
     //
@@ -176,6 +192,11 @@ public class Dummy : MonoBehaviour
     }
     */
     //=========================================//
+    public void Interactable(bool b)
+    {
+        isInteractable = b;
+    }
+    //
     private void StuckInConcrete()
     {
         float rayDist = 64.0f;
@@ -299,6 +320,10 @@ public class Dummy : MonoBehaviour
     {
         if (GameManager.instance.pause)
             return;
+        //
+        if (isInteractable == false)
+            if (Input.anyKeyDown)
+                Interactable(true);
         //
         Walk();     // 'WASD'
         Jump();     // /Space
@@ -569,7 +594,7 @@ public class Dummy : MonoBehaviour
         }
     }
     //
-    public void Dead(string tag)
+    public void Dead(string tag, Collider2D col = null)
     {
         if (isDead || isInvincible)
             return;
@@ -598,7 +623,40 @@ public class Dummy : MonoBehaviour
         //
         string record = GameManager.instance.elecShooter.superViser.currentFloor.ToString();
         SceneControl.instance.saveData.bestRecord = record;
-        //
+
+        // Shatter Effect
+        GameObject obj = Instantiate(dummyDestroy, transform.position, Quaternion.identity);
+        DestructableObject dd = obj.GetComponent<DestructableObject>();
+        dd.Flip(sr.flipX);
+        if(col != null)
+        {
+            Vector3 dir = col.transform.position - transform.position;
+            switch (tag)
+            {
+                case "Explosion":
+                    break;
+                case "Thunder":
+                    {
+                        float x = dir.x >= 0 ? 7.0f : -7.0f;
+                        dir.x = x;
+                        dir.y = 0;
+                    }
+                    break;
+                case "Laser":
+                    {
+                        float y = dir.y >= 0 ? 7.0f : -7.0f;
+                        dir.x = 0;
+                        dir.y = y * 2.0f;
+                    }
+                    break;
+                default:
+                    break;
+            }
+            Vector3 spcPos = transform.position + dir;
+            dd.spc.transform.position = spcPos;
+        }
+        dd.SetShatter();
+
         gameObject.SetActive(false);
         //
         GameManager.instance.ReloadPlayScene();
@@ -607,8 +665,12 @@ public class Dummy : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         foreach (string tag in deadTags)
+        {
             if (collision.CompareTag(tag) == true)
-                Dead(tag);
+            {
+                Dead(tag, collision);
+            }
+        }
     }
     //
     private void OnTriggerExit2D(Collider2D collision)

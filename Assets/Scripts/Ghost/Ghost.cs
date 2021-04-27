@@ -1,33 +1,40 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class Ghost : MonoBehaviour
 {
+    public float maxForce = 350.0f;
     //=============================================//
     List<string> deadTags = new List<string>()
         { "Explosion", "Thunder", "Player" };
-    public Sprite deadSprite;
+    // public Sprite deadSprite;
     //=============================================//
     public enum GhostState { MOVE, STOP, DEAD }
     //=============================================//
     // anim hash
     private readonly int hashStopTrigger =
         Animator.StringToHash("Ghost_Stop");
+    private readonly int hashDeadTrigger =
+        Animator.StringToHash("Ghost_Dead");
     // shader hash
     private readonly int hashOutlineTK =
         Shader.PropertyToID("_OutlineThickness");
     //=============================================//
     public GhostState state = GhostState.MOVE;
     //=============================================//
-    public float ghostExplodeCount = 0.33f;
+    public int ghostExplodeDelayLevel = 1;
+    //
     public float ghostMoveSpeed = 10.0f;
     public float moveTime;
     [SerializeField] private float moveTimeCounter = 0;
     [SerializeField] private float randValue = 0;
     //
     [ColorUsageAttribute(true, true)]
-    public Color outlineColor;
+    public Color outlineColorBegin;
+    [ColorUsageAttribute(true, true)]
+    public Color outlineColorEnd;
     //=============================================//
     private Vector3 dirToPlayer = Vector3.zero;
     //=============================================//
@@ -51,10 +58,9 @@ public class Ghost : MonoBehaviour
         //moveTime = 10.0f;
         moveTimeCounter = moveTime;
         //
-        sr.material.SetColor("_OutlineColor_Inner", outlineColor);
-        //
-        randValue = Random.Range(0.7f, 1.3f);
+        sr.material.SetColor("_OutlineColor_Inner", outlineColorBegin);
     }
+    //
     private void Start()
     {
         playerTF = GameManager.instance.dummy.transform;
@@ -62,6 +68,11 @@ public class Ghost : MonoBehaviour
             .GetComponent<ElecShooterController>();
         //
         Outline(true);
+    }
+    //
+    private void OnEnable()
+    {
+        randValue = Random.Range(0.7f, 1.3f);
     }
     //=============================================//
     private void Update()
@@ -92,17 +103,35 @@ public class Ghost : MonoBehaviour
     private void Move()
     {
         Vector3 temp = tf.position;
-        //
+        // Sync Ghost PosY with ElecShooter Move
         float speed = 0;
         if (elecShooter.isElevate == true)
             speed = elecShooter.elevateSpeed;
         //
         temp.y += speed * Time.deltaTime;
+        tf.position = temp;
         //
         switch (state)
         {
             case GhostState.MOVE:
-                rb.AddForce(dirToPlayer * randValue * Time.deltaTime * ghostMoveSpeed);
+                {
+                    Vector2 force = dirToPlayer * randValue * Time.deltaTime * ghostMoveSpeed;
+                    //
+                    if (force.magnitude > maxForce)
+                    {
+                        float ratio = maxForce / force.magnitude;
+                        force *= ratio;
+                    }
+                    //
+                    rb.AddForce(force);
+
+                    //float force_temp = Mathf.Abs(force.magnitude);
+                    //if (force_temp > max)
+                    //{
+                    //    max = force_temp;
+                    //    Debug.Log(max);
+                    //}
+                }
                 break;
             case GhostState.STOP:
                 break;
@@ -112,7 +141,6 @@ public class Ghost : MonoBehaviour
                 break;
         }
         //
-        tf.position = temp;
     }
     private void MoveTimer()
     {
@@ -141,7 +169,7 @@ public class Ghost : MonoBehaviour
     {
         state = GhostState.STOP;
         anim.SetTrigger(hashStopTrigger);
-        col.enabled = false;
+        //col.enabled = false;
         Outline(false);
     }
     //=============================================//
@@ -156,24 +184,18 @@ public class Ghost : MonoBehaviour
         Outline(true);
     }
     //
-    private void SetToDead()
-    {
-        state = GhostState.DEAD;
-        //
-        anim.enabled = false;
-        col.enabled = false;
-        //
-        sr.sprite = deadSprite;
-    }
-    //
     private void SetToDefault()
     {
+        DOTween.Kill(transform.name + "_TweenMatColor");
+        //
         state = GhostState.MOVE;
         //
         anim.enabled = true;
         col.enabled = true;
         //
         moveTimeCounter = moveTime;
+        //
+        sr.material.SetColor("_OutlineColor_Inner", outlineColorBegin);
         Outline(true);
         //
         gameObject.SetActive(false);
@@ -186,13 +208,36 @@ public class Ghost : MonoBehaviour
         SetToDefault();
     }
     //
+    private void OutlineColorChange(float time)
+    {
+        sr.material.DOColor(outlineColorEnd, "_OutlineColor_Inner", time)
+            .SetId(transform.name + "_TweenMatColor");
+        // sr.material.SetColor("_OutlineColor_Inner", outlineColorBegin);
+        //outlineColorBegin
+        //outlineColorEnd
+    }
+    //
+    public void ExplodeAfterDelay()
+    {
+        float ghostExplodeDealy = 1.0f * (float)ghostExplodeDelayLevel;
+        OutlineColorChange(ghostExplodeDealy);
+        Invoke("Explode", ghostExplodeDealy);
+    }
+    //
     public void Dead()
     {
         //Debug.Log("GhostDead");
         //
-        SetToDead();
+        state = GhostState.DEAD;
+        //
+        //anim.enabled = false;
+        col.enabled = false;
+        //
+        //sr.sprite = deadSprite;
+        anim.SetTrigger(hashDeadTrigger);
+
         // Explode //
-        Invoke("Explode", ghostExplodeCount);
+        // Invoke("Explode", ghostExplodeCount);
     }
     //=============================================//
     private void OnTriggerEnter2D(Collider2D collision)

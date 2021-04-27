@@ -15,7 +15,9 @@ public class ElecShooterController : MonoBehaviour
     //==========================================//
     public SuperVisor superViser;
     //==========================================//
-    public const float narrowHeight = 40.0f;
+    // public const float narrowHeight = 40.0f;
+    public float narrowHeight = 40.0f;
+    public float shooterStartPos = 160.0f;
     //
     public bool infMode = false;
     //
@@ -60,10 +62,12 @@ public class ElecShooterController : MonoBehaviour
     private void Test()
     {
         if (Input.GetKeyDown(KeyCode.UpArrow))
-            ++elevateSpeed;
+            elevateSpeed += 2.0f;
         else if (Input.GetKeyDown(KeyCode.DownArrow))
-            --elevateSpeed;
-        /*
+            elevateSpeed -= 2.0f;
+        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+            elevateSpeed = 0;
+        //
         if (Input.GetKeyDown(KeyCode.Alpha0))
             SetLevelCoroutine(0);
         else if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -79,7 +83,6 @@ public class ElecShooterController : MonoBehaviour
         //
         if (Input.GetKeyDown(KeyCode.Minus))
             ResetHeightAll();
-        */
     }
     //==========================================//
     public void ResetHeightAll()
@@ -186,8 +189,8 @@ public class ElecShooterController : MonoBehaviour
         Vector3 up_lp, up_target, up_dir, up_dirN, up_pos;
         Vector3 down_lp, down_target, down_dir, down_dirN, down_pos;
         //
-        float up_target_y = 186.0f - (float)level * narrowHeight;
-        float down_target_y = -186.0f + (float)level * narrowHeight;
+        float up_target_y = shooterStartPos - (float)level * narrowHeight;
+        float down_target_y = -shooterStartPos + (float)level * narrowHeight;
         //float up_target_y = 470.0f - (float)level * 47.0f;
         //float down_target_y = 000.0f + (float)level * 47.0f;
         //

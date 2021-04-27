@@ -5,6 +5,8 @@ using UnityEngine;
 public class FootBoard : MonoBehaviour
 {
     //=============================================//
+    public GameObject footBoardDestroy; // Desturctable
+    //=============================================//
     public bool canDistroy = false;
     //=============================================//
     private readonly int hashDissolveAmount = Shader.PropertyToID("_DissolveAmount");
@@ -48,8 +50,11 @@ public class FootBoard : MonoBehaviour
         //
         canDistroy = false;
         col.enabled = false;
+        sr.enabled = false;
         // Dissolve
-        StartCoroutine(DissolveEffect());
+        //StartCoroutine(DissolveEffect());
+        // Shatter
+        Instantiate(footBoardDestroy, transform.position, Quaternion.identity);
     }
     //
     private IEnumerator DissolveEffect()

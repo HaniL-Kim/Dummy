@@ -13,6 +13,7 @@ public class StageButton : MonoBehaviour
     private StageWindowControl swc;
     //========== ID ==========//
     public string diffStr;
+    public Difficulty diff;
     public int stageNum;
     //========== Sprites ==========//
     public Sprite sprite_InActive;
@@ -46,10 +47,27 @@ public class StageButton : MonoBehaviour
         //
         stageNum = (int)Char.GetNumericValue(MyUtility.GetLastChar(transform.parent.name));
         diffStr = transform.parent.parent.name;
+        switch (diffStr)
+        {
+            case "NORMAL":
+                diff = Difficulty.NORMAL;
+                break;
+            case "HARD":
+                diff = Difficulty.HARD;
+                break;
+            default:
+                break;
+        }
     }
     private void Start()
     {
         swc = FindObjectOfType<StageWindowControl>(true);
+    }
+    //
+    private void OnEnable()
+    {
+        // int state = SceneControl.instance.saveData[(int)diff][stageNum];
+        
     }
     //========== Func  ==========//
     public void ActivateStageWindow()

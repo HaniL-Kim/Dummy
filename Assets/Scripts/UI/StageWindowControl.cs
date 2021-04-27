@@ -66,9 +66,10 @@ public class StageWindowControl : MonoBehaviour
         //
         spdUpCD.text = unit.ToString();
         // Set Clear Text(Row-3)
-        int clearStage = SceneControl.instance.saveData.stageClear[MyUtility.DiffToInt(diff)];
+        //int clearStage = SceneControl.instance.saveData.stageClear[MyUtility.DiffToInt(diff)];
         string bestRecord = SceneControl.instance.saveData.bestRecord;
         //
+        int stageInt = MyUtility.DiffToInt(diff);
         if (stageNum == 0)
         {
             clearTextName.text = "Best Record";
@@ -77,8 +78,9 @@ public class StageWindowControl : MonoBehaviour
         else
         {
             clearTextName.text = "Clear";
-            //
-            if (stageNum <= clearStage)
+            /* stageBtnState
+                0 : lock / 1 : unlock / 2 : clear */
+            if (SceneControl.instance.saveData.stageBtnState[stageInt][stageNum] == 3)
                 clearTextValue.text = "YES";
             else
                 clearTextValue.text = "NO";
@@ -115,12 +117,19 @@ public class StageWindowControl : MonoBehaviour
     public void CheckBGREnabled()
     {
         SceneControl sc = SceneControl.instance;
+        ButtonManager bm = SceneControl.instance.bm;
         //
-        for(int i = 0; i < sc.stages.Length; ++i)
+        for(int i = 0; i < bm.stagePanels.Count; ++i)
         {
+            // check stage 6 is cleared
+            if(sc.saveData.stageBtnState[i][6] == 2)
+                enabledBGR[i + 1] = true;
+
+            /*
             int stageClear = sc.saveData.stageClear[i];
             if (stageClear >= 6)
                 enabledBGR[i+1] = true;
+            */
         }
         //
         for (int i = 0; i < checkBoxes.childCount; ++i)

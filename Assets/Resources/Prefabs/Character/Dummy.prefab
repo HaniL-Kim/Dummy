@@ -244,7 +244,7 @@ GameObject:
   - component: {fileID: 4001196142467376818}
   - component: {fileID: 2380628004874171621}
   - component: {fileID: 5841005905842011586}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Dummy
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -280,6 +280,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 821875aa21b1ad1459977461ce11edab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInvincible: 0
+  isInteractable: 0
+  dummyDestroy: {fileID: 172376642660421855, guid: 2d706df3f3577d042a1815399e7a3322, type: 3}
   isDead: 0
   moveSpeed: 100
   jumpForce: 270
@@ -299,8 +302,9 @@ MonoBehaviour:
   shieldState: 0
   shieldNormalColor: {r: 3.2873485, g: 3.2873485, b: 3.2873485, a: 1}
   shieldActiveColor: {r: 4.924577, g: 3.4291558, b: 0, a: 1}
-  scanCost: 3
-  flagCost: 30
+  scanCost: 1
+  flagCost: 15
+  beginRSC: 30
 --- !u!212 &4001196142467376831
 SpriteRenderer:
   m_ObjectHideFlags: 0

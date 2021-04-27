@@ -62,6 +62,9 @@ public class SuperVisor : MonoBehaviour
             return;
         --lv;
         SetSpeed(lv);
+        //
+        ItemManager.instance.SetItemRate(lv);
+        SoundManager.instance.SetBGRPitch(lv);
     }
     //
     public void SpeedLVUp()
@@ -72,6 +75,11 @@ public class SuperVisor : MonoBehaviour
         //
         ++lv;
         SetSpeed(lv);
+        //
+        ItemManager.instance.SetItemRate(lv);
+        SoundManager.instance.SetBGRPitch(lv);
+        //
+        Debug.LogFormat("Speed LV UP to {0}", lv);
     }
     //
     public void AddDist(float value)

@@ -117,6 +117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isShake: 0
+  isFliped: 0
 --- !u!60 &7398027007306731510
 PolygonCollider2D:
   m_ObjectHideFlags: 0

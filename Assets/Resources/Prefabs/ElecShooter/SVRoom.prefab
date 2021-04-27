@@ -642,15 +642,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ec: {fileID: 5631406482672435618, guid: e9b9b360b1e1ef841ba61aaf447b81c7, type: 3}
   speeds:
-  - 12
-  - 16
-  - 20
+  - 18
   - 24
-  - 28
-  - 32
+  - 30
   - 36
-  - 40
-  - 44
+  - 42
   - 48
   lv: 0
   unit: 5
