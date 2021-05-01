@@ -61,10 +61,8 @@ public class ButtonManager : MonoBehaviour
     public void BTN_Option()
     {
         SceneControl.instance.OpenOption(true);
-        //GameObject optionWindow = GameObject.FindGameObjectWithTag("OptionWindow");
-        //optionWindow.transform.GetChild(0).gameObject.SetActive(true);
     }
-    //
+    //=========================================//
     public void BTN_Exit()
     { // Button Event
         SceneControl.instance.ExitGame();

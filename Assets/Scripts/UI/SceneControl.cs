@@ -63,6 +63,12 @@ public class SceneControl : MonoBehaviour
         SceneManager.activeSceneChanged += OnSceneChange;
     }
     //==================================//
+    public void SaveRecord()
+    {
+        string record = GameManager.instance.elecShooter.superViser.currentFloor.ToString();
+        saveData.bestRecord[(int)currentDifficulty] = record;
+    }
+    //
     public void StartInforScene()
     {
         StartCoroutine(InforCoroutine());
@@ -268,21 +274,31 @@ public class SceneControl : MonoBehaviour
     //
     public void SaveClearData()
     {
-        //int diff = (int)currentDifficulty, stage = currentStage;
-        // saveData.stageClear[(int)currentDifficulty] = currentStage;
         for (int i = (int)currentDifficulty; i >= 0; --i)
         {
             saveData.stageBtnState[i][currentStage] = 3;
-            int nextStageState = saveData.stageBtnState[i][currentStage + 1];
-            if(nextStageState == 0)
-                saveData.stageBtnState[i][currentStage + 1] = 1;
+            //
+            int nextStageIndex = 0;
+            if (currentStage == 0)
+            { // current : 0 stage(infinite)
+                // Do Nothing
+            }
+            else if (currentStage == saveData.stageBtnState[i].intArr.Length - 1)
+            { // current : 6 stage
+                nextStageIndex = 0;
+                // Ending Sequence?
+            }
+            else
+            { // current : 1 ~ 5 stage
+                nextStageIndex = currentStage + 1;
+            }
+            //
+            int nextStageState = saveData.stageBtnState[i][nextStageIndex];
+            if (nextStageState == 0)
+                saveData.stageBtnState[i][nextStageIndex] = 1;
         }
         //
         Save();
-        /* Activate StageBtns
-            stages[diff].transform.GetChild(stage).
-                GetComponentInChildren<StageButton>().Activate(true);
-        */
     }
     //
     public void SaveOption_Screen()

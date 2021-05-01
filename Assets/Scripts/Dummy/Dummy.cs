@@ -608,9 +608,7 @@ public class Dummy : MonoBehaviour
         isDead = true;
         GameManager.instance.gameOver = true;
         //
-        string record = GameManager.instance.elecShooter.superViser.currentFloor.ToString();
-        SceneControl.instance.saveData.bestRecord = record;
-
+        SceneControl.instance.SaveRecord();
         // Shatter Effect
         GameObject obj = Instantiate(dummyDestroy, transform.position, Quaternion.identity);
         DestructableObject dd = obj.GetComponent<DestructableObject>();

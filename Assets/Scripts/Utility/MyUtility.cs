@@ -67,7 +67,7 @@ public class SaveData
     public int resolution;
     public int screenMode;
     //
-    public string bestRecord;
+    public string[] bestRecord;
     //=========== ctor ===========//
     // (Default)
     public SaveData()
@@ -75,17 +75,16 @@ public class SaveData
         id = "SaveData";
         //
         stageBtnState = new IntArr[2] { new IntArr(), new IntArr() };
-        //stageClear.Add(0); // NORMAL
-        //stageClear.Add(0); // HARD
-        //stageClear.Add(0); // IMPOSSIBLE
         //
-        bgrVolume = 0.5;
-        effVolume = 0.5;
+        bgrVolume = 0.5; // double
+        effVolume = 0.5; // double
         //
         resolution = 0;
         screenMode = 0;
         //
-        bestRecord = "0";
+        bestRecord = new string[2] { "0", "0" };
+        //bestRecord[0] = "0";
+        //bestRecord[1] = "0";
     }
     // from Jason
     public SaveData(JsonData jd)
@@ -107,7 +106,9 @@ public class SaveData
         resolution = int.Parse(jd["resolution"].ToString());
         screenMode = int.Parse(jd["screenMode"].ToString());
         //
-        bestRecord = jd["bestRecord"].ToString();
+        bestRecord = new string[2] { "0", "0" };
+        bestRecord[0] = jd["bestRecord"][0].ToString();
+        bestRecord[1] = jd["bestRecord"][1].ToString();
     }
 }
 //================================================//
@@ -188,9 +189,9 @@ public static class MyUtility
             case "HARD":
                 result = 1;
                 break;
-            case "IMPOSSIBLE":
-                result = 2;
-                break;
+            //case "IMPOSSIBLE":
+            //    result = 2;
+            //    break;
             default:
                 break;
         }

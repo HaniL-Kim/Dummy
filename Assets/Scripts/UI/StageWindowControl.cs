@@ -66,20 +66,19 @@ public class StageWindowControl : MonoBehaviour
         //
         spdUpCD.text = unit.ToString();
         // Set Clear Text(Row-3)
-        //int clearStage = SceneControl.instance.saveData.stageClear[MyUtility.DiffToInt(diff)];
-        string bestRecord = SceneControl.instance.saveData.bestRecord;
-        //
         int stageInt = MyUtility.DiffToInt(diff);
+        string bestRecord = SceneControl.instance.saveData.bestRecord[stageInt];
+        //
         if (stageNum == 0)
-        {
+        { // Infinite Stage
             clearTextName.text = "Best Record";
             clearTextValue.text = bestRecord + "F";
         }
         else
-        {
+        { // 1 ~ 6 Stage
             clearTextName.text = "Clear";
             /* stageBtnState
-                0 : lock / 1 : unlock / 2 : clear */
+                0 : locked / 1 : unlock effect / 2 : unlocked / 3 : clear */
             if (SceneControl.instance.saveData.stageBtnState[stageInt][stageNum] == 3)
                 clearTextValue.text = "YES";
             else
@@ -118,20 +117,19 @@ public class StageWindowControl : MonoBehaviour
     {
         SceneControl sc = SceneControl.instance;
         ButtonManager bm = SceneControl.instance.bm;
-        //
-        for(int i = 0; i < bm.stagePanels.Count; ++i)
-        {
-            // check stage 6 is cleared
-            if(sc.saveData.stageBtnState[i][6] == 3)
-                enabledBGR[i + 1] = true;
-
-            /*
-            int stageClear = sc.saveData.stageClear[i];
-            if (stageClear >= 6)
-                enabledBGR[i+1] = true;
-            */
+        { // Set Enabled from saveData
+            if (sc.saveData.stageBtnState[1][6] == 3)
+            {// check hard stage 6 is cleared
+                enabledBGR[1] = true;
+                enabledBGR[2] = true;
+            }
+            {// check normal stage 6 is cleared
+                if (sc.saveData.stageBtnState[0][6] == 3)
+                    enabledBGR[1] = true;
+            }
         }
         //
+        // Set CheckBox Image & Interactable
         for (int i = 0; i < checkBoxes.childCount; ++i)
         {
             Image img = checkBoxes.GetChild(i).GetComponent<Image>();

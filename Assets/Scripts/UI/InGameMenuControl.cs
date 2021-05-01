@@ -15,6 +15,8 @@ public class InGameMenuControl : MonoBehaviour
     // ================ Func ================ //
     public void SetIGMControl(bool b)
     {
+        SetAssure(false);
+        //
         GameManager.instance.Pause(b);
         //
         inGameMenu.SetActive(b);
