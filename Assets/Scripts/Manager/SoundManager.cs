@@ -51,7 +51,7 @@ public class SoundManager : MonoBehaviour
         if(instance == null)
         {
             instance = this;
-            CreateAudio();
+            //CreateAudio();
             //DontDestroyOnLoad(this.gameObject);
         }
         else
@@ -59,9 +59,18 @@ public class SoundManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    //
     private void Update()
     {
-        if(bgAuido.isPlaying == true)
+        SetBGRPitch();
+    }
+    //==============================================//
+    private void SetBGRPitch()
+    {
+        if (bgAuido == null)
+            return;
+        //
+        if (bgAuido.isPlaying == true)
         {
             float val = 1.0f / bgAuido.pitch;
             mixer.SetFloat("pitchShifter_pitchValue", val);
@@ -90,6 +99,9 @@ public class SoundManager : MonoBehaviour
         if (bgrSlider == null)
             SetSliders();
         //
+        bgrVolume = bgrSlider.value;
+        SceneControl.instance.SaveOption_Sound();
+        //
         StopBGR();
     }
     //
@@ -98,10 +110,13 @@ public class SoundManager : MonoBehaviour
         if (effSlider == null)
             SetSliders();
         //
+        effVolume = effSlider.value;
+        SceneControl.instance.SaveOption_Sound();
+        //
         Play(SoundKey.TEST, null, effSlider.value);
     }
     //==============================================//
-    public void SetSoundOption()
+    public void SetSoundAndSliderFromSaveData()
     {
         bgrVolume = (float)SceneControl.instance.saveData.bgrVolume;
         effVolume = (float)SceneControl.instance.saveData.effVolume;
@@ -119,7 +134,7 @@ public class SoundManager : MonoBehaviour
     }
     //
     public void SetVolumeBySlider()
-    {
+    { // Called By Slider
         if (bgrSlider == null || effSlider == null)
             SetSliders();
         //
@@ -172,11 +187,17 @@ public class SoundManager : MonoBehaviour
     //
     public void ResetBGRPitch()
     {
+        if (bgAuido == null)
+            return;
+        //
         bgAuido.pitch = 1.0f;
     }
     //
     public void SetBGRPitch(int lv)
     {
+        if (bgAuido == null)
+            return;
+        //
         float value = 1.0f + (float)lv * 0.2f;
         bgAuido.pitch = value;
     }
@@ -189,7 +210,10 @@ public class SoundManager : MonoBehaviour
     //
     public void StopBGR()
     {
-        bgAuido.Stop();
+        if (bgAuido == null)
+            return;
+        //
+            bgAuido.Stop();
     }
     //
     public void PlayBGR(SoundKey key, float vol = -1.0f)

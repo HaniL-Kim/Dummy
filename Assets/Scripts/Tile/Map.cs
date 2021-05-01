@@ -192,7 +192,12 @@ public class Map : MonoBehaviour
                 {
                     Inner inner = f.tiles[k].GetComponent<Tile>().inner;
                     if(inner.isDanger == true)
-                        inner.closet.GetComponent<SpriteRenderer>().color = c;
+                    {
+                        if (inner.mineType == MineTypes.CRASH)
+                            inner.closet.GetComponent<SpriteRenderer>().color = Color.green;
+                        else
+                            inner.closet.GetComponent<SpriteRenderer>().color = c;
+                    }
                 }
             }
         }
@@ -387,35 +392,15 @@ public class Map : MonoBehaviour
         }
     }
     ///////////////////////////////////////
-    public void SetMine(Block block)//, StageData sd = null)
+    public void SetMine(Block block)
     {
+        Debug.Log("SetMine : Begin");
+        //
         StageData sd = currentStageData;
         if (MyUtility.IsNull(sd, "StageData"))
             return;
         //
         int[] mineArr;
-        {
-            //if (sd == null)
-            //{
-            //    mineArr = new int[10];
-            //    { // For Debug
-            //        int idx = 0;
-            //        // Set MineArr From List
-            //        int i = 0; // MineNumber
-            //        foreach (var data in mineCounts)
-            //        {
-            //            int count = data.Value;
-            //            for (int j = 0; j < count; ++j)
-            //            {
-            //                mineArr[idx++] = i;
-            //            }
-            //            // next MineNumber
-            //            ++i;
-            //        }
-            //    }
-            //}
-            //else
-        }
         { // Crate Mine Array
             int[] mines = { sd.pull, sd.push, sd.ghost, sd.thunder, sd.narrow };
             //
@@ -483,17 +468,7 @@ public class Map : MonoBehaviour
         for (int i = 0; i < mineArr.Length; ++i)
             allTiles[i].inner.SetDanger(mineArr[i]);
         //
-        {
-        /* one mine in one floor
-        for (int y = 0; y < block.floors.Count; ++y)
-        {
-            int randIdx = Random.Range(0, 6);
-            Tile tile = block.GetFloor(y).tiles[randIdx].GetComponent<Tile>();
-            //
-            tile.inner.SetDanger(mineArr[y]);
-        }
-        */
-        }
+        Debug.Log("SetMine : End");
     }
     ///////////////////////////////////////
     public void SetArroundMineInfo(Floor floor, int tileCount = TileCount)
@@ -501,8 +476,6 @@ public class Map : MonoBehaviour
         for (int x = 0; x < tileCount; ++x)
         {
             Inner inner = floor.tiles[x].GetComponent<Tile>().inner;
-            //if (inner.isDanger == true)
-            //    continue;
             inner.CheckArround();
         }
     }

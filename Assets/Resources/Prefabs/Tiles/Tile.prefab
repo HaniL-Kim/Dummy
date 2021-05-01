@@ -198,6 +198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   closet: {fileID: 3805840345685866091}
+  isFliped: 0
   isDanger: 0
   mineType: -1
   dangerCount: 0
@@ -642,6 +643,22 @@ PrefabInstance:
     - target: {fileID: 4525311711091034476, guid: f91940fe74d11c84cba457519cf87184, type: 3}
       propertyPath: m_Name
       value: FootBoard
+      objectReference: {fileID: 0}
+    - target: {fileID: 9126140579201164147, guid: f91940fe74d11c84cba457519cf87184, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[0].x
+      value: -30
+      objectReference: {fileID: 0}
+    - target: {fileID: 9126140579201164147, guid: f91940fe74d11c84cba457519cf87184, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[2].x
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 9126140579201164147, guid: f91940fe74d11c84cba457519cf87184, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[3].x
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 9126140579201164147, guid: f91940fe74d11c84cba457519cf87184, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[4].x
+      value: -30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f91940fe74d11c84cba457519cf87184, type: 3}

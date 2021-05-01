@@ -89,7 +89,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 351593403
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9229635452c92174897e7e35deff5939, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -181,13 +181,11 @@ MonoBehaviour:
   tb: {fileID: 0}
   th_U: {fileID: 0}
   th_D: {fileID: 0}
-  outlineColorBegin: {r: 5.243787, g: 0.38235945, b: 10.432951, a: 0}
-  outlineColorEnd: {r: 10.432951, g: 0.43698224, b: 0.10924556, a: 0}
-  outlineColorExplosion: {r: 47.937256, g: 2.0078433, b: 0.5019608, a: 0}
+  outlineColorBegin: {r: 0.8392157, g: 0.30588236, b: 1.4980392, a: 0}
+  outlineColorEnd: {r: 11.984314, g: 0, b: 0, a: 0}
+  outlineColorExplosion: {r: 15.813397, g: 4.0568404, b: 4.0568404, a: 0}
   disColor: {r: 1, g: 1, b: 1, a: 0}
   outline_Thickness: 2
-  intensity_Default: 3.8
-  intensity_Explosion: 6
   disappearTime: 1
   ec: {fileID: 0}
 --- !u!1 &3857128003262879844
@@ -277,7 +275,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 351593403
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: a95ac92bad2909645b6e484575110442, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -396,7 +394,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 351593403
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: a95ac92bad2909645b6e484575110442, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

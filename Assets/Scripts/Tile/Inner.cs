@@ -36,23 +36,26 @@ public class Inner : MonoBehaviour
     //
     private void OnEnable()
     {
+        anim.enabled = true;
         anim.SetBool(hashInnerIsDanger, isDanger);
     }
     //=============================================//
     public void ResetInner()
     {
         { // Inner
-            sr.sprite = null;
-            //
-            isDanger = false;
-            anim.SetBool(hashInnerIsDanger, isDanger);
-            //
+            isFliped = false;
             mineType = MineTypes.NONE;
             dangerCount = 0;
             // arround
             arroundInners.Clear();
             // anim
+            isDanger = false;
+            anim.SetBool(hashInnerIsDanger, isDanger);
             anim.SetBool(hashFlipInner, false);
+            //
+            anim.enabled = false;
+            sr.sprite = null;
+            //anim.enabled = true;
         }
         // Thunder
         foreach (var item in GetComponentsInChildren<Thunder>())

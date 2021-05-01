@@ -43,7 +43,7 @@ public class Closet : MonoBehaviour
         //
         anim.SetBool(hashFlip, false);
         //
-        inner.ResetInner();
+        //inner.ResetInner();
         //
         GetComponent<SpriteRenderer>().color = Color.white;
         transform.gameObject.SetActive(true);

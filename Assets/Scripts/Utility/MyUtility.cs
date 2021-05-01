@@ -113,6 +113,19 @@ public class SaveData
 //================================================//
 public static class MyUtility
 {
+    public static int CharToInt(char c)
+    {
+        return (int)char.GetNumericValue(c);
+    }
+
+    //
+    public static void ChangeStringColor(ref string text, string value, Color color)
+    {
+        string hexColor = ColorUtility.ToHtmlStringRGBA(color);
+        string textToChange = string.Format("<color=#{0}>{1}</color> ", hexColor, value);
+        text = text.Replace(value, textToChange);
+    }
+    //
     public static int GetValueFromRates(StringFloat itemRates)
     {
         int result = 0;

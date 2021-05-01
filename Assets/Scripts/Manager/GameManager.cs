@@ -82,6 +82,10 @@ public class GameManager : MonoBehaviour
         //
         stageClear = true;
         //
+        dummy.isInvincible = true;
+        //
+        MineController.instance.StopAllGhost();
+        //
         SoundManager.instance.StopBGR();
         //Debug.Log("Begin ClearSTage");
         // Pause(true);

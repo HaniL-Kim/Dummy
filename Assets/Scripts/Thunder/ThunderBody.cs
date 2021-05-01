@@ -72,9 +72,9 @@ public class ThunderBody : MonoBehaviour
         Tween tween_fade = sr.DOColor(disColor, t);
         Sequence exp = DOTween.Sequence()
         .Append(tween_fade)
-        .AppendCallback(ResetThunderBody);
-        
-        // anim.SetTrigger(hashBodyExplode);
+        .AppendCallback(ResetThunderBody)
+        .InsertCallback(0.3f, () => { col.enabled = false; })
+        ;
     }
     //
     public void SetBody()

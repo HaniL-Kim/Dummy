@@ -16,7 +16,7 @@ public class Outline : MonoBehaviour
     private readonly int hashOutlineColorInner = Shader.PropertyToID("_OutlineColor_Inner");
     private readonly int hashOutlineTK = Shader.PropertyToID("_OutlineThickness");
     //=============================================================//
-    private void Start()
+    private void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
         AddOutline(sr);

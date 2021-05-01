@@ -28,12 +28,6 @@ public class MineInfoControl : MonoBehaviour
             mineCountTexts.Add( mineIcons[i].GetComponentInChildren<TextMeshProUGUI>(true) );
     }
     //
-    private void Start()
-    {
-        //CheckMineCount();
-        //ContentPivotControl();
-    }
-    //
     private void Update()
     {
         CheckMineCount();

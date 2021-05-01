@@ -51,12 +51,12 @@ public class FootBoard : MonoBehaviour
         canDistroy = false;
         col.enabled = false;
         sr.enabled = false;
-        // Dissolve
+        // Dissolve => footBoardDestroy
         //StartCoroutine(DissolveEffect());
         // Shatter
         Instantiate(footBoardDestroy, transform.position, Quaternion.identity);
     }
-    //
+    /*
     private IEnumerator DissolveEffect()
     {
         while (true)
@@ -75,5 +75,6 @@ public class FootBoard : MonoBehaviour
             }
         }
     }
+    */
     //=============================================//
 }

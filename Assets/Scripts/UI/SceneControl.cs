@@ -30,6 +30,7 @@ public class SceneControl : MonoBehaviour
     public Canvas canvas;
     public Camera cam;
     public InGameMenuControl IGMControl;
+    public OptionManager om;
     public GameObject option;
     // ================= Read from csv & json ================= //
     public DicStageData stageData;
@@ -54,7 +55,10 @@ public class SceneControl : MonoBehaviour
         canvas.worldCamera = cam;
         //
         saveData = new SaveData();
+        //
         Load();
+        //
+        om.SetScreenAndCheckBoxFromSaveData();
         //
         SceneManager.activeSceneChanged += OnSceneChange;
     }
@@ -145,53 +149,6 @@ public class SceneControl : MonoBehaviour
         //Debug.Log("Load " + sceneName + " complete");
     }
     //
-    public void SetScreen(int res = -1, int mod = -1)
-    {
-        // Default State
-        Resolution curResolution = Resolution.FHD;
-        ScreenMode curScreenMode = ScreenMode.BLFS;
-        //
-        if(res == -1 || mod == -1)
-        {
-            curResolution = (Resolution)saveData.resolution;
-            curScreenMode = (ScreenMode)saveData.screenMode;
-        }
-        else
-        {
-            curResolution = (Resolution)res;
-            curScreenMode = (ScreenMode)mod;
-        }
-        //
-        FullScreenMode fsMod = FullScreenMode.ExclusiveFullScreen;
-        //
-        switch (curScreenMode)
-        {
-            case ScreenMode.NONE:
-                fsMod = FullScreenMode.Windowed;
-                break;
-            case ScreenMode.FS:
-                fsMod = FullScreenMode.ExclusiveFullScreen;
-                break;
-            case ScreenMode.BLFS:
-                fsMod = FullScreenMode.FullScreenWindow;
-                break;
-            default:
-                break;
-        }
-        //
-        switch (curResolution)
-        {
-            case Resolution.FHD:
-                Screen.SetResolution(1920, 1080, fsMod);
-                break;
-            case Resolution.HD:
-                Screen.SetResolution(1280, 720, fsMod);
-                break;
-            default:
-                break;
-        }
-    }
-    //
     public void SetIGM(bool b)
     {
         IGMControl.SetIGMControl(b);
@@ -251,7 +208,7 @@ public class SceneControl : MonoBehaviour
             bm.SetPanel(currentDifficulty);
         }
         //
-        { // 0 : lock, 1 : unlock, 2 : clear
+        { // 0 : locked, 1 : unlock Effect, 2 : unlocked, 3 : clear
             for(int i = 0; i < bm.stagePanels.Count; ++i)
             {
                 // Child[0] : Panel_DifficultyText, Child[1] : STAGE
@@ -260,7 +217,7 @@ public class SceneControl : MonoBehaviour
                 StageButton first = stage.GetChild(1).GetComponentInChildren<StageButton>();
                 first.Activate(false);
                 // stageBtn children order : 0(inf), 1(first), 2 ~ 6
-                for (int j = 2; j < stage.childCount; ++j)
+                for (int j = 0; j < stage.childCount; ++j)
                 {
                     int btnState = saveData.stageBtnState[i][j];
                     StageButton sb = stage.GetChild(j).GetComponentInChildren<StageButton>();
@@ -306,8 +263,6 @@ public class SceneControl : MonoBehaviour
         ReadStageTable();
         saveData = MyUtility.LoadDataFromJson();
         //
-        SetScreen();
-        //
         Debug.Log("Load Complete");
     }
     //
@@ -330,12 +285,17 @@ public class SceneControl : MonoBehaviour
         */
     }
     //
-    public void SaveOption(int res, int mod, double bgVol, double effVol)
+    public void SaveOption_Screen()
     {
-        saveData.resolution = res;
-        saveData.screenMode = mod;
-        saveData.bgrVolume = bgVol;
-        saveData.effVolume = effVol;
+        saveData.resolution = (int)om.curResolution;
+        saveData.screenMode = (int)om.curScreenMode;
+        Save();
+    }
+    //
+    public void SaveOption_Sound()
+    {
+        saveData.bgrVolume = SoundManager.instance.bgrVolume;
+        saveData.effVolume = SoundManager.instance.effVolume;
         Save();
     }
     //

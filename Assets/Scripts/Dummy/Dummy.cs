@@ -66,7 +66,7 @@ public class Dummy : MonoBehaviour
     //===============================//
     // GroundCheck
     private Vector2 footPos = new Vector2(0, -13.0f);
-    private Vector2 footBoxSize = new Vector2(10.0f, 5.0f);
+    private Vector2 footBoxSize = new Vector2(13.0f, 5.0f);
     //
     //=========================================//
     // Outline
@@ -144,11 +144,7 @@ public class Dummy : MonoBehaviour
         //
         DebugPlayer();
     } // End Update
-    //private void FixedUpdate()
-    //{
-    //    Move();
-    //    Idle();
-    //} // End FixedUpdate
+    //
     private void LateUpdate()
     {
         StuckInConcrete();
@@ -164,13 +160,19 @@ public class Dummy : MonoBehaviour
             Debug.Log("Invincible : " + isInvincible);
         }
         else if (Input.GetKeyDown(KeyCode.Keypad4))
-        {
             Dead("Test");
-        }
+        // Item
+        if (Input.GetKeyDown(KeyCode.J))
+            UIManager.instance.AddAJPack();
+        else if (Input.GetKeyDown(KeyCode.K))
+            UIManager.instance.UseAirJump();
+        else if (Input.GetKeyDown(KeyCode.N))
+            UIManager.instance.AddShield();
+        else if (Input.GetKeyDown(KeyCode.M))
+            ActiveShield();
 
     }
     //
-    /*
     private void OnDrawGizmos()
     {
         if (onConcrete || onFootBoard)
@@ -178,7 +180,7 @@ public class Dummy : MonoBehaviour
         else
             Gizmos.color = Color.green;
         Gizmos.DrawCube(footPos, footBoxSize);
-        //
+        /*
         {
             Vector3 from = new Vector3(R_LeftBorder, 0, 0);
             Vector3 to = new Vector3(R_LeftBorder, 400, 0);
@@ -189,8 +191,8 @@ public class Dummy : MonoBehaviour
             Vector3 to = new Vector3(L_RightBorder, 400, 0);
             Gizmos.DrawLine(from, to);
         }
+        */
     }
-    */
     //=========================================//
     public void Interactable(bool b)
     {
@@ -236,11 +238,13 @@ public class Dummy : MonoBehaviour
             //Debug.Log("gap : " + gap);
             if (gap <= (colSize[0].x + 2.0f))
             {
-                hit_R.collider.transform.GetComponent<SpriteRenderer>().color = Color.red;
-                hit_L.collider.transform.GetComponent<SpriteRenderer>().color = Color.red;
+                // Set Concrete Color Red
+                //hit_R.collider.transform.GetComponent<SpriteRenderer>().color = Color.red;
+                //hit_L.collider.transform.GetComponent<SpriteRenderer>().color = Color.red;
                 //
-                Dead("Crash");
-                tf.gameObject.SetActive(false);
+                Dead("Crash", col);
+                //tf.gameObject.SetActive(false);
+                rb.isKinematic = true;
             }
         }
     }
@@ -287,23 +291,6 @@ public class Dummy : MonoBehaviour
             default:
                 break;
         }
-        /*
-        if (state == ShieldEffect.ShieldState.ACTIVE)
-        {
-            sr.material.SetColor(hashOutlineColorInner, shieldActiveColor);
-            sr.material.SetFloat(hashOutlineTK, shieldActiveThickness);
-        }
-        else if (state == ShieldEffect.ShieldState.NORMAL)
-        {
-            sr.material.SetColor(hashOutlineColorInner, shieldNormalColor);
-            sr.material.SetFloat(hashOutlineTK, shieldNormalThickness);
-        }
-        else // if (state == ShieldEffect.ShieldState.NONE)
-        {
-            sr.material.SetFloat(hashOutlineTK, 0);
-        }
-        //EffectManager.instance.SetBloom(value);
-        */
     }
     //=========================================//
     public void SetJumpPackLayer(bool value)
@@ -373,8 +360,8 @@ public class Dummy : MonoBehaviour
         //
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (isCrouch == true) // Down Jump
-            {
+            if (isCrouch == true)
+            { // Down Jump
                 if (onFootBoard == true)
                     SetFootBoardTrigger(true);
             }
@@ -647,6 +634,12 @@ public class Dummy : MonoBehaviour
                         float y = dir.y >= 0 ? 7.0f : -7.0f;
                         dir.x = 0;
                         dir.y = y * 2.0f;
+                    }
+                    break;
+                case "Crash":
+                    {
+                        dir.x = 0;
+                        dir.y = -20.0f;
                     }
                     break;
                 default:

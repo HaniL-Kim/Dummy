@@ -206,8 +206,8 @@ GameObject:
   - component: {fileID: 5002058824803865691}
   - component: {fileID: 5845021824492927131}
   - component: {fileID: 2661592614066632603}
-  - component: {fileID: 5703900531916385617}
   - component: {fileID: -4252988664969019816}
+  - component: {fileID: 5703900531916385617}
   m_Layer: 0
   m_Name: AirJumpPack
   m_TagString: Untagged
@@ -299,6 +299,20 @@ MonoBehaviour:
   shine: {fileID: 4207207999379612085}
   sr_shine: {fileID: 2652766583332521464}
   dissolveSpeed: 1
+--- !u!114 &-4252988664969019816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7219236428634796359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c0dd38df4495374a844b8cfdd87bda2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMaterial: {fileID: 2100000, guid: 08a47d45e1f1c074cb6fbaa204a0a878, type: 2}
+  outline: {fileID: 0}
 --- !u!95 &5703900531916385617
 Animator:
   serializedVersion: 3
@@ -318,16 +332,3 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &-4252988664969019816
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7219236428634796359}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c0dd38df4495374a844b8cfdd87bda2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineMaterial: {fileID: 2100000, guid: 08a47d45e1f1c074cb6fbaa204a0a878, type: 2}

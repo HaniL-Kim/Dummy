@@ -48,6 +48,7 @@ public class Display : MonoBehaviour
         flagHit = false;
         SetDanger(danger = false, type = -1);
         anim.enabled = false;
+        sr.sprite = null;
         sr.enabled = false;
         //
         foreach (var item in GetComponentsInChildren<Item>())

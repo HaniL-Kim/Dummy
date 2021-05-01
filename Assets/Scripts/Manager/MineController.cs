@@ -53,8 +53,14 @@ public class MineController : MonoBehaviour
             difficulty = Difficulty.NORMAL;
         else if (diff == "HARD")
             difficulty = Difficulty.HARD;
-        else if (diff == "IMPOSSIBLE")
-            difficulty = Difficulty.IMPOSSIBLE;
+        //else if (diff == "IMPOSSIBLE")
+        //    difficulty = Difficulty.IMPOSSIBLE;
+    }
+    //
+    public void StopAllGhost()
+    {
+        foreach (GameObject g in ghosts)
+            g.GetComponent<Rigidbody2D>().isKinematic = true;
     }
     //
     public void DebugGhost()
@@ -114,7 +120,7 @@ public class MineController : MonoBehaviour
         int ghostCount = 20;
         for (int i = 0; i < ghostCount; ++i)
         {
-            GameObject g = Instantiate<GameObject>(ghostPrefab);
+            GameObject g = Instantiate(ghostPrefab);
             g.transform.SetParent(ghostHolder.transform);
             g.transform.name = "Ghost_" + i.ToString();
             g.SetActive(false);
@@ -204,7 +210,7 @@ public class MineController : MonoBehaviour
                 break;
             case MineTypes.PUSH:
                 {
-                    if (difficulty == Difficulty.HARD)// || difficulty == Difficulty.IMPOSSIBLE)
+                    if (difficulty == Difficulty.HARD)
                         inner.FlipArround(false);
                     //
                     EffectManager.instance.Play("Push", inner.transform);
@@ -215,11 +221,28 @@ public class MineController : MonoBehaviour
             case MineTypes.NARROWING: break;
             case MineTypes.CRASH:
                 {
-                    if (difficulty == Difficulty.HARD)// || difficulty == Difficulty.IMPOSSIBLE)
+                    // Flip Tiles in crash route
+                    if (difficulty == Difficulty.HARD)
                     {
                         Floor floor = inner.GetComponent<Inner>().GetFloor();
-                        foreach (GameObject item in floor.tiles)
-                            item.GetComponent<Tile>().closet.Flip();
+                        //
+                        int innerIndex = MyUtility.CharToInt(inner.transform.parent.name[0]);
+                        int crashIndex = MyUtility.CharToInt(floor.concreteTiles[2].name[0]);
+                        // Debug.LogFormat("inner[{0}], crash[{1}]", innerIndex, crashIndex);
+                        foreach (GameObject tile in floor.tiles)
+                        {
+                            int itemIndex = MyUtility.CharToInt(tile.name[0]);
+                            if (crashIndex > innerIndex)
+                            {
+                                if (itemIndex < crashIndex)
+                                    tile.GetComponent<Tile>().closet.Flip();
+                            }
+                            else
+                            {
+                                if (itemIndex > crashIndex)
+                                    tile.GetComponent<Tile>().closet.Flip();
+                            }
+                        }
                     }
                 }
                 break;

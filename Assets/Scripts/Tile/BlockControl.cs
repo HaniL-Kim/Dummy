@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using DG.Tweening;
 
 
 public class BlockControl : MonoBehaviour
@@ -28,25 +29,33 @@ public class BlockControl : MonoBehaviour
     {
         gameObject.SetActive(true);
     }
-    public void ResetBlock()
+    //
+    private void SetBlockPos()
     {
-        if(Map.instance.isInfinite == false)
-        { // 1. Normal Mode
-            gameObject.SetActive(false);
-            return;
-        }
-        // 2. Infinty Mode
-        // a. Set Block Pos : Move to over Top Block //
         Vector3 temp = transform.position;
         temp.y += Map.BlockHeight * 3.0f;
         transform.position = temp;
-        // b. Reset Tiles //
-        Tile[] tiles = GetComponentsInChildren<Tile>();
-        foreach (var t in tiles)
+    }
+    //
+    private void ResetTiles()
+    {
+        int floorCount = block.floors.Count, tileCount = block.GetFloor(0).tiles.Count;
+        //
+        for (int i = 0; i < floorCount; ++i)
         {
-            t.ResetTile();
+            for (int j = 0; j < tileCount; ++j)
+            {
+                Tile t = block.GetFloor(i).tiles[j].GetComponent<Tile>();
+                t.ResetTile();
+            }
         }
-        // c. Reset Concrete Tiles //
+        /*
+            foreach (var t in GetComponentsInChildren<Tile>())
+            t.ResetTile();
+        */
+    }
+    private void ResetConcretes()
+    {
         foreach (Floor floor in block.floors)
         {
             // Reset Concretes
@@ -59,14 +68,37 @@ public class BlockControl : MonoBehaviour
             MyUtility.SwapPos(crash, tile);
             MyUtility.SwapNameAt(crash, tile, 0);
         }
+    }
+    //
+    public void ResetBlock()
+    {
+        if(Map.instance.isInfinite == false)
+        { // 1. Normal Mode
+            gameObject.SetActive(false);
+            return;
+        }
+        // 2. Infinty Mode
+        // a. Set Block Pos : Move to over Top Block //
+        SetBlockPos();
+        // b. Reset Tiles //
+        ResetTiles();
+        // c. Reset Concrete Tiles //
+        ResetConcretes();
         // d. Reset Mine // 
-        Map.instance.SetMine(block);
+        Sequence sq = DOTween.Sequence()
+            .AppendCallback(() => { Map.instance.SetMine(block); })
+            .AppendCallback(() => { ReSetMineInfo(); })
+            ;
+        //Map.instance.SetMine(block);
         // e. Reset ArroundTileInfo //
-        Invoke("ReSetMineInfo", 0.1f);
+        //ReSetMineInfo();
+        //Invoke("ReSetMineInfo", 0.1f);
     }
     //
     private void ReSetMineInfo()
     {
+        Debug.Log("ReSetMineInfo : begin");
+        //
         int blockNum = (transform.name[0]) - '1';
         int belowBlockNum = (blockNum + 2) % (Map.instance.blocks.Count - 1); // 3
         //
@@ -78,6 +110,8 @@ public class BlockControl : MonoBehaviour
         Map.instance.SetArroundMineInfo(belowHighestFloor);
         // InActivate(Ready) //
         gameObject.SetActive(false);
+        //
+        Debug.Log("ReSetMineInfo : End");
     }
     //=========================================//
 }

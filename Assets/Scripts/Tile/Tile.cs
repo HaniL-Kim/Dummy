@@ -20,6 +20,7 @@ public class Tile : MonoBehaviour
     public void ResetTile()
     {
         closet.ResetCloset();
+        inner.ResetInner();
         resource.ResetResource();
     }
     //=============================================//

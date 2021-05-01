@@ -2,96 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
+//using UnityEngine.UI;
+//using UnityEngine.EventSystems;
 using DG.Tweening;
 
 public enum Difficulty { NORMAL, HARD, IMPOSSIBLE }
 //
 public class ButtonManager : MonoBehaviour
 {
-    public const float cScreenWidth = 1920.0f;
     // ================= Child ================= //
     public List<RectTransform> stagePanels;
-    public int currentPanelIdx = 0;
-    //
-    public Button leftArrow;
-    public Button rightArrow;
-    // ================= Enum ================= //
-    // ================= Variables ================= //
-    public float panelTweenTime;
+    public UIArrowPanelControl upc;
     // ================= Default Func ================= //
     private void Start()
     {
-        SetArrowInteractable();
+        if(upc != null)
+            upc.SetArrowInteractable();
     }
     // ================= StageSelectScene Button Func ================= //
-    private void SetArrowInteractable()
-    {
-        if (stagePanels == null || leftArrow == null || rightArrow == null)
-            return;
-        //
-        if (currentPanelIdx == 0)
-        {
-            leftArrow.interactable = false;
-            rightArrow.interactable = true;
-        }
-        else if (currentPanelIdx == stagePanels.Count - 1)
-        {
-            leftArrow.interactable = true;
-            rightArrow.interactable = false;
-        }
-        else
-        {
-            leftArrow.interactable = true;
-            rightArrow.interactable = true;
-        }
-    }
-    //
     public void SetPanel(Difficulty dif)
     {
-        currentPanelIdx = (int)dif;
-        MovePanel(false);
-    }
-    //
-    public void MovePanel(bool tween = true)
-    {
-        float i = (float)currentPanelIdx * -1.0f;
-        //
-        foreach (RectTransform panel in stagePanels)
-        {
-            float targetPos = (i++) * cScreenWidth;
-            if (tween == true)
-                panel.DOAnchorPosX(targetPos, panelTweenTime).SetUpdate(true);
-            else
-            {
-                Vector2 temp = panel.anchoredPosition;
-                temp.x = targetPos;
-                panel.anchoredPosition = temp;
-            }
-        }
-        //
-        SetArrowInteractable();
-    }
-    //
-    public void BTN_Arrow_Left()
-    {
-        --currentPanelIdx;
-        //
-        if (SceneManager.GetActiveScene().buildIndex == 2)
-            SceneControl.instance.currentDifficulty = (Difficulty)currentPanelIdx;
-        //
-        MovePanel(true);
-    }
-    //
-    public void BTN_Arrow_Right()
-    {
-        ++currentPanelIdx;
-        //
-        if (SceneManager.GetActiveScene().buildIndex == 2)
-            SceneControl.instance.currentDifficulty = (Difficulty)currentPanelIdx;
-        //
-        MovePanel(true);
+        upc.currentPanelIdx = (int)dif;
+        upc.MovePanel(false);
     }
     //
     public void BTN_BackToFirstMenuScene()
@@ -101,7 +33,7 @@ public class ButtonManager : MonoBehaviour
     }
     //
     public void BTN_Back()
-    {
+    { // Called Btn_Back of InforScene
         DOTween.KillAll();
         //
         int idx = SceneManager.GetActiveScene().buildIndex;

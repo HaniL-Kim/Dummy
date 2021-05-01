@@ -19,15 +19,6 @@ public class Arm : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
     }
     //=======================================//
-    private void Update()
-    {
-        // Debug
-        if (Input.GetKeyDown(KeyCode.J))
-            UIManager.instance.AddAJPack();
-        if (Input.GetKeyDown(KeyCode.K))
-            UIManager.instance.UseAirJump();
-    }
-    //
     public void FlipX(bool value)
     {
         sr.flipX = value;
@@ -66,6 +57,8 @@ public class Arm : MonoBehaviour
         ajp = value;
         // Set To Child, Position, Activate, Shine Effect
         ajp.Set(transform, sr.flipX);
+        //
+        dummy.Outline(dummy.shieldState);
     }
     //
 }

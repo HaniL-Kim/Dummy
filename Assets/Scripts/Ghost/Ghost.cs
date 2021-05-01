@@ -248,29 +248,28 @@ public class Ghost : MonoBehaviour
         foreach (string tag in deadTags)
             if (collision.CompareTag(tag) == true)
             {
-                if(tag == "Player")
-                {
-                    Dummy d = collision.GetComponent<Dummy>();
-
-                    switch (d.shieldState)
-                    {
-                        case ShieldEffect.ShieldState.NONE:
-                            Dead();
-                            break;
-                        case ShieldEffect.ShieldState.NORMAL:
-                            {
-                                d.ActiveShield();
-                                Dead();
-                            }
-                            break;
-                        case ShieldEffect.ShieldState.ACTIVE:
-                            break;
-                        default:
-                            break;
-                    }
-                }
-                else
-                    Dead();
+                Dead();
+                //if(tag == "Player")
+                //{
+                //Dummy d = collision.GetComponent<Dummy>();
+                //switch (d.shieldState)
+                //{
+                //    case ShieldEffect.ShieldState.NONE:
+                //        Dead();
+                //        break;
+                //    case ShieldEffect.ShieldState.NORMAL:
+                //        {
+                //            //d.ActiveShield();
+                //            Dead();
+                //        }
+                //        break;
+                //    case ShieldEffect.ShieldState.ACTIVE:
+                //        break;
+                //    default:
+                //        break;
+                //}
+                //}
+                //else
             }
     }
     //=============================================//

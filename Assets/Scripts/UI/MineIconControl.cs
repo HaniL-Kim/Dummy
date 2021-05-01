@@ -19,16 +19,16 @@ public class MineIconControl : MonoBehaviour, IPointerEnterHandler, IPointerExit
     //==============================================//
     public void OnPointerEnter(PointerEventData data)
     {
-        Vector3 pos = frame.GetComponent<RectTransform>().position;
-        pos.x = rtf.position.x;
-        frame.GetComponent<RectTransform>().position = pos;
-        //
-        frame.SetActive(true);
+        //Vector3 pos = frame.GetComponent<RectTransform>().position;
+        //pos.x = rtf.position.x;
+        //frame.GetComponent<RectTransform>().position = pos;
+        ////
+        //frame.SetActive(true);
     }
     //
     public void OnPointerExit(PointerEventData data)
     {
-        frame.SetActive(false);
-        frame.GetComponent<RectTransform>().anchoredPosition = frameDefaultPos;
+        //frame.SetActive(false);
+        //frame.GetComponent<RectTransform>().anchoredPosition = frameDefaultPos;
     }
 }

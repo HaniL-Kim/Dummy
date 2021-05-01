@@ -52,7 +52,12 @@ public class CheckBoxControl : MonoBehaviour, IPointerEnterHandler, IPointerExit
             }
         }
         //
-        om.SetScreenByChecked();
+        om.ScreenChange();
+    }
+    //
+    public void JustCheck()
+    {
+        Check(true);
     }
     //
     public void CheckInGroup()
@@ -67,7 +72,7 @@ public class CheckBoxControl : MonoBehaviour, IPointerEnterHandler, IPointerExit
         }
         Check(true);
         //
-        om.SetScreenByChecked();
+        om.ScreenChange();
     }
     // ====================== Func : Event ====================== //
     public void OnPointerEnter(PointerEventData data)

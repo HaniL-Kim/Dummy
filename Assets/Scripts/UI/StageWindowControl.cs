@@ -122,7 +122,7 @@ public class StageWindowControl : MonoBehaviour
         for(int i = 0; i < bm.stagePanels.Count; ++i)
         {
             // check stage 6 is cleared
-            if(sc.saveData.stageBtnState[i][6] == 2)
+            if(sc.saveData.stageBtnState[i][6] == 3)
                 enabledBGR[i + 1] = true;
 
             /*

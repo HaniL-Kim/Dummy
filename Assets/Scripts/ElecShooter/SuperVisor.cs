@@ -79,7 +79,7 @@ public class SuperVisor : MonoBehaviour
         ItemManager.instance.SetItemRate(lv);
         SoundManager.instance.SetBGRPitch(lv);
         //
-        Debug.LogFormat("Speed LV UP to {0}", lv);
+        Debug.LogFormat("Speed UP to LV{0}", lv);
     }
     //
     public void AddDist(float value)
