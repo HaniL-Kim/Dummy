@@ -74,7 +74,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1932518722240535424}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -131,7 +131,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 32}
   m_SizeDelta: {x: 536, y: 40}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &9046754851165221154
@@ -242,14 +242,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2467510051234725037}
-    - target: {fileID: 8347339218530615672, guid: 954e2dfe5bb1d3c46959072389dc8433, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: BTN_Arrow_Right
-      objectReference: {fileID: 0}
-    - target: {fileID: 8347339218530615672, guid: 954e2dfe5bb1d3c46959072389dc8433, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UIArrowPanelControl, Assembly-CSharp
-      objectReference: {fileID: 0}
     - target: {fileID: 8347339218530615674, guid: 954e2dfe5bb1d3c46959072389dc8433, type: 3}
       propertyPath: m_Name
       value: Btn_Arrow_Right
@@ -272,7 +264,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8347339218530615675, guid: 954e2dfe5bb1d3c46959072389dc8433, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8347339218530615675, guid: 954e2dfe5bb1d3c46959072389dc8433, type: 3}
       propertyPath: m_AnchorMin.x
@@ -280,7 +272,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8347339218530615675, guid: 954e2dfe5bb1d3c46959072389dc8433, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8347339218530615675, guid: 954e2dfe5bb1d3c46959072389dc8433, type: 3}
       propertyPath: m_SizeDelta.x
@@ -328,7 +320,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8347339218530615675, guid: 954e2dfe5bb1d3c46959072389dc8433, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -128
       objectReference: {fileID: 0}
     - target: {fileID: 8347339218530615675, guid: 954e2dfe5bb1d3c46959072389dc8433, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -375,10 +367,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: BTN_Arrow_Left
       objectReference: {fileID: 0}
-    - target: {fileID: 8347339218530615672, guid: 954e2dfe5bb1d3c46959072389dc8433, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UIArrowPanelControl, Assembly-CSharp
-      objectReference: {fileID: 0}
     - target: {fileID: 8347339218530615674, guid: 954e2dfe5bb1d3c46959072389dc8433, type: 3}
       propertyPath: m_Name
       value: Btn_Arrow_Left
@@ -401,7 +389,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8347339218530615675, guid: 954e2dfe5bb1d3c46959072389dc8433, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8347339218530615675, guid: 954e2dfe5bb1d3c46959072389dc8433, type: 3}
       propertyPath: m_AnchorMin.x
@@ -409,7 +397,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8347339218530615675, guid: 954e2dfe5bb1d3c46959072389dc8433, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8347339218530615675, guid: 954e2dfe5bb1d3c46959072389dc8433, type: 3}
       propertyPath: m_SizeDelta.x
@@ -453,7 +441,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8347339218530615675, guid: 954e2dfe5bb1d3c46959072389dc8433, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -128
       objectReference: {fileID: 0}
     - target: {fileID: 8347339218530615675, guid: 954e2dfe5bb1d3c46959072389dc8433, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

@@ -40,12 +40,13 @@ public class StageWindowControl : MonoBehaviour
         CheckBGREnabled();
     }
     //
-    private void Start()
-    {
-        //ReadStageTable();
-        //Load();
-    }
-    //
+    //private void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Backspace))
+    //    {
+    //        BTN_Close();
+    //    }
+    //}
     // ================= Func ================= //
     private void SetStageData(string diff, int stageNum)
     {

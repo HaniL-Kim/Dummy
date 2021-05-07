@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     // layer hashing
     [HideInInspector] public int footBoardLayer;
     [HideInInspector] public int concreteLayer;
+    [HideInInspector] public int concreteBoxLayer;
     [HideInInspector] public int closetLayer;
     [HideInInspector] public int innerLayer;
     //====================================//
@@ -128,6 +129,7 @@ public class GameManager : MonoBehaviour
     {
         footBoardLayer = LayerMask.GetMask("FootBoard");
         concreteLayer = LayerMask.GetMask("Concrete");
+        concreteBoxLayer = LayerMask.GetMask("ConcreteBox");
         closetLayer = LayerMask.GetMask("Closet");
         innerLayer = LayerMask.GetMask("Inner");
     }

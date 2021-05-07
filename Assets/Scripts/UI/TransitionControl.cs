@@ -14,9 +14,9 @@ public class TransitionControl : MonoBehaviour
     //
     public GameObject transition;
     //
-    public RectTransform up;
-    private Vector3 upOpen;
-    private Vector3 upClose;
+    //public RectTransform up;
+    //private Vector3 upOpen;
+    //private Vector3 upClose;
     //
     public RectTransform left;
     private Vector3 leftOpen;
@@ -34,42 +34,39 @@ public class TransitionControl : MonoBehaviour
         {
             instance = this;
             //
-            transition = transform.GetChild(0).gameObject;
-            //
-            SetTweenPos();
-            //
-            transition.SetActive(false);
+            InitTransition();
         }
         else
             Destroy(this.gameObject);
     }
     // ================ Func  ================ //
-    private void SetTweenPos()
+    private void InitTransition()
     {
-        // Door_Up
-        upOpen = up.anchoredPosition;
-        upClose = Vector3.zero;
+        // Transition
+        transition = transform.GetChild(0).gameObject;
         // Door_Left
+        left = transition.transform.GetChild(0).GetComponent<RectTransform>();
         leftOpen = left.anchoredPosition;
         leftClose = Vector3.zero;
-        // Door_Up
+        // Door_Right
+        right = transition.transform.GetChild(1).GetComponent<RectTransform>();
         rightOpen = right.anchoredPosition;
         rightClose = Vector3.zero;
-
+        //
+        transition.SetActive(false);
     }
     public void ActivateTransition(bool b = true)
     {
         SceneControl.instance.UICamSet(true);
         //
         transition.SetActive(b);
-        transition.GetComponent<Image>().enabled = b;
     }
     //
     public void Door_Close()
     {
         ActivateTransition();
         //
-        up.DOAnchorPosY(upClose.y, tweenTime).SetEase(Ease.InOutCubic).SetUpdate(true);
+        //up.DOAnchorPosY(upClose.y, tweenTime).SetEase(Ease.InOutCubic).SetUpdate(true);
         //
         left.DOAnchorPosX(leftClose.x, tweenTime).SetEase(Ease.InOutCubic).SetUpdate(true);;
         right.DOAnchorPosX(rightClose.x, tweenTime).SetEase(Ease.InOutCubic).SetUpdate(true);;
@@ -80,10 +77,13 @@ public class TransitionControl : MonoBehaviour
         TweenCallback CamSet;
         if(sceneName == "MainScene")
         {
+            SceneControl.instance.cam.GetComponent<AudioListener>().enabled = false;
+            //
             CamSet = () => { SceneControl.instance.UICamSet(false); };
+            //
             Sequence open = DOTween.Sequence()
                 .AppendInterval(1.0f)
-                .Append(up.DOAnchorPosY(upOpen.y, tweenTime).SetEase(Ease.InOutCubic))
+                //.Append(up.DOAnchorPosY(upOpen.y, tweenTime).SetEase(Ease.InOutCubic))
                 .Join(left.DOAnchorPosX(leftOpen.x, tweenTime).SetEase(Ease.InOutCubic))
                 .Join(right.DOAnchorPosX(rightOpen.x, tweenTime).SetEase(Ease.InOutCubic))
                 //.AppendInterval(tweenTime * 2.0f)
@@ -94,11 +94,13 @@ public class TransitionControl : MonoBehaviour
         }
         else
         {
+            SceneControl.instance.cam.GetComponent<AudioListener>().enabled = true;
+            //
             CamSet = () => { SceneControl.instance.UICamSet(true); };
-
+            //
             Sequence open = DOTween.Sequence()
                 .AppendCallback(CamSet)
-                .Append(up.DOAnchorPosY(upOpen.y, tweenTime).SetEase(Ease.InOutCubic))
+                //.Append(up.DOAnchorPosY(upOpen.y, tweenTime).SetEase(Ease.InOutCubic))
                 .Join(left.DOAnchorPosX(leftOpen.x, tweenTime).SetEase(Ease.InOutCubic))
                 .Join(right.DOAnchorPosX(rightOpen.x, tweenTime).SetEase(Ease.InOutCubic))
                 //.AppendInterval(tweenTime * 2.0f)

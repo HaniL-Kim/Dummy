@@ -31,20 +31,8 @@ public class UIManager : MonoBehaviour
         UpdateRSCText();
         UpdateAirJumpText();
         UpdateShieldText();
-        //
-        //SetOption();
     }
     //============================//
-    private void Update()
-    {
-        PauseControl();
-    }
-    //============================//
-    //private void SetOption()
-    //{
-    //    option = GameObject.FindGameObjectWithTag("OptionWindow");
-    //}
-    //
     public void ExitGame()
     { // Button Event
 #if UNITY_EDITOR
@@ -55,17 +43,6 @@ public class UIManager : MonoBehaviour
         Application.Quit(); //어플리케이션 종료
 #endif
     }
-    //
-    private void PauseControl()
-    {
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            bool isActive = SceneControl.instance.IGMEnabled();
-            //
-            SceneControl.instance.SetIGM(!isActive);
-        }
-    }
-    //
     //============================//
     public bool UseRSC(int cost)
     {

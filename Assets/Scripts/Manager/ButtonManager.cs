@@ -13,11 +13,32 @@ public class ButtonManager : MonoBehaviour
     // ================= Child ================= //
     public List<RectTransform> stagePanels;
     public UIArrowPanelControl upc;
+    public StageWindowControl stageWindow;
     // ================= Default Func ================= //
     private void Start()
     {
         if(upc != null)
             upc.SetArrowInteractable();
+    }
+    //
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Backspace))
+        {
+            string curSceneName = SceneManager.GetActiveScene().name;
+            if (curSceneName == "2_StageSelectScene")
+            {
+                if (stageWindow.bgPanel.activeSelf == true)
+                {
+                    stageWindow.BTN_Close();
+                    return;
+                }
+
+                BTN_BackToFirstMenuScene();
+            }
+            else if (curSceneName == "3_InforScene")
+                BTN_Back();
+        }
     }
     // ================= StageSelectScene Button Func ================= //
     public void SetPanel(Difficulty dif)

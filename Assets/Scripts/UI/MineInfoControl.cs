@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class MineInfoControl : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class MineInfoControl : MonoBehaviour
     public Button leftBtn;
     public Button rightBtn;
     public int currentIconIndex;
+    //
+    public float contentTweenTime = 0.5f;
     //===========================================//
     private void Awake()
     {
@@ -84,16 +87,16 @@ public class MineInfoControl : MonoBehaviour
     private void TweenContentPos()
     {
         float destPos = -currentIconIndex * cIconWidth;
-        contentRTF.DOAnchorPosX(destPos, 1.0f).SetEase(Ease.InOutCubic);
+        contentRTF.DOAnchorPosX(destPos, contentTweenTime).SetEase(Ease.InOutCubic);
     }
     //
-    public void Btn_MoveContentLeft()
+    public void Btn_MoveContentLeft(BaseEventData eventData)
     {
         --currentIconIndex;
         TweenContentPos();
     }
     //
-    public void Btn_MoveContentRight()
+    public void Btn_MoveContentRight(BaseEventData eventData)
     {
         ++currentIconIndex;
         TweenContentPos();

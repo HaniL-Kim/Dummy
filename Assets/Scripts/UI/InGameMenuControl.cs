@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class InGameMenuControl : MonoBehaviour
 {
@@ -12,10 +13,39 @@ public class InGameMenuControl : MonoBehaviour
     {
         inGameMenu = transform.GetChild(0).gameObject;
     }
+    //
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Backspace))
+        {
+            string curSceneName = SceneManager.GetActiveScene().name;
+            if (curSceneName == "MainScene")
+            {
+                if (inGameMenu.activeSelf == false)
+                { // Open IGM
+                    SetIGMControl(true);
+                    return;
+                }
+                else
+                {
+                    if (SceneControl.instance.option.activeSelf == true)
+                    { // Close Option
+                        SceneControl.instance.option.SetActive(false);
+                        return;
+                    }
+                    // Close IGM
+                    SetIGMControl(false);
+                }
+            }
+        }
+
+    }
     // ================ Func ================ //
     public void SetIGMControl(bool b)
     {
         SetAssure(false);
+        //
+        SceneControl.instance.UICamSet(b);
         //
         GameManager.instance.Pause(b);
         //

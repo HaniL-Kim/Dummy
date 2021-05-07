@@ -24,6 +24,7 @@ public class Dummy : MonoBehaviour
     public float jumpForce;
     // GroundCheck
     public Collider2D[] curFootBoard;
+    public Collider2D[] concretesNear;
     // JumpPack
     private readonly int jumpPackAnimLayer = 1;
     //===============================//
@@ -92,9 +93,6 @@ public class Dummy : MonoBehaviour
     //
     private readonly int landJumpHash = Animator.StringToHash("landJump");
     private readonly int airJumpHash = Animator.StringToHash("airJump");
-    // shader Hash
-    //private readonly int hashOutlineColorInner = Shader.PropertyToID("_OutlineColor_Inner");
-    //private readonly int hashOutlineTK = Shader.PropertyToID("_OutlineThickness");
     //=========================================//
     private void Awake()
     {
@@ -173,13 +171,13 @@ public class Dummy : MonoBehaviour
 
     }
     //
-    private void OnDrawGizmos()
-    {
-        if (onConcrete || onFootBoard)
-            Gizmos.color = Color.black;
-        else
-            Gizmos.color = Color.green;
-        Gizmos.DrawCube(footPos, footBoxSize);
+    //private void OnDrawGizmos()
+    //{
+        //if (onConcrete || onFootBoard)
+        //    Gizmos.color = Color.black;
+        //else
+        //    Gizmos.color = Color.green;
+        //Gizmos.DrawCube(footPos, footBoxSize);
         /*
         {
             Vector3 from = new Vector3(R_LeftBorder, 0, 0);
@@ -192,7 +190,7 @@ public class Dummy : MonoBehaviour
             Gizmos.DrawLine(from, to);
         }
         */
-    }
+    //}
     //=========================================//
     public void Interactable(bool b)
     {
@@ -205,12 +203,16 @@ public class Dummy : MonoBehaviour
         float dummyColHalfX = colSize[0].x * 0.5f;
         float concreteColHalf_X = 30.5f;
         float dist = 0;
-        //
+        RaycastHit2D hit_R = Physics2D.Raycast(tf.position, Vector3.right,
+            rayDist, GameManager.instance.concreteBoxLayer);
+        RaycastHit2D hit_L = Physics2D.Raycast(tf.position, Vector3.left,
+            rayDist, GameManager.instance.concreteBoxLayer);
+        /*
         RaycastHit2D hit_R = Physics2D.Raycast(tf.position, Vector3.right,
             rayDist, GameManager.instance.concreteLayer);
         RaycastHit2D hit_L = Physics2D.Raycast(tf.position, Vector3.left,
             rayDist, GameManager.instance.concreteLayer);
-        //
+        */
         Vector3 temp = tf.position;
         if (hit_R)
         {
@@ -232,6 +234,18 @@ public class Dummy : MonoBehaviour
                 tf.position = temp;
             }
         }
+        //
+        Vector2 stuckedColSize = col.bounds.size * 0.9f;
+        concretesNear = Physics2D.OverlapBoxAll(col.bounds.center, stuckedColSize, 0,
+                        GameManager.instance.concreteLayer);
+        // Debug.LogFormat("concretes : [{0}]", concretesNear.Length);
+        if(concretesNear.Length >=2 )
+        {
+            Dead("Crash", col);
+            rb.isKinematic = true;
+        }
+
+        /*
         if (hit_R && hit_L)
         {
             float gap = R_LeftBorder - L_RightBorder;
@@ -247,6 +261,7 @@ public class Dummy : MonoBehaviour
                 rb.isKinematic = true;
             }
         }
+        */
     }
     //=========================================//
     public void ActiveShield()
@@ -591,7 +606,7 @@ public class Dummy : MonoBehaviour
             case ShieldEffect.ShieldState.NONE:
                 break;
             case ShieldEffect.ShieldState.NORMAL:
-                if (tag != "Concrete")
+                if ((tag != "Concrete") && (tag != "Crash"))
                 {
                     ActiveShield();
                     return;

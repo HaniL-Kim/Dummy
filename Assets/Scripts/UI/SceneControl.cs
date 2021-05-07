@@ -118,6 +118,8 @@ public class SceneControl : MonoBehaviour
     //
     public IEnumerator ClearSequence()
     {
+        DOTween.KillAll();
+        //
         Debug.Log("Begin Clear Sequence");
         Time.timeScale = 0.0f;
         //
@@ -170,7 +172,7 @@ public class SceneControl : MonoBehaviour
     public void UICamSet(bool b)
     {
         cam.enabled = b;
-        cam.GetComponent<AudioListener>().enabled = b;
+        //cam.GetComponent<AudioListener>().enabled = b;
     }
     //
     private void OnSceneChange(Scene current, Scene next)

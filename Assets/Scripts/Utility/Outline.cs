@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class Outline : MonoBehaviour
 {
@@ -10,11 +11,13 @@ public class Outline : MonoBehaviour
     private SpriteRenderer sr;
     //
     public GameObject outline;
-    private SpriteRenderer outline_sr;
-    private Material outline_mr;
+    public SpriteRenderer outline_sr;
+    private Material outline_mat;
     // shader Hash
     private readonly int hashOutlineColorInner = Shader.PropertyToID("_OutlineColor_Inner");
     private readonly int hashOutlineTK = Shader.PropertyToID("_OutlineThickness");
+    //
+    public string outlineSortingLayerName;
     //=============================================================//
     private void Awake()
     {
@@ -28,10 +31,17 @@ public class Outline : MonoBehaviour
         outline_sr.flipX = sr.flipX;
     }
     //=============================================================//
+    public void FadeOutline(Color c, float f)
+    {
+        outline_sr.DOColor(c, f);
+    }
+    //
     public void SetOutline(Color c, float f)
     {
-        outline_mr.SetColor(hashOutlineColorInner, c);
-        outline_mr.SetFloat(hashOutlineTK, f);
+        outline_sr.color = Color.white;
+        //
+        outline_mat.SetColor(hashOutlineColorInner, c);
+        outline_mat.SetFloat(hashOutlineTK, f);
     }
     //=============================================================//
     private void AddOutline(SpriteRenderer sr)
@@ -46,9 +56,18 @@ public class Outline : MonoBehaviour
         outline_sr.sprite = sr.sprite;
         outline_sr.material = outlineMaterial;
         //
-        outline_sr.sortingLayerName = "AirJumpPack";
-        outline_sr.sortingOrder = -10;
-        outline_mr = outline_sr.material;
+        if(outlineSortingLayerName == "AirJumpPack")
+        {
+            outline_sr.sortingLayerName = "AirJumpPack";
+            outline_sr.sortingOrder = -10;
+        }
+        else
+        {
+            outline_sr.sortingLayerName = sr.sortingLayerName;
+            outline_sr.sortingOrder = sr.sortingOrder;
+        }
+        //
+        outline_mat = outline_sr.material;
     }
     //=============================================================//
 }

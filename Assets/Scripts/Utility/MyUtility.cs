@@ -123,7 +123,7 @@ public static class MyUtility
     public static void ChangeStringColor(ref string text, string value, Color color)
     {
         string hexColor = ColorUtility.ToHtmlStringRGBA(color);
-        string textToChange = string.Format("<color=#{0}>{1}</color> ", hexColor, value);
+        string textToChange = string.Format("<color=#{0}>{1}</color>", hexColor, value);
         text = text.Replace(value, textToChange);
     }
     //

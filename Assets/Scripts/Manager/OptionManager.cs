@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 // =================== Enum =================== //
 public enum Resolution { FHD, HD }
@@ -33,6 +34,15 @@ public class OptionManager : MonoBehaviour
         SetOptionState();
         //
         option.SetActive(false);
+    }
+    private void Update()
+    {
+        string curSceneName = SceneManager.GetActiveScene().name;
+        if (curSceneName == "1_FirstMenuScene")
+        {
+            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Backspace))
+                option.SetActive(false);
+        }
     }
     // =================== Func =================== //
     public void SetScreenAndCheckBoxFromSaveData()

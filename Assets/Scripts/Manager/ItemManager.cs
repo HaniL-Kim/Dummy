@@ -14,9 +14,8 @@ public class ItemManager : MonoBehaviour
     public const int cItemCount = 100;
     //=====================================//
     public StringFloat itemRates = new StringFloat();
-    //private List<int> listItemOrder = new List<int>();
-    //[SerializeField]
-    //private int order = 0;
+    //
+    public float slowItemRate = 0.08f;
     //=====================================//
     public Transform itemHolder;
     public GameObject itemPrefab;
@@ -107,14 +106,13 @@ public class ItemManager : MonoBehaviour
     //
     public void SetItemRate(int speedLV)
     {
-        // itemRates["Resource"] = 0.2f; // 20%
-        float slowRate = (float)speedLV * 0.06f; // lv / 6%
-        itemRates["Slow"] = slowRate;
-        float otherRate = (1.0f - itemRates["Resource"] - slowRate) * 0.5f;
-        itemRates["AJPack"] = otherRate;
-        itemRates["Shield"] = otherRate;
+        itemRates["Resource"] = 0.2f; // 20%
+        itemRates["Slow"] = (float)speedLV * slowItemRate; // lv / 8%
+        float otherRate = (1.0f - itemRates["Resource"] - itemRates["Slow"]);
+        itemRates["AJPack"] = otherRate * 0.6f;
+        itemRates["Shield"] = otherRate * 0.4f;
         //
-        Debug.LogFormat("Set ItemRate of LV{0}", speedLV);
+        // Debug.LogFormat("Set ItemRate of LV{0}", speedLV);
         //string temp = "";
         //foreach (var data in itemRates)
         //    temp += data.Key + "[" + data.Value.ToString() + "]" + "\n";

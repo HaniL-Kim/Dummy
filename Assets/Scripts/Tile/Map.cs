@@ -394,7 +394,7 @@ public class Map : MonoBehaviour
     ///////////////////////////////////////
     public void SetMine(Block block)
     {
-        Debug.Log("SetMine : Begin");
+        // Debug.Log("SetMine : Begin");
         //
         StageData sd = currentStageData;
         if (MyUtility.IsNull(sd, "StageData"))
@@ -468,7 +468,7 @@ public class Map : MonoBehaviour
         for (int i = 0; i < mineArr.Length; ++i)
             allTiles[i].inner.SetDanger(mineArr[i]);
         //
-        Debug.Log("SetMine : End");
+        // Debug.Log("SetMine : End");
     }
     ///////////////////////////////////////
     public void SetArroundMineInfo(Floor floor, int tileCount = TileCount)
