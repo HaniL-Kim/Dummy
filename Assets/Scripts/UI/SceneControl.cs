@@ -118,15 +118,18 @@ public class SceneControl : MonoBehaviour
     //
     public IEnumerator ClearSequence()
     {
+        /*
         DOTween.KillAll();
         //
         Debug.Log("Begin Clear Sequence");
         Time.timeScale = 0.0f;
         //
         SaveClearData();
-        //
+        */
+        Debug.Log("Begin Clear Sequence");
         Sequence ClearSequence = DOTween.Sequence()
             .AppendCallback(() => { StartSceneTransition("2_StageSelectScene"); })
+            // after finish load stageSelectScene
             .AppendInterval(2.0f)
             .AppendCallback(() => { SetStageBtns(true); })
             .SetUpdate(true);
@@ -177,11 +180,12 @@ public class SceneControl : MonoBehaviour
     //
     private void OnSceneChange(Scene current, Scene next)
     {
-        foreach (var canvas in FindObjectsOfType<Canvas>())
+        if (next.name != "MainScene")
         {
-            canvas.worldCamera = cam;
+            foreach (var canvas in FindObjectsOfType<Canvas>())
+                canvas.worldCamera = cam;
         }
-        
+
         //
         if (next.name == "2_StageSelectScene")
         {

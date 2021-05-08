@@ -9,23 +9,48 @@ using DG.Tweening;
 public class PressToStart : MonoBehaviour
 {
     public TextMeshProUGUI tmp;
+    private Color originalColor;
     //==========================================//
     private void Awake()
     {
         tmp = GetComponent<TextMeshProUGUI>();
-        BlinkText();
+        originalColor = tmp.color;
     }
+    //
     private void Update()
     {
-        if(Input.anyKeyDown)
+        if (Input.anyKeyDown)
         {
-            SceneManager.LoadScene(1);
+            if (SceneManager.GetActiveScene().name == "0_LogoScene")
+                SceneManager.LoadScene(1);
+            else if (SceneManager.GetActiveScene().name == "MainScene")
+            {
+                if(GameManager.instance.stageClear == true)
+                    StartCoroutine(SceneControl.instance.ClearSequence());
+            }
+            else
+                return;
         }
+    }
+    private void OnEnable()
+    {
+        BlinkText();
+    }
+    //
+    private void OnDisable()
+    {
+        DOTween.Kill("BlinkText");
     }
     //==========================================//
     public void BlinkText()
     {
-        tmp.DOColor(Color.black, 1.0f).SetLoops(-1, LoopType.Yoyo);
+        tmp.color = originalColor;
+        //
+        tmp.DOColor(Color.black, 1.0f)
+            .SetLoops(-1, LoopType.Yoyo)
+            .SetId("BlinkText")
+            .SetUpdate(true)
+            ;
     }
     //==========================================//
 }

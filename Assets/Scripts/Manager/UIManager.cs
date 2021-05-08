@@ -18,7 +18,7 @@ public class UIManager : MonoBehaviour
     public int shieldCount = 0;
     public TextMeshProUGUI shieldUI;
     // Retry
-    public TextMeshProUGUI pressToRetry;
+    public TextMeshProUGUI pressTo;
     // Exit
     public Image exitPannel;
     //
@@ -114,9 +114,9 @@ public class UIManager : MonoBehaviour
         rscUI.text = rscCount.ToString();
     }
     //============================//
-    public void ActivatePressToRetry()
+    public void ActivatePressTo()
     {
-        pressToRetry.gameObject.SetActive(true);
+        pressTo.gameObject.SetActive(true);
     }
     //public void SetSliderValue(float value)
     //{

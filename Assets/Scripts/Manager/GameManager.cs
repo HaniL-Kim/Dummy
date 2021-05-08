@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 //==================// //==================//
 public enum MineTypes
@@ -26,6 +27,7 @@ public class GameManager : MonoBehaviour
     //====================================//
     public Dummy dummy;
     public ElecShooterController elecShooter;
+    public ClearControl clearControl;
     //====================================//
     // layer hashing
     [HideInInspector] public int footBoardLayer;
@@ -95,8 +97,17 @@ public class GameManager : MonoBehaviour
         0. Stop ElectShooter
         0. Stop All Mine(Ghost, Thunder)
         */
+        DOTween.KillAll();
+        //
+        Time.timeScale = 0.0f;
+        //
+        SceneControl.instance.SaveClearData();
+
+        // Activate ClearControl
+        clearControl.Activate();
+
         // Scene Transition
-        StartCoroutine(SceneControl.instance.ClearSequence());
+        // StartCoroutine(SceneControl.instance.ClearSequence());
         
         //Debug.Log("End ClearStage");
     }
@@ -160,7 +171,7 @@ public class GameManager : MonoBehaviour
         AsyncOperation asyncOper = SceneManager.LoadSceneAsync(sceneName);
         asyncOper.allowSceneActivation = false;
         //
-        UIManager.instance.ActivatePressToRetry();
+        UIManager.instance.ActivatePressTo();
         //
         while (!asyncOper.isDone)
         {
@@ -169,7 +180,7 @@ public class GameManager : MonoBehaviour
             {
                 if (Input.anyKeyDown)
                 {
-                    yield return new WaitForSeconds(1.0f);
+                    yield return new WaitForSeconds(0.5f);
                     asyncOper.allowSceneActivation = true;
                 }
             }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class FollowTarget : MonoBehaviour
 {
@@ -37,13 +38,22 @@ public class FollowTarget : MonoBehaviour
     //==========================================//
     void Update()
     {
-        SetBorder();
+        if (GameManager.instance == null)
+            return;
         //
-        Move();
-        //
-        LimitToBorder();
-        //
-        BlockCulling();
+        else
+        {
+            if (GameManager.instance.stageClear == true)
+                return;
+            //
+            SetBorder();
+            //
+            Move();
+            //
+            LimitToBorder();
+            //
+            BlockCulling();
+        }
     }
     //==========================================//
     //private void OnDrawGizmos()
@@ -62,6 +72,24 @@ public class FollowTarget : MonoBehaviour
     //    }
     //}
     //==========================================//
+    public TweenCallback MoveToTarget(float time)
+    {
+        TweenCallback tcb =
+            () =>
+            {
+                if(GameManager.instance != null)
+                    target = GameManager.instance.dummy.transform;
+                Vector3 targetPos = target.transform.position;
+                //Vector3 dummyPos = GameManager.instance.dummy.transform.position;
+                tf.DOMoveY(targetPos.y, time)
+                .SetUpdate(true);
+                if (UICam != null)
+                    UICam.transform.DOMoveY(targetPos.y, time)
+                    .SetUpdate(true);
+            };
+        return tcb;
+    }
+    //
     private void Move()
     {
         if (target)

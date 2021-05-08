@@ -82,11 +82,9 @@ public class TransitionControl : MonoBehaviour
             CamSet = () => { SceneControl.instance.UICamSet(false); };
             //
             Sequence open = DOTween.Sequence()
-                .AppendInterval(1.0f)
-                //.Append(up.DOAnchorPosY(upOpen.y, tweenTime).SetEase(Ease.InOutCubic))
+                .AppendInterval(0.5f)
                 .Join(left.DOAnchorPosX(leftOpen.x, tweenTime).SetEase(Ease.InOutCubic))
                 .Join(right.DOAnchorPosX(rightOpen.x, tweenTime).SetEase(Ease.InOutCubic))
-                //.AppendInterval(tweenTime * 2.0f)
                 .AppendCallback(() => { ActivateTransition(false); })
                 .AppendCallback(CamSet)
                 .SetUpdate(true)
@@ -100,10 +98,8 @@ public class TransitionControl : MonoBehaviour
             //
             Sequence open = DOTween.Sequence()
                 .AppendCallback(CamSet)
-                //.Append(up.DOAnchorPosY(upOpen.y, tweenTime).SetEase(Ease.InOutCubic))
                 .Join(left.DOAnchorPosX(leftOpen.x, tweenTime).SetEase(Ease.InOutCubic))
                 .Join(right.DOAnchorPosX(rightOpen.x, tweenTime).SetEase(Ease.InOutCubic))
-                //.AppendInterval(tweenTime * 2.0f)
                 .AppendCallback(() => { ActivateTransition(false); })
                 .SetUpdate(true)
                 ;

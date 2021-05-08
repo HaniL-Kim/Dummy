@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 310343933}
   - component: {fileID: 310343932}
   m_Layer: 5
-  m_Name: Press
+  m_Name: PressToStartText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -214,8 +214,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Press To Start
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: da25e185240ded249905520c0433bb74, type: 2}
+  m_sharedMaterial: {fileID: 6167519075827806693, guid: da25e185240ded249905520c0433bb74, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -239,8 +239,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 58
-  m_fontSizeBase: 58
+  m_fontSize: 64
+  m_fontSizeBase: 64
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -410,6 +410,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4988740164848428, guid: 1ec1e0df9dd59ef43a6d226cfdf81e63, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7882080899670768652, guid: 1ec1e0df9dd59ef43a6d226cfdf81e63, type: 3}
       propertyPath: right
       value: 

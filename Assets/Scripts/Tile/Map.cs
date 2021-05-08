@@ -236,7 +236,10 @@ public class Map : MonoBehaviour
                 prefab = firstFootBoardFloor;
                 break;
             case "LAST":
-                prefab = lastFootBoardFloor;
+                {
+                    prefab = lastFootBoardFloor;
+                    GameManager.instance.clearControl.SetControlPos(posY);
+                }
                 break;
             default:
                 break;
