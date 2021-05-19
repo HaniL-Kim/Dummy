@@ -9,9 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 943786389736944478}
+  - component: {fileID: 3805840345685866091}
+  - component: {fileID: 7832206040902110889}
   - component: {fileID: 943786389736944477}
   - component: {fileID: 8071731247501755569}
-  - component: {fileID: 3805840345685866091}
   - component: {fileID: 7398027007306731510}
   m_Layer: 11
   m_Name: Closet
@@ -34,6 +35,37 @@ Transform:
   m_Father: {fileID: 943786390927501227}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3805840345685866091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 943786389736944473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d0fd83a9e3aa87478f0cb79030e2b9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shaker: {fileID: 7832206040902110889}
+  isFliped: 0
+--- !u!114 &7832206040902110889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 943786389736944473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8de230049c667f64eab24bba1c604933, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allowRotate: 1
+  isShake: 0
+  decay: 0.002
+  intensity: 0.3
+  time: 0.33
 --- !u!212 &943786389736944477
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -104,20 +136,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &3805840345685866091
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 943786389736944473}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d0fd83a9e3aa87478f0cb79030e2b9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isShake: 0
-  isFliped: 0
 --- !u!60 &7398027007306731510
 PolygonCollider2D:
   m_ObjectHideFlags: 0

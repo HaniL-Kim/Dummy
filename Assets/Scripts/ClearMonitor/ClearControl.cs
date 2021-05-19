@@ -19,6 +19,12 @@ public class ClearControl : MonoBehaviour
     public float flashEndTime;
     public float monitorDelayTime;
     //==============================//
+    private void Start()
+    {
+        if (SceneControl.instance.currentStage == 0)
+            GameManager.instance.clearControl.DeActivate();
+    }
+    //==============================//
     public void ActivatePressTo(bool b)
     {
         pressTo.gameObject.SetActive(b);
@@ -41,10 +47,15 @@ public class ClearControl : MonoBehaviour
         ActivatePressTo(false);
     }
     //
+    public void DeActivate()
+    {
+        gameObject.SetActive(false);
+    }
+    //
     public void Activate()
     {
         // Debug
-        Time.timeScale = 0;
+        //Time.timeScale = 0;
         //
         int monitorCount = 3;
         if (SceneControl.instance != null)

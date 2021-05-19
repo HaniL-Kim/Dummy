@@ -13,7 +13,8 @@ public class FootBoardTigger : MonoBehaviour
     //=============================================//
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.CompareTag("Concrete"))
+        //if (col.CompareTag("Concrete"))
+        if (col.CompareTag("ConcreteBox"))
         {
             if (col is BoxCollider2D)
             {

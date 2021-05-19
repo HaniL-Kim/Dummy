@@ -18,6 +18,7 @@ TagManager:
   - Stage
   - UICamera
   - LastFootBoard
+  - ConcreteBox
   layers:
   - Default
   - TransparentFX

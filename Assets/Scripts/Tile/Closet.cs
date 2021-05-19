@@ -13,33 +13,20 @@ public class Closet : MonoBehaviour
     private readonly int hashFlip = Animator.StringToHash("Flip");
     //=============================================//
     // Shake
-    public bool isShake = false;
-    private Vector3 originPosition;
-    private Quaternion originRotation;
-    //
-    private float shake_decay, shake_intensity, shake_time;
-    private const float cDecay = 0.002f, cIntensity = 0.3f, cTime = 0.33f;
+    public Shaker shaker;
     //
     public bool isFliped = false;
     //=============================================//
     private void Awake()
     {
         anim = GetComponent<Animator>();
-    } // End Start
-    //=============================================//
-    private void Update()
-    {
-        Shake();
     }
     //=============================================//
     public void ResetCloset()
     {
         isFliped = false;
         //
-        isShake = false;
-        shake_decay = cDecay;
-        shake_intensity = cIntensity;
-        shake_time = cTime;
+        shaker.ResetShake();
         //
         anim.SetBool(hashFlip, false);
         //
@@ -54,12 +41,15 @@ public class Closet : MonoBehaviour
         tile = value;
         inner = tile.inner;
         inner.closet = this;
-    } // End SetTile
+    }
     //=============================================//
     public void HitFlag()
     {
-        StartShake();
+        shaker.StartShake();
+        //
         inner.display.flagHit = true;
+        //
+        Invoke("Flip", shaker.time);
     }
     //
     public void Flip()
@@ -80,36 +70,6 @@ public class Closet : MonoBehaviour
         //
         tile.inner.Flip();
     } // End FlipInner
-    //=============================================//
-    private void Shake()
-    {
-        if (isShake == false)
-            return;
-        //
-        if (shake_time > 0)
-        {
-            transform.position = originPosition + Random.insideUnitSphere * shake_intensity;
-            transform.rotation = new Quaternion(
-            originRotation.x + Random.Range(-shake_intensity, shake_intensity) * .2f,
-            originRotation.y + Random.Range(-shake_intensity, shake_intensity) * .2f,
-            originRotation.z + Random.Range(-shake_intensity, shake_intensity) * .2f,
-            originRotation.w + Random.Range(-shake_intensity, shake_intensity) * .2f);
-            shake_intensity -= shake_decay;
-            shake_time -= Time.deltaTime;
-        }
-        else
-        {
-            isShake = false;
-            Flip();
-        }
-    }
-    //
-    public void StartShake()
-    {
-        isShake = true;
-        originPosition = transform.position;
-        originRotation = transform.rotation;
-    } // End StartShake()
     //=============================================//
     private void OnTriggerEnter2D(Collider2D collision)
     {

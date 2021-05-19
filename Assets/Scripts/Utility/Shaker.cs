@@ -19,19 +19,27 @@ public class Shaker : MonoBehaviour
     private float shake_decay, shake_intensity, shake_time;
     public float decay = 0.002f, intensity = 0.3f, time = 0.33f;
     //=============================================//
+    private void Awake()
+    {
+        shake_decay = decay;
+        shake_intensity = intensity;
+        shake_time = time;
+    }
+    //
     private void Update()
     {
         Shake();
     }
     //=============================================//
-    private void ResetShake()
+    public void ResetShake()
     {
         isShake = false;
         shake_decay = decay;
         shake_intensity = intensity;
         shake_time = time;
         //
-        transform.position = originPosition;
+        transform.localPosition = originPosition;
+        //transform.position = originPosition;
         transform.rotation = originRotation;
     }
     //
@@ -42,7 +50,8 @@ public class Shaker : MonoBehaviour
         //
         if (shake_time > 0)
         {
-            transform.position = originPosition + Random.insideUnitSphere * shake_intensity;
+            transform.localPosition = originPosition + Random.insideUnitSphere * shake_intensity;
+            //transform.position = originPosition + Random.insideUnitSphere * shake_intensity;
             //
             if (allowRotate == true)
             {
@@ -67,7 +76,8 @@ public class Shaker : MonoBehaviour
     public void StartShake(float shakeTime = 0, float fadeTime = 0)
     {
         isShake = true;
-        originPosition = transform.position;
+        originPosition = transform.localPosition;
+        //originPosition = transform.position;
         originRotation = transform.rotation;
         //
         if (shakeTime != 0)

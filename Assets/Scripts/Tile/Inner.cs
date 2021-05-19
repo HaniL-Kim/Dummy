@@ -129,6 +129,9 @@ public class Inner : MonoBehaviour
         isFliped = true;
         anim.SetBool(hashFlipInner, true);
         //
+        if (dangerCount == 0)
+            FlipArround();
+        /*
         if (isDanger == true)
         { // Danger
             for (int i = 0; i < arroundInners.Count; ++i)
@@ -139,6 +142,7 @@ public class Inner : MonoBehaviour
             if (dangerCount == 0)
                 FlipArround();
         }
+        */
     }
     //
     public void EndFlip()
