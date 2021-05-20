@@ -32,11 +32,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Diffuse_1:
-        m_Texture: {fileID: 2800000, guid: a83b74732e0439b47a3d9d7be430d921, type: 3}
+        m_Texture: {fileID: 2800000, guid: 7dc11b2562a5a1b41a6c216e84b54bb3, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Diffuse_2:
-        m_Texture: {fileID: 2800000, guid: 08b54ca6f2ea24f4ba621ce3279ac814, type: 3}
+        m_Texture: {fileID: 2800000, guid: 116ada711738b5a44b503f217dbf8db1, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
