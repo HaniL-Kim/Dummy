@@ -110,9 +110,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 8}
-  m_SizeDelta: {x: 96, y: 96}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 60, y: 52}
+  m_Pivot: {x: 0.2666667, y: 0.1538462}
 --- !u!222 &1855050466210730605
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -141,7 +141,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 21e03d25471215a4fb5cd55baab5c9ed, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f251d2b79463dc44f9eda4f93f88ad69, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -354,6 +354,7 @@ MonoBehaviour:
   check: {fileID: 0}
   balloon: {fileID: 0}
   isChecked: 0
+  om: {fileID: 0}
 --- !u!114 &7963683719858646740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -374,7 +375,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 966d10ecd0c33c44cbc8f0027c25e01c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ae74d9ebf0783ee4cbb8d2611f7f7929, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -397,7 +398,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 0
+    m_Mode: 3
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -412,8 +413,8 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 21300000, guid: 8530aedbf428b12478cfe4e26efc363c, type: 3}
-    m_PressedSprite: {fileID: 21300000, guid: 83e4e23313a1b6a42b2e87e927b1a095, type: 3}
+    m_HighlightedSprite: {fileID: 21300000, guid: bbef6beeba5fcc846836029cd8223795, type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: 9f95a764a820a5944ba521ea1937eab1, type: 3}
     m_SelectedSprite: {fileID: 0}
     m_DisabledSprite: {fileID: 21300000, guid: d1674fbac7e638f478367d2656d6e0fd, type: 3}
   m_AnimationTriggers:

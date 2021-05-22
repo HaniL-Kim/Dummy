@@ -420,11 +420,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1115573555970604922, guid: 1ec1e0df9dd59ef43a6d226cfdf81e63, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 18
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1115573556544527360, guid: 1ec1e0df9dd59ef43a6d226cfdf81e63, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 18
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1115573557191689498, guid: 1ec1e0df9dd59ef43a6d226cfdf81e63, type: 3}
       propertyPath: m_AnchorMax.y
