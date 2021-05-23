@@ -275,6 +275,12 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3345375851901007318, guid: 0e4f81b6a6732534c9922b118f561238, type: 3}
+      propertyPath: m_text
+      value: 'Reward of Normal
+
+        6 Stage clear'
+      objectReference: {fileID: 0}
     - target: {fileID: 3905884507894566013, guid: 0e4f81b6a6732534c9922b118f561238, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -654,6 +660,12 @@ PrefabInstance:
     - target: {fileID: 6108094336696266391, guid: 0e4f81b6a6732534c9922b118f561238, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8556704852096710320, guid: 0e4f81b6a6732534c9922b118f561238, type: 3}
+      propertyPath: m_text
+      value: 'Reward of Hard
+
+        6 Stage clear'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e4f81b6a6732534c9922b118f561238, type: 3}
