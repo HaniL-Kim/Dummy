@@ -14,10 +14,6 @@ public class TransitionControl : MonoBehaviour
     //
     public GameObject transition;
     //
-    //public RectTransform up;
-    //private Vector3 upOpen;
-    //private Vector3 upClose;
-    //
     public RectTransform left;
     private Vector3 leftOpen;
     private Vector3 leftClose;
@@ -27,6 +23,9 @@ public class TransitionControl : MonoBehaviour
     private Vector3 rightClose;
     //
     public float tweenTime;
+    //
+    public bool isTransition = false;
+    public bool isActivating = false;
     // ================ Func : Default ================ //
     private void Awake()
     {
@@ -60,13 +59,13 @@ public class TransitionControl : MonoBehaviour
         SceneControl.instance.UICamSet(true);
         //
         transition.SetActive(b);
+        //
+        isTransition = b;
     }
     //
     public void Door_Close()
     {
         ActivateTransition();
-        //
-        //up.DOAnchorPosY(upClose.y, tweenTime).SetEase(Ease.InOutCubic).SetUpdate(true);
         //
         left.DOAnchorPosX(leftClose.x, tweenTime).SetEase(Ease.InOutCubic).SetUpdate(true);;
         right.DOAnchorPosX(rightClose.x, tweenTime).SetEase(Ease.InOutCubic).SetUpdate(true);;

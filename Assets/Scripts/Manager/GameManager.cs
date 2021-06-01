@@ -108,12 +108,15 @@ public class GameManager : MonoBehaviour
 
         // Scene Transition
         // StartCoroutine(SceneControl.instance.ClearSequence());
-        
+
         //Debug.Log("End ClearStage");
     }
     //====================================//
     private void LetElecShooterMove()
     {
+        if (TransitionControl.instance.isTransition == true)
+            return;
+        //
         if (dummy.isDead == false)
             if (elecShooter.isElevate == false)
                 for (int i = 0; i < controlKeyCodes.Length; ++i)

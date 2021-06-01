@@ -19,19 +19,25 @@ public class PressToStart : MonoBehaviour
     //
     private void Update()
     {
+        if (TransitionControl.instance.isTransition == true)
+            return;
+        //
         if (Input.anyKeyDown)
         {
-            if (SceneManager.GetActiveScene().name == "0_LogoScene")
+            string curSceneName = SceneManager.GetActiveScene().name;
+            //
+            if (curSceneName == "0_LogoScene")
                 SceneManager.LoadScene(1);
-            else if (SceneManager.GetActiveScene().name == "MainScene")
+            else if (curSceneName == "MainScene")
             {
-                if(GameManager.instance.stageClear == true)
+                if (GameManager.instance.stageClear == true)
                     StartCoroutine(SceneControl.instance.ClearSequence());
             }
             else
                 return;
         }
     }
+    //
     private void OnEnable()
     {
         BlinkText();

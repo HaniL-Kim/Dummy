@@ -110,6 +110,9 @@ public class Map : MonoBehaviour
     //
     private void Update()
     {
+        if (TransitionControl.instance.isTransition == true)
+            return;
+        //
         DebugMap();
     }
     ///////////////////////////////////////

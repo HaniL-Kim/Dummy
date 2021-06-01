@@ -16,6 +16,9 @@ public class InGameMenuControl : MonoBehaviour
     //
     private void Update()
     {
+        if (TransitionControl.instance.isTransition == true)
+            return;
+        //
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Backspace))
         {
             string curSceneName = SceneManager.GetActiveScene().name;
@@ -23,6 +26,9 @@ public class InGameMenuControl : MonoBehaviour
             {
                 if (inGameMenu.activeSelf == false)
                 { // Open IGM
+                    if (GameManager.instance.stageClear == true)
+                        return;
+                    //
                     SetIGMControl(true);
                     return;
                 }
@@ -31,6 +37,11 @@ public class InGameMenuControl : MonoBehaviour
                     if (SceneControl.instance.option.activeSelf == true)
                     { // Close Option
                         SceneControl.instance.option.SetActive(false);
+                        return;
+                    }
+                    if (assure.activeSelf == true)
+                    { // Close Assure
+                        SetAssure(false);
                         return;
                     }
                     // Close IGM
@@ -63,7 +74,6 @@ public class InGameMenuControl : MonoBehaviour
     public void BTN_Assure_Yes()
     {
         // ExitGame
-        //SceneControl.instance.ExitGame();
         Time.timeScale = 1.0f;
         SceneControl.instance.StartSceneTransition("2_StageSelectScene");
         SetAssure(false);

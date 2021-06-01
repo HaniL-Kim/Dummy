@@ -19,6 +19,7 @@ TagManager:
   - UICamera
   - LastFootBoard
   - ConcreteBox
+  - ES_Block
   layers:
   - Default
   - TransparentFX

@@ -137,6 +137,7 @@ MonoBehaviour:
   - {fileID: 6954709826108498178}
   flash: {fileID: 996780238}
   cam: {fileID: 0}
+  pressTo: {fileID: 0}
   flashBeginTime: 0.083333336
   flashEndTime: 0.41666666
   monitorDelayTime: 0.6666667
@@ -149,9 +150,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 9094233304061212792, guid: 32684603269cc3d4a8c453adcf16ccdf, type: 3}
       propertyPath: m_text
-      value: 'You can challange
-
-        to the next stage'
+      value: Next stage open
       objectReference: {fileID: 0}
     - target: {fileID: 9094233304369663731, guid: 32684603269cc3d4a8c453adcf16ccdf, type: 3}
       propertyPath: m_LocalPosition.x
@@ -240,7 +239,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 9094233304061212792, guid: 32684603269cc3d4a8c453adcf16ccdf, type: 3}
       propertyPath: m_text
-      value: You got [0] batteries
+      value: Proceed to the next
       objectReference: {fileID: 0}
     - target: {fileID: 9094233304369663731, guid: 32684603269cc3d4a8c453adcf16ccdf, type: 3}
       propertyPath: m_LocalPosition.x
@@ -329,19 +328,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 9094233304061212792, guid: 32684603269cc3d4a8c453adcf16ccdf, type: 3}
       propertyPath: m_text
-      value: You got new BGR
+      value: New BGM permitted
       objectReference: {fileID: 0}
     - target: {fileID: 9094233304369663731, guid: 32684603269cc3d4a8c453adcf16ccdf, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -37.5
+      value: -50.5
       objectReference: {fileID: 0}
     - target: {fileID: 9094233304386437230, guid: 32684603269cc3d4a8c453adcf16ccdf, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 37.5
+      value: 50.5
       objectReference: {fileID: 0}
     - target: {fileID: 9094233304574346957, guid: 32684603269cc3d4a8c453adcf16ccdf, type: 3}
       propertyPath: m_Size.x
-      value: 100
+      value: 126
       objectReference: {fileID: 0}
     - target: {fileID: 9094233304574346958, guid: 32684603269cc3d4a8c453adcf16ccdf, type: 3}
       propertyPath: m_RootOrder
@@ -416,6 +415,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2211587085661886373}
     m_Modifications:
+    - target: {fileID: 9094233304061212792, guid: 32684603269cc3d4a8c453adcf16ccdf, type: 3}
+      propertyPath: m_text
+      value: Stage clear
+      objectReference: {fileID: 0}
     - target: {fileID: 9094233304369663731, guid: 32684603269cc3d4a8c453adcf16ccdf, type: 3}
       propertyPath: m_LocalPosition.x
       value: -37.5

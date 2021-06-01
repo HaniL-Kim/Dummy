@@ -37,6 +37,9 @@ public class OptionManager : MonoBehaviour
     }
     private void Update()
     {
+        if (TransitionControl.instance.isTransition == true)
+            return;
+        //
         string curSceneName = SceneManager.GetActiveScene().name;
         if (curSceneName == "1_FirstMenuScene")
         {

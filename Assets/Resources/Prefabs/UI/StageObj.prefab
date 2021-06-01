@@ -437,9 +437,8 @@ MonoBehaviour:
   diffStr: 
   diff: 0
   stageNum: 0
-  sprite_InActive: {fileID: 21300000, guid: 7dc11b2562a5a1b41a6c216e84b54bb3, type: 3}
-  sprite_OnMouse: {fileID: 21300000, guid: 116ada711738b5a44b503f217dbf8db1, type: 3}
-  sprite_Normal: {fileID: 21300000, guid: 67be03fb248c1ef40af06ceca49f2e3c, type: 3}
+  texture_Locked: {fileID: 2800000, guid: 7dc11b2562a5a1b41a6c216e84b54bb3, type: 3}
+  texture_UnLocked: {fileID: 2800000, guid: 67be03fb248c1ef40af06ceca49f2e3c, type: 3}
   nameCard: {fileID: 4970973164557973019}
   target: {fileID: 4970973163285759594}
   targetMaterial: {fileID: 0}
@@ -626,7 +625,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9303e418acbbe0840bcb27b17a270963, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0ac81eb6b8c36254c96cf1a729e4da93, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

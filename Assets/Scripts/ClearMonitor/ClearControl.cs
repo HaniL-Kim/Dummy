@@ -54,9 +54,6 @@ public class ClearControl : MonoBehaviour
     //
     public void Activate()
     {
-        // Debug
-        //Time.timeScale = 0;
-        //
         int monitorCount = 3;
         if (SceneControl.instance != null)
             if (SceneControl.instance.currentStage == 6)

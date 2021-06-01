@@ -1,0 +1,143 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 0
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 0
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: 0ac81eb6b8c36254c96cf1a729e4da93, type: 3}
+    - {fileID: 102900000, guid: a350b42c339f4504fb09f938afe4ad2e, type: 3}
+    - {fileID: 102900000, guid: 70a5ffabffbb6dc4086f9831f02baf01, type: 3}
+    - {fileID: 102900000, guid: 137ada1eac286d844bfd3d66a5b9cef0, type: 3}
+    - {fileID: 102900000, guid: b8aa315d7d0f5744ea09bfccd2e65fdd, type: 3}
+    - {fileID: 102900000, guid: 5995d82b2eb153e4fb046f7f016489c6, type: 3}
+    - {fileID: 102900000, guid: e08d1b576b1c6084089b7bbf043e6cb3, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 0da40f0018c6acd4bae3968439a991b1, type: 3}
+  - {fileID: 21300000, guid: 41e653216ca24bf4093a78f59635a402, type: 3}
+  - {fileID: 21300000, guid: fb4159514fc85f94ca685f77d065b59d, type: 3}
+  - {fileID: 21300000, guid: 699e3ef13da72bd40b5dec84efc56f21, type: 3}
+  - {fileID: 21300000, guid: 7d0646329b68ed94cb58da7411451634, type: 3}
+  - {fileID: 21300000, guid: cadaa7822c73698459a9c86c0017ff08, type: 3}
+  - {fileID: 21300000, guid: f2fc3fb2180890a48b0ce5082cf1a65d, type: 3}
+  - {fileID: 21300000, guid: b784def21e80f894ba228d334cbc09f5, type: 3}
+  - {fileID: 21300000, guid: 80d7cb93d4255b8449fc30a98fd5c8af, type: 3}
+  - {fileID: 21300000, guid: b4c38fa35e82bd34698f2df1b14c7a9d, type: 3}
+  - {fileID: 21300000, guid: 53a45914da6808742b60a15c243af335, type: 3}
+  - {fileID: 21300000, guid: 15fa3424887394047b179d69cc8a216c, type: 3}
+  - {fileID: 21300000, guid: 9f95a764a820a5944ba521ea1937eab1, type: 3}
+  - {fileID: 21300000, guid: e9e6aa64ecdc2b64abce56d71a9e776b, type: 3}
+  - {fileID: 21300000, guid: 2b86bbb49c497a3468842cf84812809f, type: 3}
+  - {fileID: 21300000, guid: e90090851b1fba74cae9480e0893c9f7, type: 3}
+  - {fileID: 21300000, guid: 746150b5f8dc1d942b18fccbd6c43bd6, type: 3}
+  - {fileID: 21300000, guid: 33f69cc547e69254b89f62f316fc7276, type: 3}
+  - {fileID: 21300000, guid: 39d30ed58a0b5ad488a0961749534ace, type: 3}
+  - {fileID: 21300000, guid: fbfbade5aef705940a491d23d94f29f8, type: 3}
+  - {fileID: 21300000, guid: 7244a7268ab404f429316caafac3c426, type: 3}
+  - {fileID: 21300000, guid: ba5b6a56c6d3abc4f915f6df98d1af47, type: 3}
+  - {fileID: 21300000, guid: 0ac81eb6b8c36254c96cf1a729e4da93, type: 3}
+  - {fileID: 21300000, guid: 94174167afea5ca4ca606158df487f97, type: 3}
+  - {fileID: 21300000, guid: fc36bfa76f6d9ff4882b41a55698003a, type: 3}
+  - {fileID: 21300000, guid: f251d2b79463dc44f9eda4f93f88ad69, type: 3}
+  - {fileID: 21300000, guid: 4912d048eba3b744dbde5c8973634db5, type: 3}
+  - {fileID: 21300000, guid: ab61abf8e72cc9340a9267cb0bf5c50a, type: 3}
+  - {fileID: 21300000, guid: a86012190ac468c429f41a2202fe63cc, type: 3}
+  - {fileID: 21300000, guid: adfffe7a993e06c49a1cecb9fd5459d0, type: 3}
+  - {fileID: 21300000, guid: 7dc9b39bad8569844bd000a1d5133ce2, type: 3}
+  - {fileID: 21300000, guid: b8caafabf9dcd44439f79e96b2c4ab74, type: 3}
+  - {fileID: 21300000, guid: ae74d9ebf0783ee4cbb8d2611f7f7929, type: 3}
+  - {fileID: 21300000, guid: 2a8cc37ce52fc0344b244884691f409c, type: 3}
+  - {fileID: 21300000, guid: a542872da309bec4aa4ee355e30d262f, type: 3}
+  - {fileID: 21300000, guid: ff8d942e50e44214ea68661ff99ed70d, type: 3}
+  - {fileID: 21300000, guid: c309abce09684284ab5f01c221b96b5b, type: 3}
+  - {fileID: 21300000, guid: c3df56ee7a8575442b2ea72a96e92919, type: 3}
+  - {fileID: 21300000, guid: bbef6beeba5fcc846836029cd8223795, type: 3}
+  - {fileID: 21300000, guid: ac6b2e2f2a2ca7a43a9167094b6b656b, type: 3}
+  - {fileID: 21300000, guid: de4fd93fbc747e24fac2ef9b28ef2e57, type: 3}
+  - {fileID: 21300000, guid: 4aad514fcc469af4680120bab0c61af6, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - 41MenuButton01ChangeButton02MouseOn
+  - 41MenuButton02BackButton02MouseOn
+  - 41MenuButton02BackButton03MouseAction
+  - 41MenuButton02BackButton01Normal
+  - 42Window15CheckBox04Disable
+  - 45inGameInterface01toStageTransition02RightDoor
+  - 43InformationScene03Item
+  - 44CoverImage11BackTile01
+  - 42Window03AnswerColorBar
+  - 42Window02ExplainColorBar
+  - 43InformationScene02Mine
+  - 41MenuButton03Button01Normal
+  - 42Window13CheckBox03MouseAction
+  - 44CoverImage18BackTile08
+  - 42InformationScene01MouseSkillButton01Normal
+  - 44CoverImage12BackTile02
+  - 42Window04ControlBar
+  - 44CoverImage14BackTile04
+  - 42Window05WhiteBar
+  - 41MenuButton03Button03MouseAction
+  - 44CoverImage16BackTile06
+  - 44CoverImage13BackTile03
+  - white
+  - 44CoverImage20BackTile10
+  - 44CoverImage17BackTile07
+  - 42Window14Checker
+  - 41MenuButton03Button02MouseOn
+  - 42Window31TalkBalloon
+  - 43InformationScene04Making
+  - 44CoverImage19BackTile09
+  - 42Window01MainWindow
+  - 45inGameInterface02PossessWindow
+  - 42Window11CheckBox01Normal
+  - 45inGameInterface01toStageTransition01LeftDoor
+  - 42Window21AssureWindow
+  - 44CoverImage01Title
+  - 43InformationScene01Basic
+  - 41MenuButton01ChangeButton01Normal
+  - 42Window12CheckBox02MouseOn
+  - 41MenuButton01ChangeButton03MouseAction
+  - 41MenuButton01ChangeButton04Unactive
+  - 44CoverImage15BackTile05
+  m_Tag: UI
+  m_IsVariant: 0

@@ -40,19 +40,12 @@ public class StageWindowControl : MonoBehaviour
         CheckBGREnabled();
     }
     //
-    //private void Update()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Backspace))
-    //    {
-    //        BTN_Close();
-    //    }
-    //}
     // ================= Func ================= //
     private void SetStageData(string diff, int stageNum)
     {
         SceneControl.instance.currentStage = stageNum;
         //
-        stageName.text = stageNum == 0 ? "Infinite" : stageNum.ToString() + " Stage";
+        stageName.text = stageNum == 0 ? "Infinite" : "Stage " + stageNum.ToString();
         //
         StageData sd = SceneControl.instance.stageData[diff][stageNum];
         //
@@ -72,7 +65,7 @@ public class StageWindowControl : MonoBehaviour
         //
         if (stageNum == 0)
         { // Infinite Stage
-            clearTextName.text = "Best Record";
+            clearTextName.text = "Your best record";
             clearTextValue.text = bestRecord + "F";
         }
         else

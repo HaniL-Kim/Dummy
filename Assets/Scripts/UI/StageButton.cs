@@ -16,9 +16,12 @@ public class StageButton : MonoBehaviour
     public Difficulty diff;
     public int stageNum;
     //========== Sprites ==========//
-    public Sprite sprite_InActive;
-    public Sprite sprite_OnMouse;
-    public Sprite sprite_Normal;
+    //public Sprite sprite_InActive;
+    //public Sprite sprite_Normal;
+    //
+    public Texture2D texture_Locked;
+    public Texture2D texture_UnLocked;
+    //public Sprite sprite_OnMouse;
     //========== Component ==========//
     private Button btn;
     //========== Child ==========//
@@ -61,6 +64,9 @@ public class StageButton : MonoBehaviour
             default:
                 break;
         }
+        //
+        //texture_InActive = SpriteUtility.GetSpriteTexture(sprite_InActive, false);
+        //texture_Normal = SpriteUtility.GetSpriteTexture(sprite_Normal, false);
     }
     private void Start()
     {
@@ -76,8 +82,6 @@ public class StageButton : MonoBehaviour
     {
         if (btn.interactable == true)
             return;
-        //
-        btn.interactable = true;
         // Activate Sequance
         if(tween == true)
         {
@@ -89,27 +93,35 @@ public class StageButton : MonoBehaviour
             .Append(tween_Rotate)
             .Join(tween_TextureToTarget)
             .AppendCallback(() => { unlockEffect.SetActive(true); })
-            .AppendCallback(() => { targetMaterial.SetTexture(hashDiffuse_1, sprite_Normal.texture); })
+            .AppendCallback(() => { targetMaterial.SetTexture(hashDiffuse_1, texture_UnLocked); })
             .Append(tween_TextureToMain)
             .AppendCallback(() => { target.material = null; })
+            .AppendCallback(() => { TransitionControl.instance.isActivating = false; })
             ;
         }
         else
         {
             targetTF.rotation = endRot;
-            targetMaterial.SetTexture(hashDiffuse_1, sprite_Normal.texture);
+            targetMaterial.SetTexture(hashDiffuse_1, texture_UnLocked);
             target.material = null;
         }
         // Set nameCard Text
         char c = MyUtility.GetLastChar(transform.parent.name);
         string stageNum = "";
         if (c == '0')
+        {
             stageNum = "Infinite";
+            nameCard.GetComponentInChildren<TextMeshProUGUI>().text
+                = stageNum;
+        }
         else
+        {
             stageNum = c.ToString();
+            nameCard.GetComponentInChildren<TextMeshProUGUI>().text
+                = "Stage " + stageNum;
+        }
         //
-        nameCard.GetComponentInChildren<TextMeshProUGUI>().text
-            = stageNum + " Stage";
+        btn.interactable = true;
     }
     //
     public void DeActivate()
@@ -118,7 +130,7 @@ public class StageButton : MonoBehaviour
         //
         targetTF.rotation = beginRot;
         target.material = targetMaterial;
-        targetMaterial.SetTexture(hashDiffuse_1, sprite_InActive.texture);
+        targetMaterial.SetTexture(hashDiffuse_1, texture_Locked);
         //
         unlockEffect.SetActive(false);
     }

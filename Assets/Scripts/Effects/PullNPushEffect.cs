@@ -51,7 +51,9 @@ public class PullNPushEffect : SpriteEffect
     {
         dirToEffect = Vector3.zero;
         dirToEffect.x = (transform.position.x - player.position.x);
-        if (Mathf.Abs(dirToEffect.x) <= 1.0f)
+        //if (Mathf.Abs(dirToEffect.x) <= 1.0f)
+        float playerHalfWidth = player.GetComponent<BoxCollider2D>().bounds.size.x / 2.0f;
+        if (Mathf.Abs(dirToEffect.x) <= playerHalfWidth)
             return;
         //
         dirToEffect.Normalize();
@@ -63,9 +65,16 @@ public class PullNPushEffect : SpriteEffect
     {
         dirToEffect = Vector3.zero;
         dirToEffect.x = (player.position.x - transform.position.x);
-        dirToEffect.y = (player.position.y - transform.position.y);
-        dirToEffect.Normalize();
         dirToEffect.z = player.position.z;
+        //
+        Dummy dm = player.GetComponent<Dummy>();
+        if(dm.isJump)
+            dirToEffect.y = (player.position.y - transform.position.y);
+        else
+            dirToEffect.y = 0;
+        //
+        dirToEffect.Normalize();
+        //
         player.Translate(dirToEffect * pushSpeed * Time.deltaTime, Space.World);
     }
     //===============================================//

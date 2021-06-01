@@ -44,6 +44,9 @@ public class MineController : MonoBehaviour
     //=========================================//
     private void Update()
     {
+        if (TransitionControl.instance.isTransition == true)
+            return;
+        //
         DebugGhost();
     }
     //=========================================//

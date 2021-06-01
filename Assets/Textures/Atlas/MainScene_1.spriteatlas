@@ -1,0 +1,196 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MainScene_1
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 0
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 0
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: aecde4c81c707a74da654704754fe9eb, type: 3}
+    - {fileID: 102900000, guid: a85ef2a1c77ef494fbd943e87f1aea5b, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 324879b0ea9b53841b8ca2a164ec47bf, type: 3}
+  - {fileID: 21300000, guid: 4990f3e06cc3fa341be023929b24bde2, type: 3}
+  - {fileID: 21300000, guid: 867608e0060af174d96531d41cb8231e, type: 3}
+  - {fileID: 21300000, guid: a6254b41d6036a343ba0837bf88b1c0a, type: 3}
+  - {fileID: 21300000, guid: 462fe271e3162d7458bed6404af9ea88, type: 3}
+  - {fileID: 21300000, guid: 7ca4f571631669c428d0cafe23d35dfa, type: 3}
+  - {fileID: 21300000, guid: c70d0b817d4a07f47adca8d0119de3ad, type: 3}
+  - {fileID: 21300000, guid: 71af1ba1d1c8ea046a4459a96c7e7ba4, type: 3}
+  - {fileID: 21300000, guid: b4ea5ab103bd59f41a3650110f79a13a, type: 3}
+  - {fileID: 21300000, guid: 170d6e4273308524baba0f1b1d9ca6d1, type: 3}
+  - {fileID: 21300000, guid: adc8861301670f64e978e0f8f402ef47, type: 3}
+  - {fileID: 21300000, guid: f7ac0983698466241a4357dd95954fc9, type: 3}
+  - {fileID: 21300000, guid: cc4f61a3ab1927a468dfa436cc87fb89, type: 3}
+  - {fileID: 21300000, guid: 0ff1f1141f2d59a44bc648de23cc8003, type: 3}
+  - {fileID: 21300000, guid: 8ff412147261b09448d62ec580c7c1c7, type: 3}
+  - {fileID: 21300000, guid: 2035db8475a7e604c847794bbba39507, type: 3}
+  - {fileID: 21300000, guid: 06e058a4cdaecef40b08fa54782a3e73, type: 3}
+  - {fileID: 21300000, guid: 3701ccb4bb23ae5408a4c53680832d6b, type: 3}
+  - {fileID: 21300000, guid: e6c96dc4cb773d243b02c3ba8794f9c4, type: 3}
+  - {fileID: 21300000, guid: e840930590748bb448e1bad922bd5b2e, type: 3}
+  - {fileID: 21300000, guid: 4d895025844ec7540a91129972aa8942, type: 3}
+  - {fileID: 21300000, guid: 683c2845cf3f6c9468066961879c9bf7, type: 3}
+  - {fileID: 21300000, guid: 885772f5572a0cc49bbb8edb62e70f20, type: 3}
+  - {fileID: 21300000, guid: cbe5a936a6d18ea4787edce841addf9b, type: 3}
+  - {fileID: 21300000, guid: 3296496662587d6449db7800d5c904b9, type: 3}
+  - {fileID: 21300000, guid: bba63496a5d887343b87b98285f7fb67, type: 3}
+  - {fileID: 21300000, guid: ef6656d6825261c479f32d4954c79e58, type: 3}
+  - {fileID: 21300000, guid: b62eb50715847cc449a591f45d1b97c9, type: 3}
+  - {fileID: 21300000, guid: 110e8127133315043baa41719734fa6f, type: 3}
+  - {fileID: 21300000, guid: 9a531e272fe6d3540966990e41827b2e, type: 3}
+  - {fileID: 21300000, guid: fa423b4732997914b8ac13c83b47f05a, type: 3}
+  - {fileID: 21300000, guid: 00c9595748a05b94089e68e4fd9dc0b5, type: 3}
+  - {fileID: 21300000, guid: 8e499da775fbe7c4481269b3b0cb02b5, type: 3}
+  - {fileID: 21300000, guid: e14240e71283491458d4c34a76eefcc5, type: 3}
+  - {fileID: 21300000, guid: bdb8ca3829dba7c40bf265f1063d652e, type: 3}
+  - {fileID: 21300000, guid: 41d832581f16f6b43bcfa19c4556697b, type: 3}
+  - {fileID: 21300000, guid: 12a925f870f71a84f9747115cb6c5f2e, type: 3}
+  - {fileID: 21300000, guid: 8378b21974106954091be07ea8ddfc6d, type: 3}
+  - {fileID: 21300000, guid: 11a93319cd1cede4b8f02f897878720a, type: 3}
+  - {fileID: 21300000, guid: cf20b559a56dbcd4ab5ba69358b95576, type: 3}
+  - {fileID: 21300000, guid: 6331b869aefe77d43b9997ebae416f58, type: 3}
+  - {fileID: 21300000, guid: 6f52c9a9e06b0194c8b813de212b4138, type: 3}
+  - {fileID: 21300000, guid: 672cf9e9df3d7404daf656fdbebabe20, type: 3}
+  - {fileID: 21300000, guid: 889e6ee9b1ab0c340948389d9894fa44, type: 3}
+  - {fileID: 21300000, guid: ea483c4ad72e18f4db5d3ea51c768a8e, type: 3}
+  - {fileID: 21300000, guid: dc26576a29f476047a0972cd72a01631, type: 3}
+  - {fileID: 21300000, guid: 7ae02a7a38f4a2e4bbc1d925aa08634f, type: 3}
+  - {fileID: 21300000, guid: 0955d58ab00f3994fae63f6b46ce93e4, type: 3}
+  - {fileID: 21300000, guid: f7208f1b667bd5a4d8af618f466e49e8, type: 3}
+  - {fileID: 21300000, guid: dbb8005bcd199d64fbd3c1222e8d336b, type: 3}
+  - {fileID: 21300000, guid: b1fcb3ab0f440ab4dbcce38064fbdc11, type: 3}
+  - {fileID: 21300000, guid: a745850ca038a4840944e9b3b42c48f3, type: 3}
+  - {fileID: 21300000, guid: 69b4621c1847ff843b16828a700a8c3f, type: 3}
+  - {fileID: 21300000, guid: 13c7346c09463a549959e3b18750e523, type: 3}
+  - {fileID: 21300000, guid: 1b52b46c13e1b084b951d689d8730a54, type: 3}
+  - {fileID: 21300000, guid: 5584596c20957b64185acc3ec3e93533, type: 3}
+  - {fileID: 21300000, guid: 27a4e6acca6f1e04dbb462a9f4229ef7, type: 3}
+  - {fileID: 21300000, guid: 2d00ebdcdc423f044bacbaecc6a1051f, type: 3}
+  - {fileID: 21300000, guid: 965b8bec72498e54c9dc44f59e5a9c94, type: 3}
+  - {fileID: 21300000, guid: 2316880db1ff3634f804b22cf3103cc3, type: 3}
+  - {fileID: 21300000, guid: 8de1cc0db42945e488418b5ed911633c, type: 3}
+  - {fileID: 21300000, guid: f461021dbcdd31e428a09417afc22b1a, type: 3}
+  - {fileID: 21300000, guid: 3b798a2ddae40f646b84296004ab1ca7, type: 3}
+  - {fileID: 21300000, guid: 984b4d2d60dae174a9bd4f4cf6a4a87d, type: 3}
+  - {fileID: 21300000, guid: 1405903dc480ee141aa91d28d7b4b042, type: 3}
+  - {fileID: 21300000, guid: f71a164d8006e6a42918fc752de49181, type: 3}
+  - {fileID: 21300000, guid: 2aa1d05d957e55841ba6a1ee0a9b6386, type: 3}
+  - {fileID: 21300000, guid: b61d75bd8a34f6d489bd62980e5a6f8c, type: 3}
+  - {fileID: 21300000, guid: c83e1c5e8a5d64145b4384b52d7d0231, type: 3}
+  - {fileID: 21300000, guid: b39e864f6b939e2409924be9138082f5, type: 3}
+  - {fileID: 21300000, guid: 034ababf867da3946b0d66d4d47919a3, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - 36Narrow31Level1
+  - 22Safe14NumberFour
+  - 53ElecShooterBlock11Normal2
+  - 22Safe05Flip5
+  - 24MineTypeD02Flip2
+  - 36Narrow32Level2
+  - 39Shooter21ElecRoot
+  - 22Safe03Flip3
+  - 39Shooter11Body
+  - 36Narrow21Body
+  - 53ElecShooterBlock11Normal3
+  - 39Shooter24ElecRoot
+  - 24MineTypeD06Center
+  - 39Shooter22ElecRoot
+  - 22Safe12NumberTwo
+  - 22Safe01Flip1
+  - 21Closet01Center
+  - 24MineTypeD04Flip4
+  - 24MineTypeD03Flip3
+  - 39Shooter15Body
+  - 25FootBoard15Destroy5
+  - 24MineTypeD01Flip1
+  - 39Shooter31ElecLaser
+  - 22Safe10NumberZero
+  - 22Safe13NumberThree
+  - 52ColumnBlock21Right
+  - 39Shooter16Body
+  - 39Shooter13Body
+  - 21Closet04Flip3
+  - 25FootBoard13Destroy3
+  - 25FootBoard14Destroy4
+  - 36Narrow45LeftTime4
+  - 22Safe16NumberSix
+  - 25Concrete01Center
+  - 51Supervisor11Supervisor01Normal
+  - 36Narrow42LeftTime7
+  - 51Supervisor12Supervisor02LevelUp
+  - 36Narrow43LeftTime6
+  - 36Narrow46LeftTime3
+  - 54FirstLastFootBoard21LastFootBoard
+  - 36Narrow48LeftTime1
+  - 22Safe15NumberFive
+  - Resource
+  - 39Shooter32ElecLaser
+  - 51Supervisor21Monitor01Normal
+  - 51Supervisor22Monitor02CountdownDown
+  - 22Safe04Flip4
+  - 22Safe06Center
+  - 39Shooter18Body
+  - 22Safe11NumberOne
+  - 36Narrow44LeftTime5
+  - 39Shooter23ElecRoot
+  - FootBoard
+  - 21Closet03Flip2
+  - 53ElecShooterBlock11Normal1
+  - 25FootBoard12Destroy2
+  - 39Shooter14Body
+  - 36Narrow41LeftTime8
+  - 52ColumnBlock11Left
+  - 21Closet05Flip4
+  - 22Safe02Flip2
+  - 36Narrow33Level3
+  - 24MineTypeD05Flip5
+  - 21Closet02Flip1
+  - 54FirstLastFootBoard11FirstFootBoard
+  - 39Shooter17Body
+  - 39Shooter41ShooterPillar
+  - 36Narrow47LeftTime2
+  - 52ColumnBlock22Broken
+  - 39Shooter12Body
+  - 25FootBoard11Destroy1
+  m_Tag: MainScene_1
+  m_IsVariant: 0

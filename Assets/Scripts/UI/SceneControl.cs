@@ -130,6 +130,7 @@ public class SceneControl : MonoBehaviour
         Sequence ClearSequence = DOTween.Sequence()
             .AppendCallback(() => { StartSceneTransition("2_StageSelectScene"); })
             // after finish load stageSelectScene
+            .AppendCallback(() => { TransitionControl.instance.isActivating = true; })
             .AppendInterval(2.0f)
             .AppendCallback(() => { SetStageBtns(true); })
             .SetUpdate(true);

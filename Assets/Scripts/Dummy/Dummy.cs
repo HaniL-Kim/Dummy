@@ -127,7 +127,13 @@ public class Dummy : MonoBehaviour
     //=========================================//
     private void Update()
     {
+        if (TransitionControl.instance.isTransition == true)
+            return;
+        //
         if (GameManager.instance.pause == true)
+            return;
+        //
+        if (GameManager.instance.stageClear == true)
             return;
         //
         Control();
@@ -140,16 +146,16 @@ public class Dummy : MonoBehaviour
         //
         Idle();
         //
-        DebugPlayer();
-    } // End Update
-    //
-    private void LateUpdate()
-    {
         StuckInConcrete();
+        //
+        DebugPlayer();
     }
     //=========================================//
     private void DebugPlayer()
     {
+        if (TransitionControl.instance.isTransition == true)
+            return;
+        //
         if (Input.GetKeyDown(KeyCode.End))
             GameManager.instance.ClearStage();
         else if (Input.GetKeyDown(KeyCode.F5))
@@ -207,12 +213,7 @@ public class Dummy : MonoBehaviour
             rayDist, GameManager.instance.concreteBoxLayer);
         RaycastHit2D hit_L = Physics2D.Raycast(tf.position, Vector3.left,
             rayDist, GameManager.instance.concreteBoxLayer);
-        /*
-        RaycastHit2D hit_R = Physics2D.Raycast(tf.position, Vector3.right,
-            rayDist, GameManager.instance.concreteLayer);
-        RaycastHit2D hit_L = Physics2D.Raycast(tf.position, Vector3.left,
-            rayDist, GameManager.instance.concreteLayer);
-        */
+        //
         Vector3 temp = tf.position;
         if (hit_R)
         {
@@ -242,26 +243,8 @@ public class Dummy : MonoBehaviour
         if(concretesNear.Length >=2 )
         {
             Dead("Crash", col);
-            rb.isKinematic = true;
+            // rb.isKinematic = true;
         }
-
-        /*
-        if (hit_R && hit_L)
-        {
-            float gap = R_LeftBorder - L_RightBorder;
-            //Debug.Log("gap : " + gap);
-            if (gap <= (colSize[0].x + 2.0f))
-            {
-                // Set Concrete Color Red
-                //hit_R.collider.transform.GetComponent<SpriteRenderer>().color = Color.red;
-                //hit_L.collider.transform.GetComponent<SpriteRenderer>().color = Color.red;
-                //
-                Dead("Crash", col);
-                //tf.gameObject.SetActive(false);
-                rb.isKinematic = true;
-            }
-        }
-        */
     }
     //=========================================//
     public void ActiveShield()
@@ -320,6 +303,9 @@ public class Dummy : MonoBehaviour
     //=========================================//
     private void Control()
     {
+        if (TransitionControl.instance.isTransition == true)
+            return;
+        //
         if (GameManager.instance.pause)
             return;
         //
@@ -606,14 +592,20 @@ public class Dummy : MonoBehaviour
             case ShieldEffect.ShieldState.NONE:
                 break;
             case ShieldEffect.ShieldState.NORMAL:
-                if ((tag != "Concrete") && (tag != "Crash"))
                 {
-                    ActiveShield();
-                    return;
+                    if ((tag != "Concrete") && (tag != "Crash"))
+                    {
+                        ActiveShield();
+                        return;
+                    }
                 }
                 break;
             case ShieldEffect.ShieldState.ACTIVE:
-                return;
+                {
+                    if ((tag != "Concrete") && (tag != "Crash"))
+                        return;
+                }
+                break;
             default:
                 break;
         }
@@ -630,7 +622,7 @@ public class Dummy : MonoBehaviour
         dd.Flip(sr.flipX);
         if(col != null)
         {
-            Vector3 dir = col.transform.position - transform.position;
+            Vector3 dir = col.transform.position - tf.position;
             switch (tag)
             {
                 case "Explosion":
@@ -658,7 +650,7 @@ public class Dummy : MonoBehaviour
                 default:
                     break;
             }
-            Vector3 spcPos = transform.position + dir;
+            Vector3 spcPos = tf.position + dir;
             dd.spc.transform.position = spcPos;
         }
         dd.SetShatter();
@@ -668,7 +660,45 @@ public class Dummy : MonoBehaviour
         GameManager.instance.ReloadPlayScene();
     }
     //
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("ES_Block") == true)
+        {
+            Collider2D blockCol = collision.collider; // Debug.LogFormat("{0} collision stay", blockCol.name);
+            float blockPosY = blockCol.transform.position.y;
+            float dummyPosY = tf.position.y;
+            float maxDist = (
+                (col.bounds.size.y * 0.5f) + (blockCol.bounds.size.y * 0.5f)
+                ) * 0.9f;
+            float dist = Mathf.Abs(blockPosY - dummyPosY);
+            if (dist < maxDist)
+                Dead("Crash");
+        }
+        //else if (collision.collider.CompareTag("Concrete") == true)
+        //{
+        //    Collider2D concreteCol = collision.collider;
+        //    float concretePosX = concreteCol.transform.position.x;
+        //    float dummyPosX = tf.position.x;
+        //    //
+        //    float dummyHalfWidth = col.bounds.size.x * 0.5f;
+        //    float concreteHalfWidth = concreteCol.bounds.size.x * 0.5f;
+        //    //
+        //    float maxDist = dummyHalfWidth + concreteHalfWidth;
+        //    float crashDist = maxDist * 0.9f;
+        //    float dist = Mathf.Abs(concretePosX - dummyPosX);
+            //if (dist < maxDist)
+            //{
+            //    Vector3 tempPos = tf.position;
+            //    float dir = (concretePosX - dummyPosX) > 0 ? 1.0f : -1.0f;
+            //    tempPos.x -= dir * (dummyHalfWidth + concreteHalfWidth - dist);
+            //    tf.position = tempPos;
+            //}
+            //else if (dist < crashDist)
+            //    Dead("Crash");
+        //}
+    }
+    //
+    private void OnTriggerStay2D(Collider2D collision)
     {
         foreach (string tag in deadTags)
         {

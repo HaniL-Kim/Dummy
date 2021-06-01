@@ -23,9 +23,15 @@ public class ButtonManager : MonoBehaviour
     //
     private void Update()
     {
+        if (TransitionControl.instance.isTransition == true)
+            return;
+        if (TransitionControl.instance.isActivating == true)
+            return;
+        //
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Backspace))
         {
             string curSceneName = SceneManager.GetActiveScene().name;
+            //
             if (curSceneName == "2_StageSelectScene")
             {
                 if (stageWindow.bgPanel.activeSelf == true)

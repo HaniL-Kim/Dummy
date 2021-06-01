@@ -4,13 +4,13 @@
             "typeInfo": {
                 "fullName": "UnityEditor.ShaderGraph.Internal.Texture2DShaderProperty"
             },
-            "JSONnodeData": "{\n    \"m_Guid\": {\n        \"m_GuidSerialized\": \"7ec90e0f-279e-4e53-a694-47634d35f6d8\"\n    },\n    \"m_Name\": \"Diffuse_1\",\n    \"m_DefaultReferenceName\": \"Texture2D_3DF33992\",\n    \"m_OverrideReferenceName\": \"_Diffuse_1\",\n    \"m_GeneratePropertyBlock\": true,\n    \"m_Precision\": 0,\n    \"m_GPUInstanced\": false,\n    \"m_Hidden\": false,\n    \"m_Value\": {\n        \"m_SerializedTexture\": \"{\\\"texture\\\":{\\\"fileID\\\":2800000,\\\"guid\\\":\\\"a83b74732e0439b47a3d9d7be430d921\\\",\\\"type\\\":3}}\",\n        \"m_Guid\": \"\"\n    },\n    \"m_Modifiable\": true,\n    \"m_DefaultType\": 0\n}"
+            "JSONnodeData": "{\n    \"m_Guid\": {\n        \"m_GuidSerialized\": \"7ec90e0f-279e-4e53-a694-47634d35f6d8\"\n    },\n    \"m_Name\": \"Diffuse_1\",\n    \"m_DefaultReferenceName\": \"Texture2D_3DF33992\",\n    \"m_OverrideReferenceName\": \"_Diffuse_1\",\n    \"m_GeneratePropertyBlock\": true,\n    \"m_Precision\": 0,\n    \"m_GPUInstanced\": false,\n    \"m_Hidden\": false,\n    \"m_Value\": {\n        \"m_SerializedTexture\": \"{\\\"texture\\\":{\\\"fileID\\\":2800000,\\\"guid\\\":\\\"7dc11b2562a5a1b41a6c216e84b54bb3\\\",\\\"type\\\":3}}\",\n        \"m_Guid\": \"\"\n    },\n    \"m_Modifiable\": true,\n    \"m_DefaultType\": 0\n}"
         },
         {
             "typeInfo": {
                 "fullName": "UnityEditor.ShaderGraph.Internal.Texture2DShaderProperty"
             },
-            "JSONnodeData": "{\n    \"m_Guid\": {\n        \"m_GuidSerialized\": \"8f91887d-a65f-493c-9d97-c5520085a432\"\n    },\n    \"m_Name\": \"Diffuse_2\",\n    \"m_DefaultReferenceName\": \"Texture2D_BD29F06A\",\n    \"m_OverrideReferenceName\": \"_Diffuse_2\",\n    \"m_GeneratePropertyBlock\": true,\n    \"m_Precision\": 0,\n    \"m_GPUInstanced\": false,\n    \"m_Hidden\": false,\n    \"m_Value\": {\n        \"m_SerializedTexture\": \"{\\\"texture\\\":{\\\"fileID\\\":2800000,\\\"guid\\\":\\\"08b54ca6f2ea24f4ba621ce3279ac814\\\",\\\"type\\\":3}}\",\n        \"m_Guid\": \"\"\n    },\n    \"m_Modifiable\": true,\n    \"m_DefaultType\": 0\n}"
+            "JSONnodeData": "{\n    \"m_Guid\": {\n        \"m_GuidSerialized\": \"8f91887d-a65f-493c-9d97-c5520085a432\"\n    },\n    \"m_Name\": \"Diffuse_2\",\n    \"m_DefaultReferenceName\": \"Texture2D_BD29F06A\",\n    \"m_OverrideReferenceName\": \"_Diffuse_2\",\n    \"m_GeneratePropertyBlock\": true,\n    \"m_Precision\": 0,\n    \"m_GPUInstanced\": false,\n    \"m_Hidden\": false,\n    \"m_Value\": {\n        \"m_SerializedTexture\": \"{\\\"texture\\\":{\\\"fileID\\\":2800000,\\\"guid\\\":\\\"116ada711738b5a44b503f217dbf8db1\\\",\\\"type\\\":3}}\",\n        \"m_Guid\": \"\"\n    },\n    \"m_Modifiable\": true,\n    \"m_DefaultType\": 0\n}"
         },
         {
             "typeInfo": {

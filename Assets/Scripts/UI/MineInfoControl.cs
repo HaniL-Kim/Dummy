@@ -37,6 +37,11 @@ public class MineInfoControl : MonoBehaviour
         ContentPivotControl();
         CheckContentArrowBtn();
     }
+    //
+    private void OnDisable()
+    {
+        ResetContentPos();
+    }
     //===========================================//
     private void CheckContentArrowBtn()
     {
@@ -84,10 +89,18 @@ public class MineInfoControl : MonoBehaviour
             contentRTF.pivot = pivotDefault;
     }
     //===========================================//
-    private void TweenContentPos()
+    private void TweenContentPos(bool tween = true)
     {
         float destPos = -currentIconIndex * cIconWidth;
-        contentRTF.DOAnchorPosX(destPos, contentTweenTime).SetEase(Ease.InOutCubic);
+        //
+        if (tween == true)
+            contentRTF.DOAnchorPosX(destPos, contentTweenTime).SetEase(Ease.InOutCubic);
+        else
+        {
+            Vector3 temp = contentRTF.anchoredPosition;
+            temp.x = destPos;
+            contentRTF.anchoredPosition = temp;
+        }
     }
     //
     public void Btn_MoveContentLeft(BaseEventData eventData)
@@ -100,5 +113,11 @@ public class MineInfoControl : MonoBehaviour
     {
         ++currentIconIndex;
         TweenContentPos();
+    }
+    //
+    private void ResetContentPos()
+    {
+        currentIconIndex = 0;
+        TweenContentPos(false);
     }
 }

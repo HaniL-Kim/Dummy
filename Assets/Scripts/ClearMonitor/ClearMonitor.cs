@@ -42,8 +42,6 @@ public class ClearMonitor : MonoBehaviour
             .AppendCallback(() => { SetTextEnable(); })
             .SetUpdate(true);
             ;
-        //
-        //Invoke("SetTextEnable", time + delay);
     }
     //
     private void SetTextEnable()

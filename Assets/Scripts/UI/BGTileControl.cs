@@ -9,7 +9,7 @@ public class BGTileControl : MonoBehaviour
     //
     private int hashFlip;
     private const float floorHeight = 188.0f;
-    private const float scrollEndPosY = -672.0f;
+    private const float scrollEndPosY = 700.0f;
     private float timeToNextFlip;
     //
     public List<Transform> floors = new List<Transform>();
@@ -39,14 +39,13 @@ public class BGTileControl : MonoBehaviour
     {
         for(int i = 0; i < floors.Count; ++i)
         {
-            floors[i].localPosition += Vector3.down * scrollingSpeed * Time.deltaTime;
-            //
-            if(floors[i].localPosition.y < scrollEndPosY)
+            floors[i].localPosition += Vector3.up * scrollingSpeed * Time.deltaTime;
+            if(floors[i].localPosition.y > scrollEndPosY)
             {
                 Transform t = floors[i];
-                t.localPosition += Vector3.up * floors.Count * floorHeight;
+                t.localPosition += Vector3.down * floors.Count * floorHeight;
                 floors.RemoveAt(i);
-                floors.Insert(0, t);
+                floors.Add(t);
             }
         }
     }

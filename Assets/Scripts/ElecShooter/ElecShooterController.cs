@@ -61,6 +61,9 @@ public class ElecShooterController : MonoBehaviour
     //==========================================//
     private void Test()
     {
+        if (TransitionControl.instance.isTransition == true)
+            return;
+        //
         if (Input.GetKeyDown(KeyCode.UpArrow))
             elevateSpeed += 2.0f;
         else if (Input.GetKeyDown(KeyCode.DownArrow))

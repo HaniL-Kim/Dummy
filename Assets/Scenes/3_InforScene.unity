@@ -378,6 +378,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 994700142}
     m_Modifications:
+    - target: {fileID: 83815616754850943, guid: 882ec39f343cdc14b9878f5aaded9242, type: 3}
+      propertyPath: m_text
+      value: "\rBasic ideas realized"
+      objectReference: {fileID: 0}
+    - target: {fileID: 560212298370874275, guid: 882ec39f343cdc14b9878f5aaded9242, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -20
+      objectReference: {fileID: 0}
+    - target: {fileID: 605039007590350256, guid: 882ec39f343cdc14b9878f5aaded9242, type: 3}
+      propertyPath: m_text
+      value: Since 2017 Spring
+      objectReference: {fileID: 0}
     - target: {fileID: 785075271280619724, guid: 882ec39f343cdc14b9878f5aaded9242, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -409,6 +421,18 @@ PrefabInstance:
     - target: {fileID: 798662163061714352, guid: 882ec39f343cdc14b9878f5aaded9242, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 995122278007908258, guid: 882ec39f343cdc14b9878f5aaded9242, type: 3}
+      propertyPath: m_text
+      value: Making info
+      objectReference: {fileID: 0}
+    - target: {fileID: 1206286714544510460, guid: 882ec39f343cdc14b9878f5aaded9242, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1250124821069365330, guid: 882ec39f343cdc14b9878f5aaded9242, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -20
       objectReference: {fileID: 0}
     - target: {fileID: 1338978153988553113, guid: 882ec39f343cdc14b9878f5aaded9242, type: 3}
       propertyPath: m_AnchorMax.y
@@ -457,6 +481,12 @@ PrefabInstance:
     - target: {fileID: 1470585361169891721, guid: 882ec39f343cdc14b9878f5aaded9242, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2152953507231728142, guid: 882ec39f343cdc14b9878f5aaded9242, type: 3}
+      propertyPath: m_text
+      value: '- Main idea + design
+
+        - Artsource'
       objectReference: {fileID: 0}
     - target: {fileID: 2238893171209208448, guid: 882ec39f343cdc14b9878f5aaded9242, type: 3}
       propertyPath: m_Pivot.x
@@ -546,6 +576,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Panel_Infor
       objectReference: {fileID: 0}
+    - target: {fileID: 2528837035683944240, guid: 882ec39f343cdc14b9878f5aaded9242, type: 3}
+      propertyPath: m_text
+      value: Item info
+      objectReference: {fileID: 0}
     - target: {fileID: 3092869529542165609, guid: 882ec39f343cdc14b9878f5aaded9242, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -570,6 +604,16 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3148551363731761972, guid: 882ec39f343cdc14b9878f5aaded9242, type: 3}
+      propertyPath: m_text
+      value: Kim Hanil
+      objectReference: {fileID: 0}
+    - target: {fileID: 3210510295744292976, guid: 882ec39f343cdc14b9878f5aaded9242, type: 3}
+      propertyPath: m_text
+      value: 'Mine Sweep + Action
+
+        Since 2020 Summer'
+      objectReference: {fileID: 0}
     - target: {fileID: 3790947364709620133, guid: 882ec39f343cdc14b9878f5aaded9242, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -594,6 +638,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4181394627246184469, guid: 882ec39f343cdc14b9878f5aaded9242, type: 3}
+      propertyPath: m_text
+      value: 1.0 ver opened 210525
+      objectReference: {fileID: 0}
     - target: {fileID: 4868940269087981754, guid: 882ec39f343cdc14b9878f5aaded9242, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -618,6 +666,18 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5310197008595501713, guid: 882ec39f343cdc14b9878f5aaded9242, type: 3}
+      propertyPath: m_text
+      value: Mine info
+      objectReference: {fileID: 0}
+    - target: {fileID: 5635747368307995814, guid: 882ec39f343cdc14b9878f5aaded9242, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5822837061988750361, guid: 882ec39f343cdc14b9878f5aaded9242, type: 3}
+      propertyPath: m_text
+      value: Shin SeYoung
+      objectReference: {fileID: 0}
     - target: {fileID: 5975066834428423079, guid: 882ec39f343cdc14b9878f5aaded9242, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -641,6 +701,14 @@ PrefabInstance:
     - target: {fileID: 5975066834428423079, guid: 882ec39f343cdc14b9878f5aaded9242, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6454091281319887615, guid: 882ec39f343cdc14b9878f5aaded9242, type: 3}
+      propertyPath: m_text
+      value: '- Programming
+
+        - Unity things
+
+        - Sub design'
       objectReference: {fileID: 0}
     - target: {fileID: 6521274625534345771, guid: 882ec39f343cdc14b9878f5aaded9242, type: 3}
       propertyPath: m_AnchorMax.y
@@ -689,6 +757,20 @@ PrefabInstance:
     - target: {fileID: 6863416606422126630, guid: 882ec39f343cdc14b9878f5aaded9242, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7025648892442294411, guid: 882ec39f343cdc14b9878f5aaded9242, type: 3}
+      propertyPath: m_text
+      value: 'Dummy & some other reasons make tile flip
+
+        Number in fliped
+        tile means number of mines arround the tile
+
+        Mines & Laser are dangerous,
+        Avoid them'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7110015779214312911, guid: 882ec39f343cdc14b9878f5aaded9242, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -20
       objectReference: {fileID: 0}
     - target: {fileID: 7434123909071224075, guid: 882ec39f343cdc14b9878f5aaded9242, type: 3}
       propertyPath: m_AnchorMax.y
@@ -729,6 +811,22 @@ PrefabInstance:
     - target: {fileID: 7665612543576918013, guid: 882ec39f343cdc14b9878f5aaded9242, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8144084194883386105, guid: 882ec39f343cdc14b9878f5aaded9242, type: 3}
+      propertyPath: m_text
+      value: Park Junghyun
+      objectReference: {fileID: 0}
+    - target: {fileID: 8776828470207253793, guid: 882ec39f343cdc14b9878f5aaded9242, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8793098849194356992, guid: 882ec39f343cdc14b9878f5aaded9242, type: 3}
+      propertyPath: m_text
+      value: Basic info
+      objectReference: {fileID: 0}
+    - target: {fileID: 9081763791285316675, guid: 882ec39f343cdc14b9878f5aaded9242, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -20
       objectReference: {fileID: 0}
     - target: {fileID: 9112640486855065776, guid: 882ec39f343cdc14b9878f5aaded9242, type: 3}
       propertyPath: m_AnchorMax.y
