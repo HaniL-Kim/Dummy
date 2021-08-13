@@ -48,8 +48,8 @@ public class Outline : MonoBehaviour
     {
         outline = new GameObject("Outline");
         outline.transform.parent = sr.gameObject.transform;
-        outline.transform.localScale = new Vector3(1f, 1f, 1f);
-        outline.transform.localPosition = new Vector3(0f, 0f, 0f);
+        outline.transform.localScale = Vector3.one;
+        outline.transform.localPosition = Vector3.zero;
         outline.transform.localRotation = Quaternion.identity;
         //
         outline_sr = outline.AddComponent<SpriteRenderer>();

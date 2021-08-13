@@ -14,6 +14,7 @@ public class Resource : MonoBehaviour
     {
         gameObject.SetActive(false);
         UIManager.instance.AddRSC();
+        SoundManager.instance.Play(SoundKey.OBTAIN);
     }
     //===============================================//
     private void OnTriggerEnter2D(Collider2D collision)

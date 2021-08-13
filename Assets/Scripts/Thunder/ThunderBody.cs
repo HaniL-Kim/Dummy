@@ -54,7 +54,6 @@ public class ThunderBody : MonoBehaviour
     public void ColorTween(int id_color, Color c, float t)
     {
         sr.material.DOColor(c, id_color, t);
-            //.SetId(transform.name + "_TweenMatColor");
     }
     //
     public void SetMat(int id_color, Color c, int id_thickness, float tk)
@@ -79,17 +78,17 @@ public class ThunderBody : MonoBehaviour
     //
     public void SetBody()
     {
-        // pos
-        {
+        { // pos
             temp = Vector3.zero;
-            temp.y = (thunder.th_U.GetLocalPosY() + thunder.th_D.GetLocalPosY()) * 0.5f;
-            //temp.y = (thunder.th_U.tf.localPosition.y + thunder.head_D.localPosition.y) * 0.5f;
+            temp.y =
+                (thunder.th_U.GetLocalPosY() +
+                thunder.th_D.GetLocalPosY()) * 0.5f;
             tf.localPosition = temp;
         }
-        // size
-        {
-            float deltaY = thunder.th_U.GetPosY() - thunder.th_D.GetPosY();
-            // float deltaY = thunder.head_U.position.y - thunder.head_D.position.y;
+        { // size
+            float deltaY =
+                thunder.th_U.GetPosY() -
+                thunder.th_D.GetPosY();
             temp = sr.size;
             temp.y = deltaY;
             //

@@ -86,6 +86,7 @@ public class ThunderHead : MonoBehaviour
             {
                 ready = true;
                 anim.SetTrigger(hashHeadReady);
+                SoundManager.instance.Play(SoundKey.THUNDER_READY);
             }
         }
     }

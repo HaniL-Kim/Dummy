@@ -20,6 +20,7 @@ TagManager:
   - LastFootBoard
   - ConcreteBox
   - ES_Block
+  - MainCanvas
   layers:
   - Default
   - TransparentFX

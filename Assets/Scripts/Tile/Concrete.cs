@@ -30,28 +30,26 @@ public class Concrete : MonoBehaviour
     public void StartToMove(Vector3 _targetPos)
     {
         targetPos = _targetPos;
-        //
         StartCoroutine(MoveToTarget());
+        SoundManager.instance.Play(SoundKey.CONCRETE_GOING);
+
     }
     //
     public IEnumerator MoveToTarget()
     {
         SetOrigin();
-        //
         float s = targetPos.x - originPos.x;
         float a = (2.0f * s) / Mathf.Pow(crashTime, 2.0f);
         float v = 0, t = 0;
-        //
         while (true)
         {
             if (t >= crashTime)
             {
                 SetPosX(targetPos.x);
-                //
+                SoundManager.instance.Play(SoundKey.CONCRETE_CRASH);
                 yield return cwt;
                 //
                 StartCoroutine(ReturnToOrigin());
-                //
                 yield break;
             }
             else
@@ -61,7 +59,6 @@ public class Concrete : MonoBehaviour
                 //
                 AddPosX((v * Time.deltaTime));
             }
-
             yield return null;
         }
     }
@@ -95,7 +92,7 @@ public class Concrete : MonoBehaviour
     //==================================//
     public void SetToOrigin()
     {
-        if(crashing)
+        if (crashing)
         {
             StopAllCoroutines();
             //

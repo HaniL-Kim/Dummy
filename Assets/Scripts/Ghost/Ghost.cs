@@ -12,6 +12,7 @@ public class Ghost : MonoBehaviour
     // public Sprite deadSprite;
     //=============================================//
     public enum GhostState { MOVE, STOP, DEAD }
+    public List<AudioClip> audioClips;
     //=============================================//
     // anim hash
     private readonly int hashStopTrigger =
@@ -46,6 +47,7 @@ public class Ghost : MonoBehaviour
     private Animator anim;
     private Rigidbody2D rb;
     private Collider2D col;
+    public AudioSource audioSRC;
     //=============================================//
     private void Awake()
     {
@@ -54,6 +56,7 @@ public class Ghost : MonoBehaviour
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<Collider2D>();
+        audioSRC = GetComponent<AudioSource>();
         //
         //moveTime = 10.0f;
         moveTimeCounter = moveTime;
@@ -115,7 +118,8 @@ public class Ghost : MonoBehaviour
         {
             case GhostState.MOVE:
                 {
-                    Vector2 force = dirToPlayer * randValue * Time.deltaTime * ghostMoveSpeed;
+                    Vector2 force =
+                        dirToPlayer * randValue * Time.deltaTime * ghostMoveSpeed;
                     //
                     if (force.magnitude > maxForce)
                     {
@@ -124,17 +128,9 @@ public class Ghost : MonoBehaviour
                     }
                     //
                     rb.AddForce(force);
-
-                    //float force_temp = Mathf.Abs(force.magnitude);
-                    //if (force_temp > max)
-                    //{
-                    //    max = force_temp;
-                    //    Debug.Log(max);
-                    //}
                 }
                 break;
             case GhostState.STOP:
-                break;
             case GhostState.DEAD:
                 break;
             default:
@@ -182,6 +178,8 @@ public class Ghost : MonoBehaviour
         //
         col.enabled = true;
         Outline(true);
+        //
+        audioSRC.PlayOneShot(audioClips[0]);
     }
     //
     private void SetToDefault()
@@ -212,9 +210,6 @@ public class Ghost : MonoBehaviour
     {
         sr.material.DOColor(outlineColorEnd, "_OutlineColor_Inner", time)
             .SetId(transform.name + "_TweenMatColor");
-        // sr.material.SetColor("_OutlineColor_Inner", outlineColorBegin);
-        //outlineColorBegin
-        //outlineColorEnd
     }
     //
     public void ExplodeAfterDelay()
@@ -226,8 +221,6 @@ public class Ghost : MonoBehaviour
     //
     public void Dead()
     {
-        //Debug.Log("GhostDead");
-        //
         state = GhostState.DEAD;
         //
         //anim.enabled = false;
@@ -235,9 +228,8 @@ public class Ghost : MonoBehaviour
         //
         //sr.sprite = deadSprite;
         anim.SetTrigger(hashDeadTrigger);
-
-        // Explode //
-        // Invoke("Explode", ghostExplodeCount);
+        //
+        audioSRC.PlayOneShot(audioClips[1]);
     }
     //=============================================//
     private void OnTriggerEnter2D(Collider2D collision)

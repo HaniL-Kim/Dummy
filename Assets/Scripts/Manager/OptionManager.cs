@@ -44,7 +44,13 @@ public class OptionManager : MonoBehaviour
         if (curSceneName == "1_FirstMenuScene")
         {
             if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Backspace))
-                option.SetActive(false);
+            {
+                if(option.activeSelf == true)
+                {
+                    SoundManager.instance.PlayBTNClick();
+                    option.SetActive(false);
+                }
+            }
         }
     }
     // =================== Func =================== //

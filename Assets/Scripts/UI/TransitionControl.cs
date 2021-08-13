@@ -65,6 +65,8 @@ public class TransitionControl : MonoBehaviour
     //
     public void Door_Close()
     {
+        SoundManager.instance.Play(SoundKey.DOOR_MOVE);
+        //
         ActivateTransition();
         //
         left.DOAnchorPosX(leftClose.x, tweenTime).SetEase(Ease.InOutCubic).SetUpdate(true);;
@@ -73,6 +75,8 @@ public class TransitionControl : MonoBehaviour
     //
     public void Door_Open(string sceneName = "")
     {
+        SoundManager.instance.Play(SoundKey.DOOR_MOVE);
+        //
         TweenCallback CamSet;
         if(sceneName == "MainScene")
         {

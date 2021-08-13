@@ -144,7 +144,6 @@ public class Map : MonoBehaviour
         int stage = SceneControl.instance.currentStage;
         //
         CreateStage(MyUtility.DiffToStr(difficulty), stage);
-        //CreateStage("NORMAL", 0); // Debug
     }
     //=============================================//
     // For Debug
@@ -289,7 +288,6 @@ public class Map : MonoBehaviour
         if(isInfinite == false)
             CreateFootBoardFloor("LAST", blockPosY, blocks[sd.blocks].block.transform);
         //
-        //SetMineInfo();
         Invoke("SetMineInfo", 0.1f);
     }
     ///////////////////////////////////////

@@ -344,7 +344,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: -51639367
-  m_SortingOrder: 5
+  m_SortingOrder: 20
   m_TargetDisplay: 0
 --- !u!224 &994700142
 RectTransform:
@@ -854,3 +854,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 882ec39f343cdc14b9878f5aaded9242, type: 3}
+--- !u!1 &2238893171776186297 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5374354506409475926, guid: 882ec39f343cdc14b9878f5aaded9242, type: 3}
+  m_PrefabInstance: {fileID: 2238893171776186296}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2238893171776186299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2238893171776186297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dbc8085ae59e90478f6ffcff790d8b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-//using UnityEngine.UI;
-//using UnityEngine.EventSystems;
 using DG.Tweening;
 
 public enum Difficulty { NORMAL, HARD, IMPOSSIBLE }
@@ -17,7 +15,7 @@ public class ButtonManager : MonoBehaviour
     // ================= Default Func ================= //
     private void Start()
     {
-        if(upc != null)
+        if (upc != null)
             upc.SetArrowInteractable();
     }
     //
@@ -34,16 +32,22 @@ public class ButtonManager : MonoBehaviour
             //
             if (curSceneName == "2_StageSelectScene")
             {
+                SoundManager.instance.PlayBTNClick();
+                //
                 if (stageWindow.bgPanel.activeSelf == true)
                 {
                     stageWindow.BTN_Close();
                     return;
                 }
-
-                BTN_BackToFirstMenuScene();
+                else
+                    BTN_BackToFirstMenuScene();
             }
             else if (curSceneName == "3_InforScene")
+            {
+                SoundManager.instance.PlayBTNClick();
+                //
                 BTN_Back();
+            }
         }
     }
     // ================= StageSelectScene Button Func ================= //
@@ -66,13 +70,20 @@ public class ButtonManager : MonoBehaviour
         int idx = SceneManager.GetActiveScene().buildIndex;
         SceneManager.UnloadSceneAsync(idx);
         //
-        GameObject[] roots = SceneManager.GetSceneAt(0).GetRootGameObjects();
-        Canvas cv;
-        foreach (GameObject obj in roots)
+        string sceneName = SceneManager.GetSceneAt(0).name;
+        if (sceneName == "MainScene")
         {
-            if (obj.TryGetComponent<Canvas>(out cv) == true)
-                obj.GetComponent<Canvas>().enabled = true;
+            Canvas mainCanvas
+                = GameObject.FindGameObjectWithTag("MainCanvas").GetComponent<Canvas>();
+            mainCanvas.worldCamera = Camera.main;
         }
+        //GameObject[] roots = SceneManager.GetSceneAt(0).GetRootGameObjects();
+        //Canvas cv;
+        //foreach (GameObject obj in roots)
+        //{
+        //    if (obj.TryGetComponent<Canvas>(out cv) == true)
+        //        obj.GetComponent<Canvas>().enabled = true;
+        //}
     }
     // ================= FirstMenu Scene Button Func ================= //
     public void BTN_StageSelect()

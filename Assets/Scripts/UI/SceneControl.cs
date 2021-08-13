@@ -76,7 +76,7 @@ public class SceneControl : MonoBehaviour
     //
     public IEnumerator InforCoroutine()
     {
-        GameObject.Find("Canvas").GetComponent<Canvas>().enabled = false;
+        // GameObject.Find("Canvas").GetComponent<Canvas>().enabled = false;
         //
         AsyncOperation op = SceneManager.LoadSceneAsync("3_InforScene", LoadSceneMode.Additive);
         op.allowSceneActivation = false;
@@ -126,6 +126,7 @@ public class SceneControl : MonoBehaviour
         //
         SaveClearData();
         */
+        //
         Debug.Log("Begin Clear Sequence");
         Sequence ClearSequence = DOTween.Sequence()
             .AppendCallback(() => { StartSceneTransition("2_StageSelectScene"); })
@@ -136,6 +137,9 @@ public class SceneControl : MonoBehaviour
             .SetUpdate(true);
         // 
         Time.timeScale = 1.0f;
+        //
+        SoundManager.instance.StopBGR();
+        //
         Debug.Log("End Clear Sequence");
         yield return null;
     }
@@ -181,6 +185,9 @@ public class SceneControl : MonoBehaviour
     //
     private void OnSceneChange(Scene current, Scene next)
     {
+        SoundManager.instance.ResetFXAudios();
+        SoundManager.instance.ResetBGRPitch();
+        //
         if (next.name != "MainScene")
         {
             foreach (var canvas in FindObjectsOfType<Canvas>())
@@ -317,8 +324,11 @@ public class SceneControl : MonoBehaviour
     //
     public void SaveOption_Sound()
     {
-        saveData.bgrVolume = SoundManager.instance.bgrVolume;
-        saveData.effVolume = SoundManager.instance.effVolume;
+        float bgrVol = 0; float effVol = 0;
+        SoundManager.instance.mixer.GetFloat("bgrVolume", out bgrVol);
+        SoundManager.instance.mixer.GetFloat("effVolume", out effVol);
+        saveData.bgrVolume = (double)bgrVol;
+        saveData.effVolume = (double)effVol;
         Save();
     }
     //

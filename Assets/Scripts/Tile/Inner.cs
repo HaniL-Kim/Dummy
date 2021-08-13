@@ -18,6 +18,7 @@ public class Inner : MonoBehaviour
     // Component
     public SpriteRenderer sr;
     public Animator anim;
+    public AudioSource audioSRC;
     // Anim Hash
     private readonly int hashInnerIsDanger
         = Animator.StringToHash("InnerIsDanger");
@@ -31,6 +32,8 @@ public class Inner : MonoBehaviour
     //private void Start()
     private void Awake()
     {
+        audioSRC = GetComponent<AudioSource>();
+        audioSRC.priority = 256;
         mineType = MineTypes.NONE;
     } // End Start
     //
@@ -79,6 +82,13 @@ public class Inner : MonoBehaviour
         return floor;
     }
     //=============================================//
+    public void PlayFlipSound()
+    {
+        if(audioSRC.isActiveAndEnabled)
+            audioSRC.Play();
+        //audioSRC.PlayOneShot(audio.clip);
+    }
+    //
     public void FlipCloset()
     {
         closet.Flip();

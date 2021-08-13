@@ -56,6 +56,8 @@ public class Closet : MonoBehaviour
     { // Trigger Enter Event
         isFliped = true;
         anim.SetBool(hashFlip, true);
+        inner.PlayFlipSound();
+        // SoundManager.instance.Play(SoundKey.FLIP);
     }
     //
     public void FlipInner()

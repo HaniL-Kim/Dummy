@@ -35,8 +35,6 @@ public class ItemManager : MonoBehaviour
     {
         CreateItem();
         //
-        // CreateItemOrder();
-        //
         CreateJumpPack();
     }
     //=====================================//
@@ -111,12 +109,6 @@ public class ItemManager : MonoBehaviour
         float otherRate = (1.0f - itemRates["Resource"] - itemRates["Slow"]);
         itemRates["AJPack"] = otherRate * 0.6f;
         itemRates["Shield"] = otherRate * 0.4f;
-        //
-        // Debug.LogFormat("Set ItemRate of LV{0}", speedLV);
-        //string temp = "";
-        //foreach (var data in itemRates)
-        //    temp += data.Key + "[" + data.Value.ToString() + "]" + "\n";
-        //Debug.Log(temp);
     }
     //
     public void ShowItem(Transform tf)

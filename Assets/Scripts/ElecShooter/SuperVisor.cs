@@ -95,8 +95,6 @@ public class SuperVisor : MonoBehaviour
         SoundManager.instance.SetBGRPitch(lv);
         //
         SpeedLVDownEffect();
-        //
-        Debug.LogFormat("Speed Down to LV{0}", lv);
     }
     //
     public void SpeedLVUp()
@@ -113,8 +111,6 @@ public class SuperVisor : MonoBehaviour
         SoundManager.instance.SetBGRPitch(lv);
         //
         SpeedLVUpEffect();
-        //
-        Debug.LogFormat("Speed UP to LV{0}", lv);
     }
     //
     public void AddDist(float value)

@@ -96,6 +96,25 @@ public class EffectManager : MonoBehaviour
                 effect.SetActive(true);
                 effect.transform.SetParent(tf);
                 effect.transform.localPosition = Vector3.zero;
+                //
+                switch (key)
+                {
+                    case "Scan":
+                        SoundManager.instance.Play(SoundKey.SKILL1);
+                        break;
+                    case "Flag":
+                        SoundManager.instance.Play(SoundKey.SKILL2);
+                        break;
+                    case "Explosion":
+                        SoundManager.instance.Play(SoundKey.EXPLOSION);
+                        break;
+                    case "Thunder":
+                        SoundManager.instance.Play(SoundKey.THUNDER_GOING);
+                        break;
+                    default:
+                        break;
+                }
+                //
                 return;
             }
         }
@@ -115,6 +134,24 @@ public class EffectManager : MonoBehaviour
                 effect.SetActive(true);
                 effect.transform.position = pos;
                 effect.transform.rotation = rot;
+                //
+                switch (key)
+                {
+                    case "Scan":
+                        SoundManager.instance.Play(SoundKey.SKILL1);
+                        break;
+                    case "Flag":
+                        SoundManager.instance.Play(SoundKey.SKILL2);
+                        break;
+                    case "Explosion":
+                        SoundManager.instance.Play(SoundKey.EXPLOSION);
+                        break;
+                    case "Thunder":
+                        SoundManager.instance.Play(SoundKey.THUNDER_GOING);
+                        break;
+                    default:
+                        break;
+                }
                 //
                 return;
             }

@@ -1482,16 +1482,16 @@ MonoBehaviour:
   m_FillRect: {fileID: 0}
   m_HandleRect: {fileID: 1115573557191689498}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 1
+  m_MinValue: -40
+  m_MaxValue: 0
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: -20
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2152570615362211433}
         m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: SetVolumeBySlider
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1518,10 +1518,10 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 27919233}
+        - m_Target: {fileID: 2152570615362211433}
           m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
           m_MethodName: Slider_OnPointerUp_EFF
-          m_Mode: 0
+          m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2478,16 +2478,16 @@ MonoBehaviour:
   m_FillRect: {fileID: 0}
   m_HandleRect: {fileID: 1115573555731786774}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 1
+  m_MinValue: -40
+  m_MaxValue: 0
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: -20
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2152570615362211433}
         m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: SetVolumeBySlider
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2514,10 +2514,10 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 27919233}
+        - m_Target: {fileID: 2152570615362211433}
           m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
           m_MethodName: Slider_OnPointerUp_BGR
-          m_Mode: 0
+          m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2530,10 +2530,10 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 27919233}
+        - m_Target: {fileID: 2152570615362211433}
           m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
           m_MethodName: Slider_OnPointerDrag_BGR
-          m_Mode: 0
+          m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4175,7 +4175,7 @@ Transform:
   m_Children:
   - {fileID: 4988741604665429}
   - {fileID: 1448163780}
-  - {fileID: 27919232}
+  - {fileID: 2152570615362211432}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4712,17 +4712,13 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6257048816911404451, guid: e30d53f87a53da24fb41351a25957958, type: 3}
   m_PrefabInstance: {fileID: 1181480865598769346}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &3792830310369128387
+--- !u!1001 &2989722214524461611
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 8307670882133269702}
     m_Modifications:
-    - target: {fileID: 3792830310375812162, guid: 4a45809317a1a2449afdf5c0056ee023, type: 3}
-      propertyPath: mixer
-      value: 
-      objectReference: {fileID: 24100000, guid: fed54af1f17ea814f837b847cb1054dd, type: 2}
     - target: {fileID: 3792830310375812162, guid: 4a45809317a1a2449afdf5c0056ee023, type: 3}
       propertyPath: bgrSlider
       value: 
@@ -4731,6 +4727,10 @@ PrefabInstance:
       propertyPath: effSlider
       value: 
       objectReference: {fileID: 1115573555970604925}
+    - target: {fileID: 3792830310375812162, guid: 4a45809317a1a2449afdf5c0056ee023, type: 3}
+      propertyPath: audioPoolCount
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 3792830310375812163, guid: 4a45809317a1a2449afdf5c0056ee023, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -4745,7 +4745,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3792830310375812163, guid: 4a45809317a1a2449afdf5c0056ee023, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -90
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3792830310375812163, guid: 4a45809317a1a2449afdf5c0056ee023, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4753,15 +4753,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3792830310375812163, guid: 4a45809317a1a2449afdf5c0056ee023, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3792830310375812163, guid: 4a45809317a1a2449afdf5c0056ee023, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3792830310375812163, guid: 4a45809317a1a2449afdf5c0056ee023, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3792830310375812163, guid: 4a45809317a1a2449afdf5c0056ee023, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -4781,15 +4781,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a45809317a1a2449afdf5c0056ee023, type: 3}
---- !u!4 &27919232 stripped
+--- !u!4 &2152570615362211432 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3792830310375812163, guid: 4a45809317a1a2449afdf5c0056ee023, type: 3}
-  m_PrefabInstance: {fileID: 3792830310369128387}
+  m_PrefabInstance: {fileID: 2989722214524461611}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &27919233 stripped
+--- !u!114 &2152570615362211433 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3792830310375812162, guid: 4a45809317a1a2449afdf5c0056ee023, type: 3}
-  m_PrefabInstance: {fileID: 3792830310369128387}
+  m_PrefabInstance: {fileID: 2989722214524461611}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1

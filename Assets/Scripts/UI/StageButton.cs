@@ -16,9 +16,6 @@ public class StageButton : MonoBehaviour
     public Difficulty diff;
     public int stageNum;
     //========== Sprites ==========//
-    //public Sprite sprite_InActive;
-    //public Sprite sprite_Normal;
-    //
     public Texture2D texture_Locked;
     public Texture2D texture_UnLocked;
     //public Sprite sprite_OnMouse;
@@ -97,6 +94,7 @@ public class StageButton : MonoBehaviour
             .Append(tween_TextureToMain)
             .AppendCallback(() => { target.material = null; })
             .AppendCallback(() => { TransitionControl.instance.isActivating = false; })
+            .AppendCallback(() => { btn.interactable = true; })
             ;
         }
         else
@@ -104,6 +102,8 @@ public class StageButton : MonoBehaviour
             targetTF.rotation = endRot;
             targetMaterial.SetTexture(hashDiffuse_1, texture_UnLocked);
             target.material = null;
+            //
+            btn.interactable = true;
         }
         // Set nameCard Text
         char c = MyUtility.GetLastChar(transform.parent.name);
@@ -120,8 +120,6 @@ public class StageButton : MonoBehaviour
             nameCard.GetComponentInChildren<TextMeshProUGUI>().text
                 = "Stage " + stageNum;
         }
-        //
-        btn.interactable = true;
     }
     //
     public void DeActivate()

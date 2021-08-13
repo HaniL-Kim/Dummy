@@ -132,7 +132,7 @@ public class MineController : MonoBehaviour
         }
     }
     //=========================================//
-       private void SetCrashMine(Inner inner)
+    private void SetCrashMine(Inner inner)
     {
         Floor floor = inner.GetFloor();
         Transform tileTF = inner.transform.parent;
@@ -231,7 +231,6 @@ public class MineController : MonoBehaviour
                         //
                         int innerIndex = MyUtility.CharToInt(inner.transform.parent.name[0]);
                         int crashIndex = MyUtility.CharToInt(floor.concreteTiles[2].name[0]);
-                        // Debug.LogFormat("inner[{0}], crash[{1}]", innerIndex, crashIndex);
                         foreach (GameObject tile in floor.tiles)
                         {
                             int itemIndex = MyUtility.CharToInt(tile.name[0]);

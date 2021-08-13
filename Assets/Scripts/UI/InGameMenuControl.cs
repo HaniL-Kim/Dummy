@@ -78,6 +78,8 @@ public class InGameMenuControl : MonoBehaviour
         SceneControl.instance.StartSceneTransition("2_StageSelectScene");
         SetAssure(false);
         SetIGMControl(false);
+        //
+        SoundManager.instance.StopBGR();
     }
     //
     public void BTN_Assure_No()

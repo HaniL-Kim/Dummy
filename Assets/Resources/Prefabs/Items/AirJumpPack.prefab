@@ -313,6 +313,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   outlineMaterial: {fileID: 2100000, guid: 08a47d45e1f1c074cb6fbaa204a0a878, type: 2}
   outline: {fileID: 0}
+  outline_sr: {fileID: 0}
   outlineSortingLayerName: AirJumpPack
 --- !u!95 &5703900531916385617
 Animator:

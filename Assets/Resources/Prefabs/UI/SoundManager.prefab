@@ -43,14 +43,77 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33de5302cd193e54aa45d34a3bc6d603, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mixer: {fileID: 24100000, guid: fed54af1f17ea814f837b847cb1054dd, type: 2}
   clipInfos:
   - key: 0
-    clip: {fileID: 8300000, guid: 13e568c7b88490d4ca48ad5077bfa6d9, type: 3}
+    clip: {fileID: 8300000, guid: 74ac97878e0b5864caa915e4fc5ba4e1, type: 3}
   - key: 1
-    clip: {fileID: 8300000, guid: 36f2e21f3d303c6488e6f3a8d2279ef0, type: 3}
+    clip: {fileID: 8300000, guid: cc7db2a3fe2a6ba448a3af11c670c2c0, type: 3}
+  - key: 2
+    clip: {fileID: 8300000, guid: 569286be983618a47a9f6cfcaf8eeb5e, type: 3}
+  - key: 3
+    clip: {fileID: 8300000, guid: e621b770fd89e324fa31c5b97afb2edb, type: 3}
+  - key: 4
+    clip: {fileID: 8300000, guid: 976534067a43a724fb33c3762b99c186, type: 3}
+  - key: 5
+    clip: {fileID: 8300000, guid: 1cecd413321054a42a70d006c138b75e, type: 3}
+  - key: 6
+    clip: {fileID: 8300000, guid: 30a991e2562cd4040b6f9b9fb46e80b3, type: 3}
+  - key: 7
+    clip: {fileID: 8300000, guid: b9bd1afefc9fe404c9a5fe59858156ed, type: 3}
+  - key: 8
+    clip: {fileID: 8300000, guid: 6239204afa84b2543b64762ba66b3278, type: 3}
+  - key: 9
+    clip: {fileID: 8300000, guid: 41345937600077648935994f3d1cf036, type: 3}
+  - key: 10
+    clip: {fileID: 8300000, guid: b54090a566c3d54439f6b363036a1c36, type: 3}
+  - key: 11
+    clip: {fileID: 8300000, guid: a12c59576115a4c4a91ea29e5b543683, type: 3}
+  - key: 12
+    clip: {fileID: 8300000, guid: bc328558a5c38974988c8493ae38fc9a, type: 3}
+  - key: 13
+    clip: {fileID: 8300000, guid: d1c7767ce5aa2c0448dd87b3ee401091, type: 3}
+  - key: 14
+    clip: {fileID: 8300000, guid: b151d6a1821c4a04c964e44563bd2a6c, type: 3}
+  - key: 15
+    clip: {fileID: 8300000, guid: 03bc07f5c23933448843f58e9913e13a, type: 3}
+  - key: 16
+    clip: {fileID: 8300000, guid: aef4d5771486fc44cbb928e89db2311e, type: 3}
+  - key: 17
+    clip: {fileID: 8300000, guid: 5e73940e49c1fca458ddc490b728703d, type: 3}
+  - key: 18
+    clip: {fileID: 8300000, guid: 7280b744d2fe9a34ab5bb64237834382, type: 3}
+  - key: 19
+    clip: {fileID: 8300000, guid: a19d217e3a4bd1847bdcf34ee434b24f, type: 3}
+  - key: 20
+    clip: {fileID: 8300000, guid: 2789039ba2c386141af0fbd2e7b230ce, type: 3}
+  - key: 21
+    clip: {fileID: 8300000, guid: def071f57a4322f4bba59808ef2e44ad, type: 3}
+  - key: 22
+    clip: {fileID: 8300000, guid: c8559d1066b0cb74087f6de5e0d3bef2, type: 3}
+  - key: 23
+    clip: {fileID: 8300000, guid: 7d0812effd246d24c98652c0ec42da19, type: 3}
+  - key: 24
+    clip: {fileID: 8300000, guid: 3fa5d766e6126ab4f8708e5c8a3a3083, type: 3}
+  - key: 25
+    clip: {fileID: 8300000, guid: 9953216fb638d124e90e854a06a9eaac, type: 3}
+  - key: 26
+    clip: {fileID: 8300000, guid: 57403df6d461ae840ad10cb4c0d1846b, type: 3}
+  - key: 27
+    clip: {fileID: 8300000, guid: 1ce037e60b491904c82e7d8ff222700c, type: 3}
+  - key: 28
+    clip: {fileID: 8300000, guid: e4a11de9f2156954db0cd6b15b399323, type: 3}
+  - key: 29
+    clip: {fileID: 8300000, guid: 13d47f0e9b8a09f4abaa9888b681691a, type: 3}
+  - key: 30
+    clip: {fileID: 8300000, guid: bb797391e12b7a7418a6f6863d83f8cb, type: 3}
+  - key: 31
+    clip: {fileID: 8300000, guid: fcfc52dcd8d918c468872d27883e8535, type: 3}
+  - key: 32
+    clip: {fileID: 8300000, guid: fac25b4745868164da64a345a04650af, type: 3}
   bgrVolume: 1
   effVolume: 1
-  audioPoolCount: 30
+  audioPoolCount: 150
   soundDistanceMin: 5
   soundDistanceMax: 10
   bgrSlider: {fileID: 0}

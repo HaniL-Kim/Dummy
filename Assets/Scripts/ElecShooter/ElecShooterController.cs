@@ -15,7 +15,6 @@ public class ElecShooterController : MonoBehaviour
     //==========================================//
     public SuperVisor superViser;
     //==========================================//
-    // public const float narrowHeight = 40.0f;
     public float narrowHeight = 40.0f;
     public float shooterStartPos = 160.0f;
     //
@@ -181,6 +180,7 @@ public class ElecShooterController : MonoBehaviour
                 sr.sprite = narrowLevelTimeSprites[(int)countDownTimer];
         }
     }
+    //
     private IEnumerator SetLevel(int value)
     {
         countDownTimer = 0;
@@ -194,8 +194,6 @@ public class ElecShooterController : MonoBehaviour
         //
         float up_target_y = shooterStartPos - (float)level * narrowHeight;
         float down_target_y = -shooterStartPos + (float)level * narrowHeight;
-        //float up_target_y = 470.0f - (float)level * 47.0f;
-        //float down_target_y = 000.0f + (float)level * 47.0f;
         //
         {
             up_lp = Up.transform.localPosition;
@@ -210,11 +208,8 @@ public class ElecShooterController : MonoBehaviour
             down_dirN = (down_target - down_lp).normalized;
         }
         //
-        float debugTime = 0;
         while (true)
         {
-            debugTime += Time.deltaTime;
-            //
             {
                 up_lp = Up.transform.localPosition;
                 up_dir = (up_target - up_lp);
@@ -227,7 +222,6 @@ public class ElecShooterController : MonoBehaviour
             {
                 Up.transform.localPosition = up_target;
                 Down.transform.localPosition = down_target;
-                //print("Shooter Move Time : " + debugTime);
                 yield break;
             }
             //
@@ -245,6 +239,8 @@ public class ElecShooterController : MonoBehaviour
     {
         StopAllCoroutines();
         StartCoroutine(SetLevel(value));
+        //
+        SoundManager.instance.Play(SoundKey.SHOOTER_NARROW);
     }
     //
     //==========================================//

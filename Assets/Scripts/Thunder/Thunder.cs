@@ -14,7 +14,6 @@ public class Thunder : MonoBehaviour
     //====================================//
     // for Debug(Check flag state)
     [SerializeField] private bool isExplode = false;
-        // ready_U = false, ready_D = false, 
     //====================================//
     // body
     public ThunderBody tb;
@@ -74,25 +73,9 @@ public class Thunder : MonoBehaviour
         e_Up = ec.Up.transform;
         e_Down = ec.Down.transform;
     }
-    //
-    private void OnEnable()
-    {
-        //if (GameManager.instance.gameOver == true)
-        //{
-        //    StartCoroutine(ThunderExplode());
-        //    return;
-        //}
-        // SetShader();
-    }
     //====================================//
     private void Update()
     {
-        //if (GameManager.instance.gameOver == true)
-        //{
-        //    StartCoroutine(ThunderExplode());
-        //    return;
-        //}
-        //
         MoveToPlayer();
         FollowHeads();
         AttachHeads();
@@ -168,6 +151,8 @@ public class Thunder : MonoBehaviour
         //
         th_U.Explode(disColor, disappearTime);
         th_D.Explode(disColor, disappearTime);
+        //
+        SoundManager.instance.Play(SoundKey.THUNDER_EXPLOSION);
     }
     //
     private void CheckReady()

@@ -53,12 +53,14 @@ public class Item : MonoBehaviour
         type = value;
         float f = (float)type;
         anim.SetFloat(hashItemType, f);
+        SoundManager.instance.Play(SoundKey.ITEM_SHOW);
     }
     //
-    public void ShowItem()
-    { // Call By Display
-        anim.SetTrigger(hashShowItem);
-    }
+    //public void ShowItem()
+    //{ // Call By Display
+    //    anim.SetTrigger(hashShowItem);
+    //    SoundManager.instance.Play(SoundKey.ITEM_SHOW);
+    //}
     //
     public void ResetItem()
     { // Anim Frame Event : Item_Obtain : End frame
@@ -83,6 +85,7 @@ public class Item : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             anim.SetTrigger(hashObtain);
+            SoundManager.instance.Play(SoundKey.ITEM_OBTAIN);
             Activate();
         }
     }

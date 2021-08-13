@@ -51,30 +51,9 @@ public class FootBoard : MonoBehaviour
         canDistroy = false;
         col.enabled = false;
         sr.enabled = false;
-        // Dissolve => footBoardDestroy
-        //StartCoroutine(DissolveEffect());
         // Shatter
         Instantiate(footBoardDestroy, transform.position, Quaternion.identity);
+        SoundManager.instance.Play(SoundKey.BOARDDESTROY);
     }
-    /*
-    private IEnumerator DissolveEffect()
-    {
-        while (true)
-        {
-            mat.SetFloat(hashDissolveAmount, dissolveValue);
-            //
-            if (dissolveValue < 1.0f)
-            {
-                dissolveValue += Time.deltaTime * dissolveSpeed;
-                yield return null;
-            }
-            else
-            {
-                dissolveValue = 0.0f;
-                yield break;
-            }
-        }
-    }
-    */
     //=============================================//
 }

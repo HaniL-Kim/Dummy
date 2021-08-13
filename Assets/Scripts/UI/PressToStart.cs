@@ -27,7 +27,10 @@ public class PressToStart : MonoBehaviour
             string curSceneName = SceneManager.GetActiveScene().name;
             //
             if (curSceneName == "0_LogoScene")
+            {
+                SoundManager.instance.Play(SoundKey.LOGO);
                 SceneManager.LoadScene(1);
+            }
             else if (curSceneName == "MainScene")
             {
                 if (GameManager.instance.stageClear == true)

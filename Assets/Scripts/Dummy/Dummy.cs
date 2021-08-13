@@ -136,6 +136,8 @@ public class Dummy : MonoBehaviour
         if (GameManager.instance.stageClear == true)
             return;
         //
+        CheckLanding();
+        //
         Control();
         //
         UpdateEyeState();
@@ -147,6 +149,7 @@ public class Dummy : MonoBehaviour
         Idle();
         //
         StuckInConcrete();
+        //
         //
         DebugPlayer();
     }
@@ -203,6 +206,11 @@ public class Dummy : MonoBehaviour
         isInteractable = b;
     }
     //
+
+    private void CheckLanding()
+    {
+    }
+    //
     private void StuckInConcrete()
     {
         float rayDist = 64.0f;
@@ -256,6 +264,7 @@ public class Dummy : MonoBehaviour
             return;
         //
         UIManager.instance.ActiveShield();
+        SoundManager.instance.Play(SoundKey.SHIELD);
         //
         shieldEffect.Activate();
         //
@@ -303,7 +312,7 @@ public class Dummy : MonoBehaviour
     //=========================================//
     private void Control()
     {
-        if (TransitionControl.instance.isTransition == true)
+        if (TransitionControl.instance.isTransition)
             return;
         //
         if (GameManager.instance.pause)
@@ -343,6 +352,8 @@ public class Dummy : MonoBehaviour
             moveVelocity.Normalize();
             //
             Flips(moveVelocity.x > 0);
+            //
+            SoundManager.instance.Play(SoundKey.WALK, 0, true);
         }
         else
         {
@@ -376,7 +387,10 @@ public class Dummy : MonoBehaviour
                     AirJump();
                 }
                 else
+                {
                     anim.SetTrigger(landJumpHash);
+                    SoundManager.instance.Play(SoundKey.JUMP);
+                }
                 //
                 rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             }
@@ -385,6 +399,8 @@ public class Dummy : MonoBehaviour
     //
     private void AirJump()
     {
+        SoundManager.instance.Play(SoundKey.AIRJUMP);
+        //
         anim.SetTrigger(airJumpHash);
         //
         UIManager.instance.UseAirJump();
@@ -483,7 +499,8 @@ public class Dummy : MonoBehaviour
     {
         noRSC = true;
         eye.PlayEyeNoRSCAnim();
-        Debug.Log("자원이 부족합니다.");
+        SoundManager.instance.Play(SoundKey.NOENERGY);
+        //Debug.Log("자원이 부족합니다.");
     }
     //
     private void Idle()
@@ -538,12 +555,19 @@ public class Dummy : MonoBehaviour
                 GameManager.instance.concreteLayer))
         { // Concrete Check
             onConcrete = true;
+            //
+            //if (anim.GetCurrentAnimatorStateInfo(0).IsName("Downing"))
+            //    SoundManager.instance.Play(SoundKey.LAND, 1);
+            //
             isJump = false;
         }
         curFootBoard = Physics2D.OverlapBoxAll(footPos, footBoxSize, 0,
                         GameManager.instance.footBoardLayer);
         if (curFootBoard.Length != 0)
         { // FootBoard Check
+            //if (anim.GetCurrentAnimatorStateInfo(0).IsName("Downing"))
+            //    SoundManager.instance.Play(SoundKey.LAND, 1);
+            //
             if (curFootBoard[0].CompareTag("FootBoard"))
             {
                 onFootBoard = true; // Can Down Jump
@@ -561,6 +585,11 @@ public class Dummy : MonoBehaviour
                 }
             }
         }
+        // Landing Sound
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("isJump")
+            || anim.GetCurrentAnimatorStateInfo(0).IsName("Downing"))
+            if (isJump == false)
+                SoundManager.instance.Play(SoundKey.LAND, 1);
         //
         anim.SetBool(isJumpHash, isJump);
         //
@@ -611,7 +640,7 @@ public class Dummy : MonoBehaviour
         }
         //
         // Dead Sequance
-        Debug.Log("Player Dead By [" + tag + "]");
+        //Debug.Log("Player Dead By [" + tag + "]");
         isDead = true;
         GameManager.instance.gameOver = true;
         //
@@ -654,6 +683,7 @@ public class Dummy : MonoBehaviour
             dd.spc.transform.position = spcPos;
         }
         dd.SetShatter();
+        SoundManager.instance.Play(SoundKey.DEAD);
 
         gameObject.SetActive(false);
         //

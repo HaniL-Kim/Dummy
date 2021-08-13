@@ -108,6 +108,7 @@ public class Display : MonoBehaviour
     //==================================//
     public void SubPlayCount()
     { // Anim Event
+        SoundManager.instance.Play(SoundKey.WARNING);
         --playCount;
         anim.SetInteger(hashPlayCount, playCount);
         //
